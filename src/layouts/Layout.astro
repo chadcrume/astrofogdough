@@ -1,7 +1,7 @@
 ---
 import Nav from "@components/Nav.astro";
 interface Props {
-  frontmatter: {
+  frontmatter?: {
     title?: string;
   };
 }
@@ -12,11 +12,11 @@ const { frontmatter } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{frontmatter.title} — FogDough DeFi template</title>
+    <title>{frontmatter?.title} — FogDough DeFi template</title>
   </head>
   <body>
     <Nav />
-    <h1>{frontmatter.title}</h1>
+    <h1>{frontmatter?.title}</h1>
     <article>
       <slot />
       <!-- your content is injected here -->

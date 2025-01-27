@@ -1,0 +1,17 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+
+interface Props {
+  portfolio: CollectionEntry<"portfolios">;
+}
+
+const { portfolio } = Astro.props;
+const { Content, headings } = await render(portfolio);
+---
+
+<div>
+    <h2>{portfolio.data.name}</h2>
+    <div><label>status:</label> {portfolio.data.status}</div>
+    {portfolio.data.stage && <div><label>stage:</label> {portfolio.data.stage}</div>}
+</div>

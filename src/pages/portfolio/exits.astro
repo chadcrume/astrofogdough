@@ -1,0 +1,14 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getCollection } from 'astro:content';
+const portfolios = await getCollection("portfolios");
+---
+
+<Layout frontmatter={{ title: "Exits" }}>
+  This is the Exits from a collection
+  <ul>
+    {portfolios.filter(portfolio => portfolio.data.status=="Inactive").map(portfolio => (
+      <li><a href={`/portfolio/${portfolio.id}`}>{portfolio.data.name}</a></li>
+    ))}
+  </ul>
+</Layout>
