@@ -2,7 +2,7 @@
 import Nav from "@components/Nav.astro";
 interface Props {
   frontmatter?: {
-    title?: string;
+    title?: string | undefined;
   };
 }
 const { frontmatter } = Astro.props;
