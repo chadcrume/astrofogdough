@@ -1,13 +1,13 @@
 ---
-
+import VueNav from "./VueNav.vue";
+const items = [
+  { label: "Home", url: "/", shortcut: '⌘+1' },
+  { label: "About", url: "/about", shortcut: '⌘+2', icon: 'pi pi-bolt', badge: 3 },
+  { label: "Portfolio", url: "/portfolio", shortcut: '⌘+3' },
+  { label: "Team", url: "/team", shortcut: '⌘+4' },
+];
 ---
 
 <nav>
-  <a href="/" data-astro-prefetch>Home</a>
-  ⸱
-  <a href="/about" data-astro-prefetch>About</a>
-  ⸱
-  <a href="/portfolio" data-astro-prefetch>Portfolio</a>
-  ⸱
-  <a href="/team" data-astro-prefetch>Team</a>
+  <VueNav client:only="vue" items={items}>{items}</VueNav>
 </nav>
