@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import "../styles/layout.styl";
 import Nav from "@components/Nav.astro";
 
 interface Props {
@@ -9,6 +10,10 @@ interface Props {
 }
 const { frontmatter } = Astro.props;
 ---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
 <style is:global>
   @theme {
   /* Light Theme */
@@ -49,24 +54,48 @@ const { frontmatter } = Astro.props;
   --radius-radius: var(--radius-none);
 }
 </style>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <title>Astro Flexible Layout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{frontmatter?.title} — FogDough DeFi template</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
-  <body>
-    <Nav />
-    <h1>{frontmatter?.title}</h1>
-    <article>
-      <slot />
-      <!-- your content is injected here -->
-    </article>
+  <body class="bg-gray-100">
+    <div class="layout-container">
+      <!-- Sticky Header -->
+      <header id="site-header" class="bg-white shadow">
+        <Nav />
+      </header>
+      <main>
+        <h1>{frontmatter?.title}</h1>
+        <article>
+          <slot />
+          <!-- your content is injected here -->
+        </article>
+      </main>
+      <footer class="bg-gray-200 text-center p-4">
+        <p>Site Footer</p>
+      </footer>
+    </div>
+
+    <!-- Plain JavaScript for header minimization on scroll -->
+    <script type="module">
+      /**
+       * Listens for scroll events and toggles the 'minimized' class on the header
+       * when the scroll position exceeds 100px.
+       */
+      document.addEventListener('DOMContentLoaded', () => {
+        const header = document.getElementById('site-header');
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 100) {
+            header.classList.add('minimized');
+          } else {
+            header.classList.remove('minimized');
+          }
+        });
+      });
+    </script>
   </body>
-  <style>
-    h1 {
-      font-size: 2rem;
-    }
-  </style>
 </html>
+
+
