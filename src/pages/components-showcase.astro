@@ -1,0 +1,27 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Nav from "@components/Nav.astro";
+
+const pageTitle = "Components Showcase";
+---
+
+<Layout frontmatter={{ title: pageTitle }}>
+  This is the {pageTitle} astro page.
+  <div class="component-entry">
+    <h2>The <b>Nav</b> component</h2>
+    <div class="example">
+      <Nav />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .component-entry {
+    margin: 1.4rem 0;
+  }
+  .example {
+    border: 1px solid red;
+    border-radius: 0.4rem;
+    margin: 17px;
+  }
+</style>
