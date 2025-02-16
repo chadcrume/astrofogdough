@@ -12,6 +12,10 @@
     "@tailwindcss/vite": "^4.0.4",
     "astro": "^5.1.9",
     "stylus": "^0.64.0",
-    "tailwindcss": "^4.0.4"
+    "tailwindcss": "^4.0.4",
+    "theme-change": "^2.5.0"
+  },
+  "devDependencies": {
+    "daisyui": "^5.0.0-beta.8"
   }
 }
