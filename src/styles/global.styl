@@ -1,3 +1,110 @@
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* 
+https://www.fluid-type-scale.com/calculate?minFontSize=16&minWidth=400&minRatio=1.15&maxFontSize=19&maxWidth=1280&maxRatio=1.333&steps=sm%2Cbase%2Cmd%2Clg%2Cxl%2Cxxl%2Cxxxl&baseStep=base&prefix=fs&useContainerWidth=false&includeFallbacks=true&useRems=true&remValue=16&decimals=2&previewFont=Inter&previewText=Almost+before+we+knew+it%2C+we+had+left+the+ground&previewWidth=1280
+For browsers that support clamp  */
+@supports (font-size: clamp(1rem, 1vi, 1rem)) {
+  :root {
+		--fs-sm: clamp(0.87rem, 0.04vi + 0.86rem, 0.89rem);
+		--fs-base: clamp(1rem, 0.34vi + 0.91rem, 1.19rem);
+		--fs-md: clamp(1.15rem, 0.79vi + 0.95rem, 1.58rem);
+		--fs-lg: clamp(1.32rem, 1.43vi + 0.96rem, 2.11rem);
+		--fs-xl: clamp(1.52rem, 2.35vi + 0.93rem, 2.81rem);
+		--fs-xxl: clamp(1.75rem, 3.64vi + 0.84rem, 3.75rem);
+		--fs-xxxl: clamp(2.01rem, 5.43vi + 0.65rem, 5rem);
+  }
+}
+/* For browsers that don't support clamp */
+@supports not (font-size: clamp(1rem, 1vi, 1rem)) {
+  :root {
+		--fs-sm: 0.87rem;
+		--fs-base: 1rem;
+		--fs-md: 1.15rem;
+		--fs-lg: 1.32rem;
+		--fs-xl: 1.52rem;
+		--fs-xxl: 1.75rem;
+		--fs-xxxl: 2.01rem;
+  }
+  @media screen and (min-width: 1280px) {
+    :root {
+			--fs-sm: 0.89rem;
+			--fs-base: 1.19rem;
+			--fs-md: 1.58rem;
+			--fs-lg: 2.11rem;
+			--fs-xl: 2.81rem;
+			--fs-xxl: 3.75rem;
+			--fs-xxxl: 5rem;
+    }
+  }
+}
+
+
+h1, h2, h3, h5
+  font-weight bold
+  line-height 1.1
+
+
+/* Major 3rd 
+https://typescale.com/
+
+h1 
+  font-size 90px
+
+h2 
+  font-size 67px
+
+h3
+ font-size 51px
+
+h4
+  font-size 38px
+
+h5
+  font-size 28px
+
+h6
+  font-size 21px
+
+p 
+  font-size 16px
+
+small
+  font-size 12px
+
+.tiny
+  font-size 9px
+
+*/
+
+h1 
+  font-size var(--fs-xxl)
+
+h2 
+  font-size var(--fs-xl)
+
+h3
+ font-size var(--fs-lg)
+
+h4
+  font-size var(--fs-md)
+
+h5
+  font-size var(--fs-md)
+
+h6
+  font-size var(--fs-base)
+
+p 
+  font-size var(--fs-base)
+
+small
+  font-size var(--fs-sm)
+
+
+
 // Container with CSS Grid: header, main, footer
 .layout-container
   display grid
