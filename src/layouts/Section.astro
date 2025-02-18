@@ -1,7 +1,14 @@
 ---
-
+/* 
+props ideas:
+- size
+- align
+- bg
+- border
+*/
+const { addClass} = Astro.props;
 ---
 
-<section class="bg-white dark:bg-gray-900">
+<section class:list={[ 'Xcontainer max-w-196 mx-auto px-4 py-8 text-center',  addClass ]} >
   <slot />
 </section>
