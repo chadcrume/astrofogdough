@@ -1,10 +1,10 @@
 ---
-const { title, content, addClass, icon } = Astro.props;
+const { title, content, class:addClass , icon } = Astro.props;
 ---    
 
 
     <div class="card bg-base-100 max-w-196 shadow-xl my-8 mx-auto">
-      <div class:list={[ 'card-body',  addClass ]} >
+      <div class:list={[ 'card-body', addClass ]} >
             <h2 class="card-title">{title}</h2>
  
             <slot>

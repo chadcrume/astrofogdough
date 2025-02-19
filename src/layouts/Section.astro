@@ -5,8 +5,9 @@ props ideas:
 - align
 - bg
 - border
+- columns
 */
-const { addClass} = Astro.props;
+const { class:addClass } = Astro.props;
 ---
 
 <section class:list={[ 'Xcontainer max-w-196 mx-auto px-4 py-8 text-center',  addClass ]} >
