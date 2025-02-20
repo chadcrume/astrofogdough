@@ -3,6 +3,7 @@ import Layout from "@layouts/Layout.astro";
 import Section from "@layouts/Section.astro";
 import Card from "@components/Card.astro";
 import Person from "@components/Person.astro";
+import Grid from "@components/Grid.astro";
 import Accordion from "@components/Accordion.astro";
 const pageTitle = 'About';
 ---
@@ -10,15 +11,16 @@ const pageTitle = 'About';
 <Layout frontmatter={{ title: pageTitle }}>
   
 
-  <Section class={[ 'justify-center flex']}>
-    <Card title="Team">
-      <Person name="John Dos Passos " title="CEO" />
-      <Person name="Olaf Stapledon " title="CTO" />
-      <Person name="Anna Maria Ortese" title="CFO" />
-      <Person name="Dambudzo Marechera" title="Partner" />
-      <Person name="Henry Dumas" title="Partner" />
-      <Person name="Marianne Hauser" title="Partner" />
-    </Card>
+  <Section>
+
+    <Grid title="Team" class="items-center">     
+        <Person name="John Dos Passos " title="CEO" />
+        <Person name="Olaf Stapledon " title="CTO" />
+        <Person name="Anna Maria Ortese" title="CFO" />
+        <Person name="Dambudzo Marechera" title="Partner" />
+        <Person name="Henry Dumas" title="Partner" />
+        <Person name="Marianne Hauser" title="Partner" />
+    </Grid>
 
   </Section>
 
