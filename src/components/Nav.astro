@@ -65,7 +65,7 @@ const navItems = [
     -->
     <a
       href="/"
-      class="text-xl gap-0 flex flex-nowrap flex-row items-center justify-center text-center"
+      class="text-xl gap-0 flex flex-nowrap flex-row items-center justify-center text-left"
       style="
       height: var(--size); 
       --size: calc(var(--size-field, 0.25rem) * 10); 
@@ -103,7 +103,7 @@ const navItems = [
       <summary class="list-none cursor-pointer m-1">
         <div class="avatar">
           <div
-            class="w-7 bg-black text-white rounded-full text-center justify-center items-center p-1"
+            class="w-7 bg-black text-white rounded-full text-left justify-center items-center p-1"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -121,13 +121,23 @@ const navItems = [
           </div>
         </div>
       </summary>
-      <ul class="menu dropdown-content bg-base-100 rounded-box rounded-sm z-1 w-52 p-2 border-1 border-zinc-400">
+      <ul
+        class="menu dropdown-content bg-base-100 rounded-box rounded-sm rounded-tr-none z-1 w-52 p-2
+        border-1 border-zinc-400"
+      >
         <li>
-          <div class="w-full grid-flow-row bg-base-400 hover:bg-none hover:bg-transparent">
-            <div class="w-full bg-none">User Name</div>
-            <div class="pt-0 mb-0 mt-0 text-xs bg-none">alice.brown@gmail.com</div>
+          <div
+            class="w-full block text-left bg-base-400 hover:bg-none hover:bg-transparent"
+          >
+            <div>User Name</div>
+            <div class="pt-0 mb-0 mt-0 text-xs bg-none">
+              alice.brown@gmail.com
+            </div>
           </div>
-          <div class="m-2.5 w-fit">
+          <div
+            class="w-full block text-left bg-base-400 hover:bg-none hover:bg-transparent"
+          >
+          <div class="w-auto">
             🌞
             <div class="inline-block w-10">
               <span
@@ -135,15 +145,17 @@ const navItems = [
                 data-act-class="pl-4"
                 class="border rounded-full border-base-content flex items-center cursor-pointer w-10 transition-all duration-300 ease-in-out pl-0"
               >
-                <span class="rounded-full w-3 h-3 m-1 bg-base-content"> </span>
+                <span class="rounded-full w-3 h-3 m-1 bg-base-content">
+                </span>
               </span>
             </div>
             🌚
           </div>
+        </div>
         </li>
-        <li><a href="#">Dashboard</a></li>
-        <li><a href="/user">Settings</a></li>
-        <li><a href="#">Sign Out</a></li>
+        <li><div class="w-full block text-left"><a href="#">Dashboard</a></div></li>
+        <li><div class="w-full block text-left"><a href="/user">Settings</a></div></li>
+        <li><div class="w-full block text-left"><a href="#">Sign Out</a></div></li>
       </ul>
     </details>
   </div>
