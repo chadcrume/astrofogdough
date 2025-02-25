@@ -1,5 +1,7 @@
 ---
 import Logo from "@assets/logo/PXL_20250121_124406946 n4 no shadow.svg";
+import MenuButton from "@assets/menubutton.svg";
+import UserIcon from "@assets/usericon.svg";
 const currentPath = Astro.url.pathname;
 const currentParentRoute =
   "/" + currentPath.split("/").filter((i) => i && i != "")[0];
@@ -13,20 +15,12 @@ const navItems = [
 <div class="navbar bg-base-100">
   <div class="navbar-start">
     <div class="dropdown">
-      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h8m-8 6h16"></path>
-        </svg>
+      <div
+        tabindex="0"
+        role="button"
+        class="btn btn-ghost border-none lg:hidden"
+      >
+        <MenuButton />
       </div>
       <ul
         tabindex="0"
@@ -65,7 +59,7 @@ const navItems = [
     -->
     <a
       href="/"
-      class="text-xl gap-0 flex flex-nowrap flex-row items-center justify-center text-center"
+      class="text-xl gap-0 flex flex-nowrap flex-row items-center justify-center text-left"
       style="
       height: var(--size); 
       --size: calc(var(--size-field, 0.25rem) * 10); 
@@ -103,36 +97,49 @@ const navItems = [
       <summary class="list-none cursor-pointer m-1">
         <div class="avatar">
           <div
-            class="w-7 bg-black text-white rounded-full text-center justify-center items-center p-1"
+            class="w-7 bg-black text-white rounded-full text-left justify-center items-center p-1"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-              ></path>
-            </svg>
+          <UserIcon/>
           </div>
         </div>
       </summary>
-      <ul class="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2">
+      <ul
+        class="menu dropdown-content bg-base-100 rounded-box rounded-sm rounded-tr-none z-1 w-52 p-2
+        border-1 border-zinc-400"
+      >
         <li>
-          <a href="/user" class="pb-0 font-bold">Alice Brown</a><p
-            class="pt-0 mt-0 text-xs"
-          >
-            alice.brown@gmail.com
-          </p>
+          <div class="w-full block text-left bg-base-400 hover:bg-transparent">
+            <div>User Name</div>
+            <div class="pt-0 mb-0 mt-0 text-xs bg-none">
+              alice.brown@gmail.com
+            </div>
+          </div>
+          <div class="w-full block text-left bg-base-400 hover:bg-transparent">
+            <div class="w-auto">
+              🌞
+              <div class="inline-block w-10">
+                <span
+                  data-toggle-theme="dark,light"
+                  data-act-class="pl-4"
+                  class="border rounded-full border-base-content flex items-center cursor-pointer w-10 transition-all duration-300 ease-in-out pl-0"
+                >
+                  <span class="rounded-full w-3 h-3 m-1 bg-base-content">
+                  </span>
+                </span>
+              </div>
+              🌚
+            </div>
+          </div>
         </li>
-        <!-- <li><a href="#">Dashboard</a></li>
-        <li><a href="#">Subscription</a></li>
-        <li><a href="#">Settings</a></li>
-        <li><a href="#">Sign Out</a></li> -->
+        <li>
+          <div class="w-full block text-left"><a href="#">Dashboard</a></div>
+        </li>
+        <li>
+          <div class="w-full block text-left"><a href="/user">Settings</a></div>
+        </li>
+        <li>
+          <div class="w-full block text-left"><a href="#">Sign Out</a></div>
+        </li>
       </ul>
     </details>
   </div>
