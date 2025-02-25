@@ -121,18 +121,29 @@ const navItems = [
           </div>
         </div>
       </summary>
-      <ul class="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2">
+      <ul class="menu dropdown-content bg-base-100 rounded-box rounded-sm z-1 w-52 p-2 border-1 border-zinc-400">
         <li>
-          <a href="/user" class="pb-0 font-bold">Alice Brown</a><p
-            class="pt-0 mt-0 text-xs"
-          >
-            alice.brown@gmail.com
-          </p>
+          <div class="w-full grid-flow-row bg-base-400 hover:bg-none hover:bg-transparent">
+            <div class="w-full bg-none">User Name</div>
+            <div class="pt-0 mb-0 mt-0 text-xs bg-none">alice.brown@gmail.com</div>
+          </div>
+          <div class="m-2.5 w-fit">
+            🌞
+            <div class="inline-block w-10">
+              <span
+                data-toggle-theme="dark,light"
+                data-act-class="pl-4"
+                class="border rounded-full border-base-content flex items-center cursor-pointer w-10 transition-all duration-300 ease-in-out pl-0"
+              >
+                <span class="rounded-full w-3 h-3 m-1 bg-base-content"> </span>
+              </span>
+            </div>
+            🌚
+          </div>
         </li>
-        <!-- <li><a href="#">Dashboard</a></li>
-        <li><a href="#">Subscription</a></li>
-        <li><a href="#">Settings</a></li>
-        <li><a href="#">Sign Out</a></li> -->
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="/user">Settings</a></li>
+        <li><a href="#">Sign Out</a></li>
       </ul>
     </details>
   </div>
