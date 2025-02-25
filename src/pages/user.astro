@@ -1,0 +1,32 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Section from "@layouts/Section.astro";
+import Card from "@components/Card.astro";
+import Accordion from "@components/Accordion.astro";
+const pageTitle = "About";
+---
+
+<Layout frontmatter={{ title: pageTitle }}>
+  <Section addClass="border">
+    <h2>User options</h2>
+    <Card title="Themes">
+      <fieldset class="fieldset">
+        <!-- <legend class="fieldset-legend">Themes</legend> -->
+        <select class="select" data-choose-theme>
+          <option disabled selected>Pick a theme</option>
+          <option value="">Default</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="winter">Winter</option>
+          <option value="autumn">Autumn</option>
+          <option value="lemonade">Lemonade</option>
+          <option value="cmyk">CMYK</option>
+          <option value="cupcake">Cupcake</option>
+          <option value="nord">Nord</option>
+          <option value="synthwave">Synthwave</option>
+        </select>
+        <!-- <span class="fieldset-label">Optional</span> -->
+      </fieldset>
+    </Card>
+    </Section>
+</Layout>
