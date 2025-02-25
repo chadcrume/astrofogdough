@@ -11,5 +11,7 @@ const { class:addClass } = Astro.props;
 ---
 
 <section class:list={[ 'Xcontainer max-w-196 mx-auto px-4 py-8 text-center',  addClass ]} >
-  <slot />
+  <slot>
+    <p>This is my fallback content, if there is no child passed into slot</p>
+  </slot>
 </section>
