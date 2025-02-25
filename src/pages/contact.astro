@@ -1,8 +1,11 @@
 ---
 import Layout from "@layouts/Layout.astro";
-const pageTitle = 'Contact';
+import Section from "@layouts/Section.astro";
+const pageTitle = "Contact";
 ---
 
 <Layout frontmatter={{ title: pageTitle }}>
-  This is the {pageTitle} astro.
+  <Section id="contact">
+    This is the {pageTitle} astro.
+  </Section>
 </Layout>

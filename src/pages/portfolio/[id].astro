@@ -1,12 +1,13 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import Section from "@layouts/Section.astro";
 import PortfolioHeader from "@components/PortfolioHeader.astro";
-import { getCollection, render } from 'astro:content';
+import { getCollection, render } from "astro:content";
 
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
-  const portfolios = await getCollection('portfolios');
-  return portfolios.map(portfolio => ({
+  const portfolios = await getCollection("portfolios");
+  return portfolios.map((portfolio) => ({
     params: { id: portfolio.id },
     props: { portfolio },
   }));
@@ -14,12 +15,11 @@ export async function getStaticPaths() {
 // 2. For your template, you can get the entry directly from the prop
 const { portfolio } = Astro.props;
 const { Content } = await render(portfolio);
-
 ---
+
 <Layout>
-  <PortfolioHeader portfolio={portfolio}/>
-  <Content />
+  <Section id="portfolio">
+    <PortfolioHeader portfolio={portfolio} />
+    <Content />
+  </Section>
 </Layout>
-
-
-

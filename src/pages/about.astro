@@ -3,30 +3,32 @@ import Layout from "@layouts/Layout.astro";
 import Section from "@layouts/Section.astro";
 import Card from "@components/Card.astro";
 import Accordion from "@components/Accordion.astro";
-const pageTitle = 'About';
+const pageTitle = "About";
 ---
 
 <Layout frontmatter={{ title: pageTitle }}>
-  <Card title="Focus" /> 
+  <Section id="about">
+    <Card title="Focus" />
 
-  <Card class={['items-end', 'text-right']} title="Expertise">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, quod quae harum dolorem modi dicta est nihil itaque quasi ad optio hic reprehenderit recusandae placeat voluptate aliquam iure id unde.
-  </Card>
-
-    <Card title="Services">
-        <Accordion />
+    <Card class={["items-end", "text-right"]} title="Expertise">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, quod
+      quae harum dolorem modi dicta est nihil itaque quasi ad optio hic
+      reprehenderit recusandae placeat voluptate aliquam iure id unde.
     </Card>
 
+    <Card title="Services">
+      <Accordion />
+    </Card>
 
-  <Section addClass="border">
-    <h2>Team</h2>
-    <div class="avatar">
-      <div class="mask mask-hexagon max-w-24">
-        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-
+    <Section class="border">
+      <h2>Team</h2>
+      <div class="avatar">
+        <div class="mask mask-hexagon max-w-24">
+          <img
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+          />
+        </div>
       </div>
-    </div>
+    </Section>
   </Section>
-
-
 </Layout>

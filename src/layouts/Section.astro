@@ -1,4 +1,7 @@
 ---
+import { undefined } from "astro:schema";
+import type { Token } from "typescript";
+
 /* 
 props ideas:
 - size
@@ -7,9 +10,17 @@ props ideas:
 - border
 - columns
 */
-const { class:addClass } = Astro.props;
+interface Props {
+  class?: string | undefined;
+  id?: string | undefined;
+  type?: string | undefined; // Not used but as an example
+}
+const { class: addClass, id }: Props = Astro.props;
 ---
 
-<section class:list={[ 'Xcontainer max-w-196 mx-auto px-4 py-8 text-center',  addClass ]} >
+<section
+  id={id}
+  class:list={["Xcontainer max-w-196 mx-auto px-4 py-8 text-center", addClass]}
+>
   <slot />
 </section>
