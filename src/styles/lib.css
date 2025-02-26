@@ -8,16 +8,25 @@
 }
 
 .current-nav-page {
-    @apply font-bold border-b-gray-300 border-b-2 rounded-b-none
+    @apply lg:border-b-gray-300 lg:border-b-2 lg:rounded-b-none
+}
+.about > .current-nav-page {
+    @apply text-primary border-primary
+}
+.portfolio > .current-nav-page {
+    @apply text-secondary border-secondary
+}
+.contact > .current-nav-page {
+    @apply text-success border-success
 }
 
-.about.btn {
+.btn.about {
     @apply btn btn-wide sm:btn-md md:btn-xl btn-outline btn-primary m-2;
 }
-.portfolio.btn {
+.btn.portfolio {
     @apply btn btn-wide sm:btn-md md:btn-xl btn-outline btn-secondary m-2;
 }
-.contact.btn {
+.btn.contact {
     @apply btn btn-wide sm:btn-md md:btn-xl btn-outline btn-success m-2;
 }
 

@@ -40,11 +40,15 @@ const isHomepage = Astro.url.pathname === "/";
       >
         {
           navItems.map((i) => (
-            <li>
+            <li class={i.name}>
               <a
                 href={i.route}
                 aria-current="page"
-                class:list={[currentParentRoute == i.route ? "font-bold" : ""]}
+                class:list={[
+                  currentParentRoute == i.route
+                    ? "current-nav-page"
+                    : ""
+                ]}
               >
                 {i.title}
               </a>
@@ -97,7 +101,7 @@ const isHomepage = Astro.url.pathname === "/";
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
           {navItems.map((i) => (
-            <li>
+            <li class={i.name}>
               <a
                 href={i.route}
                 aria-current="page"
