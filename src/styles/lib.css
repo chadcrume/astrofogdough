@@ -10,15 +10,15 @@
 .current-nav-page {
     @apply lg:border-b-gray-300 lg:border-b-2 lg:rounded-b-none
 }
-.about > a:hover,
+.about > a.nav:hover,
 .about > .current-nav-page {
     @apply text-primary border-primary bg-transparent lg:border-b-2 lg:rounded-b-none
 }
-.portfolio > a:hover,
+.portfolio > a.nav:hover,
 .portfolio > .current-nav-page {
     @apply text-secondary border-secondary bg-transparent lg:border-b-2 lg:rounded-b-none
 }
-.contact > a:hover,
+.contact > a.nav:hover,
 .contact > .current-nav-page {
     @apply text-success border-success bg-transparent lg:border-b-2 lg:rounded-b-none
 }

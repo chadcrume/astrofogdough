@@ -1,4 +1,5 @@
 ---
+import Logo from "@assets/logo/PXL_20250121_124406946 n4 no shadow.svg";
 import Layout from "@layouts/Layout.astro";
 import Section from "@layouts/Section.astro";
 import navItems from "@components/NavItems.ts";
@@ -12,10 +13,15 @@ const pageTitle = "home";
       class="cta cta-splash my-8 flex flex-col md:flex-row items-center justify-around gap-12"
     >
       <div>
-        <h1 class="">
+        <!-- <h1 class="">
           On-chain. <br />Permissionless. <br />Finance reprogrammed.
-        </h1>
-      </div>
+        </h1> -->
+        <Logo
+        class="inline pr-3 pl-3 text-base-content max-h-42"
+        width="100%"
+        transition:name="logo"
+      />
+  </div>
       <div class="justify-self-center">
         <!-- <button
           class="btn btn-wide sm:btn-md md:btn-xl btn-outline btn-secondary"
@@ -25,7 +31,8 @@ const pageTitle = "home";
           {
             navItems.map((i) => (
               <li>
-                <button class:list={["btn", i.name]} transition:name={i.name}
+                <button class:list={["btn", i.name]} 
+                // transition:name={i.name}
                 >
                   <a href={i.route}>{i.title}</a>
                 </button>

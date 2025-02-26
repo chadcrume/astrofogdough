@@ -10,9 +10,10 @@ const { class: addClass, id, page }: Props = Astro.props;
 
 <section
   id={page && page.name || id}
-  transition:name={page && page.name || id}
   class:list={["Xcontainer max-w-196 mx-auto px-4 py-8 text-center", addClass]}
 >
+<!-- transition:name={page && page.name || id}
+   -->
 <h1 class:list={[page?.name]}>{page?.title}</h1>
   <slot />
 </section>
