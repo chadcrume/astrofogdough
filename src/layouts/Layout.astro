@@ -3,13 +3,15 @@ import "../styles/lib.css";
 import "../styles/global.styl";
 import Nav from "@components/Nav.astro";
 import Footer from "@components/Footer.astro";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   frontmatter?: {
     title?: string | undefined;
   };
+  useTransitions?: boolean;
 }
-const { frontmatter } = Astro.props;
+const { frontmatter, useTransitions = true } = Astro.props;
 ---
 
 <html lang="en" data-theme="default">
@@ -34,6 +36,7 @@ const { frontmatter } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{frontmatter?.title} — FogDough DeFi template</title>
+    {useTransitions && <ClientRouter />}
     <link
       rel="icon"
       type="image/png"
