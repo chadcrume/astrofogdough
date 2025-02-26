@@ -1,45 +1,45 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import NavPage from "@components/NavPage.astro";
 import Section from "@layouts/Section.astro";
 import Card from "@components/Card.astro";
 import Person from "@components/Person.astro";
 import Grid from "@components/Grid.astro";
 import Accordion from "@components/Accordion.astro";
-const pageTitle = 'About';
+import {getNavItemFromUrlPath} from "@components/NavItems.ts"
+
+const page = getNavItemFromUrlPath(Astro.url.pathname);
 ---
 
-<Layout frontmatter={{ title: pageTitle }}>
+<Layout frontmatter={{ title: page?.title }}>
+  <NavPage page={page}>
   
+    <Section>
 
-  <Section>
+      <Grid title="Team" class="items-center">     
+          <Person name="John Dos Passos " title="CEO" />
+          <Person name="Olaf Stapledon " title="CTO" />
+          <Person name="Anna Maria Ortese" title="CFO" />
+          <Person name="Dambudzo Marechera" title="Partner" />
+          <Person name="Henry Dumas" title="Partner" />
+          <Person name="Marianne Hauser" title="Partner" />
+      </Grid>
 
-    <Grid title="Team" class="items-center">     
-        <Person name="John Dos Passos " title="CEO" />
-        <Person name="Olaf Stapledon " title="CTO" />
-        <Person name="Anna Maria Ortese" title="CFO" />
-        <Person name="Dambudzo Marechera" title="Partner" />
-        <Person name="Henry Dumas" title="Partner" />
-        <Person name="Marianne Hauser" title="Partner" />
-    </Grid>
+    </Section>
 
-  </Section>
+    <Card title="Focus" /> 
 
+      <Card class={["items-end", "text-right"]} title="Expertise">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, quod
+        quae harum dolorem modi dicta est nihil itaque quasi ad optio hic
+        reprehenderit recusandae placeat voluptate aliquam iure id unde.
+      </Card>
 
-
-
-
-  <Card title="Focus" /> 
-
-  <Card class={['items-end', 'text-right']} title="Expertise">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, quod quae harum dolorem modi dicta est nihil itaque quasi ad optio hic reprehenderit recusandae placeat voluptate aliquam iure id unde.
-  </Card>
-
-    <Card title="Services">
+      <Card title="Services">
         <Accordion />
+      </Card>
+
     </Card>
 
-
-
-
-
+  </NavPage>
 </Layout>
