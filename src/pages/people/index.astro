@@ -1,0 +1,31 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getCollection } from 'astro:content';
+const people = await getCollection("people");
+import Grid from "@components/Grid.astro";
+
+---
+
+<Layout frontmatter={{ title: "People" }}>
+ 
+    <Grid title="Team" class="items-center">     
+        {people.filter(person => person.data.status!="Inactive").map(person => (
+
+<div class:list={[ 'flex', ]} >
+  <div class="avatar self-start">
+    <div class="mask mask-hexagon max-w-24">
+      <img src={person.data.image} />
+    </div>
+  </div>
+  <div class="text-left ml-4 self-center">
+    <h6>
+      <a href={`/people/${person.id}`}>{person.data.first_name} {person.data.last_name}</a>
+    </h6>
+    <h7>{person.data.title}</h7>
+  </div>
+</div>
+          <div>
+          </div>
+        ))}
+</Grid>
+</Layout>
