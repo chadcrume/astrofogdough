@@ -101,10 +101,15 @@ const isHomepage = Astro.url.pathname === "/";
               <a
                 href={i.route}
                 aria-current="page"
+                transition:name={
+                  currentParentRoute == i.route
+                    ? ""
+                    : i.name
+                }
                 class:list={[
                   currentParentRoute == i.route
-                    ? "font-bold border-b-gray-300 border-b-2 rounded-b-none"
-                    : "",
+                    ? "current-nav-page"
+                    : ""
                 ]}
               >
                 {i.title}

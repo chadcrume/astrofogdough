@@ -25,7 +25,8 @@ const pageTitle = "home";
           {
             navItems.map((i) => (
               <li>
-                <button class:list={["btn", i.name]} transition:name={i.name}>
+                <button class:list={["btn", i.name]} transition:name={i.name}
+                >
                   <a href={i.route}>{i.title}</a>
                 </button>
               </li>

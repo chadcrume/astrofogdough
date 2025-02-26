@@ -7,6 +7,10 @@
     themes: all;
 }
 
+.current-nav-page {
+    @apply font-bold border-b-gray-300 border-b-2 rounded-b-none
+}
+
 .about.btn {
     @apply btn btn-wide sm:btn-md md:btn-xl btn-outline btn-primary m-2;
 }
@@ -26,3 +30,5 @@ h1.portfolio {
 h1.contact {
     @apply text-success
 }
+
+
