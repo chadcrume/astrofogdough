@@ -6,6 +6,8 @@ import Person from "@components/Person.astro";
 import Grid from "@components/Grid.astro";
 import Accordion from "@components/Accordion.astro";
 const pageTitle = 'About';
+import { getCollection } from 'astro:content';
+const people = await getCollection("people");
 ---
 
 <Layout frontmatter={{ title: pageTitle }}>
@@ -14,12 +16,11 @@ const pageTitle = 'About';
   <Section>
 
     <Grid title="Team" class="items-center">     
-        <Person name="John Dos Passos " title="CEO" />
-        <Person name="Olaf Stapledon " title="CTO" />
-        <Person name="Anna Maria Ortese" title="CFO" />
-        <Person name="Dambudzo Marechera" title="Partner" />
-        <Person name="Henry Dumas" title="Partner" />
-        <Person name="Marianne Hauser" title="Partner" />
+      {people.filter(person => person.data.status!="Inactive").map(person => (
+            
+          <Person key={person.id} id={person.id} image={person.data.image} first_name={person.data.first_name} last_name={person.data.last_name} title={person.data.title} />
+  
+      ))}
     </Grid>
 
   </Section>
