@@ -10,14 +10,17 @@
 .current-nav-page {
     @apply lg:border-b-gray-300 lg:border-b-2 lg:rounded-b-none
 }
+.about > a:hover,
 .about > .current-nav-page {
-    @apply text-primary border-primary
+    @apply text-primary border-primary bg-transparent lg:border-b-2 lg:rounded-b-none
 }
+.portfolio > a:hover,
 .portfolio > .current-nav-page {
-    @apply text-secondary border-secondary
+    @apply text-secondary border-secondary bg-transparent lg:border-b-2 lg:rounded-b-none
 }
+.contact > a:hover,
 .contact > .current-nav-page {
-    @apply text-success border-success
+    @apply text-success border-success bg-transparent lg:border-b-2 lg:rounded-b-none
 }
 
 .btn.about {
