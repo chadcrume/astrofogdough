@@ -1,13 +1,16 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import NavPage from "@components/NavPage.astro";
 import Section from "@layouts/Section.astro";
 import Card from "@components/Card.astro";
 import Accordion from "@components/Accordion.astro";
-const pageTitle = "About";
+import {getNavItemFromUrlPath} from "@components/NavItems.ts"
+
+const page = getNavItemFromUrlPath(Astro.url.pathname);
 ---
 
-<Layout frontmatter={{ title: pageTitle }}>
-  <Section id="about">
+<Layout frontmatter={{ title: page?.title }}>
+  <NavPage page={page}>
     <Card title="Focus" />
 
     <Card class={["items-end", "text-right"]} title="Expertise">
@@ -30,5 +33,5 @@ const pageTitle = "About";
         </div>
       </div>
     </Section>
-  </Section>
+  </NavPage>
 </Layout>

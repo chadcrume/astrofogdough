@@ -1,0 +1,18 @@
+---
+import type { INavItem } from "@components/NavItems.ts";
+interface Props {
+  class?: string | undefined;
+  id?: string | undefined;
+  page?: INavItem | undefined;
+}
+const { class: addClass, id, page }: Props = Astro.props;
+---
+
+<section
+  id={page && page.name || id}
+  transition:name={page && page.name || id}
+  class:list={["Xcontainer max-w-196 mx-auto px-4 py-8 text-center", addClass]}
+>
+<h1 class:list={[page?.name]}>{page?.title}</h1>
+  <slot />
+</section>

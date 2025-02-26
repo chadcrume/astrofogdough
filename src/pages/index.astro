@@ -1,6 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Section from "@layouts/Section.astro";
+import navItems from "@components/NavItems.ts";
 
 const pageTitle = "home";
 ---
@@ -16,20 +17,23 @@ const pageTitle = "home";
         </h1>
       </div>
       <div class="justify-self-center">
-        <button
+        <!-- <button
           class="btn btn-wide sm:btn-md md:btn-xl btn-outline btn-secondary"
           >Get Started</button
-        >
+        > -->
+        <ul class="menu menu-vertical">
+          {
+            navItems.map((i) => (
+              <li>
+                <button class:list={["btn", i.name]} transition:name={i.name}>
+                  <a href={i.route}>{i.title}</a>
+                </button>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </div>
-    <nav class="md:mt-16 big">
-      <ul>
-        <li><a class="hidden" href="/">Home</a></li>
-        <li><a transition:name="about" href="/about">About</a></li>
-        <li><a transition:name="portfolio" href="/portfolio">Portfolio</a></li>
-        <li><a transition:name="contact" href="/contact">Contact</a></li>
-      </ul>
-    </nav>
   </Section>
 
   <div class="divider mt-24">~</div>

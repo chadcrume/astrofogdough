@@ -1,12 +1,16 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Section from "@layouts/Section.astro";
+import NavPage from "@components/NavPage.astro";
 import { getCollection } from "astro:content";
+import { getNavItemFromUrlPath } from "@components/NavItems.ts";
+
+const page = getNavItemFromUrlPath(Astro.url.pathname);
+
 const portfolios = await getCollection("portfolios");
 ---
 
 <Layout frontmatter={{ title: "Exits" }}>
-  <Section id="portfolio">
+  <NavPage page={page}>
     This is the Exits from a collection
     <ul>
       {
@@ -19,5 +23,5 @@ const portfolios = await getCollection("portfolios");
           ))
       }
     </ul>
-  </Section>
+  </NavPage>
 </Layout>

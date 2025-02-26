@@ -6,3 +6,23 @@
 @plugin "daisyui" {
     themes: all;
 }
+
+.about.btn {
+    @apply btn btn-wide sm:btn-md md:btn-xl btn-outline btn-primary m-2;
+}
+.portfolio.btn {
+    @apply btn btn-wide sm:btn-md md:btn-xl btn-outline btn-secondary m-2;
+}
+.contact.btn {
+    @apply btn btn-wide sm:btn-md md:btn-xl btn-outline btn-success m-2;
+}
+
+h1.about {
+    @apply text-primary
+}
+h1.portfolio {
+    @apply text-secondary
+}
+h1.contact {
+    @apply text-success
+}

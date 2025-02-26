@@ -2,17 +2,19 @@
 import Logo from "@assets/logo/PXL_20250121_124406946 n4 no shadow.svg";
 import MenuButton from "@assets/menubutton.svg";
 import UserIcon from "@assets/usericon.svg";
+import navItems from "@components/NavItems.ts"
 const currentPath = Astro.url.pathname;
 const currentParentRoute =
   "/" + currentPath.split("/").filter((i) => i && i != "")[0];
-const navItems = [
-  { route: "/about", text: "About" },
-  { route: "/portfolio", text: "Portfolio" },
-  { route: "/contact", text: "Contact" },
-];
+// const navItems = [
+//   { name: "about", route: "/about", text: "About" },
+//   { name: "portfolio", route: "/portfolio", text: "Portfolio" },
+//   { name: "contact", route: "/contact", text: "Contact" },
+// ];
 
 const isHomepage = Astro.url.pathname === "/";
 ---
+
 <!-- <nav class="nav-links z-20 big">
 
   <ul class="mt-14">
@@ -22,7 +24,6 @@ const isHomepage = Astro.url.pathname === "/";
     <li><a data-link="contact" class:list={[ 'control','contact',{active: isContact}] }  href="/contact">Contact</a></li>
   </ul>
 </nav> -->
-
 <div class="navbar bg-base-100">
   <div class="navbar-start">
     <div class="dropdown">
@@ -45,7 +46,7 @@ const isHomepage = Astro.url.pathname === "/";
                 aria-current="page"
                 class:list={[currentParentRoute == i.route ? "font-bold" : ""]}
               >
-                {i.text}
+                {i.title}
               </a>
             </li>
           ))
@@ -91,27 +92,29 @@ const isHomepage = Astro.url.pathname === "/";
       )
     }
   </div>
-  <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1">
-      {
-        navItems.map((i) => (
-          <li>
-            <a
-              href={i.route}
-              aria-current="page"
-              class:list={[
-                currentParentRoute == i.route
-                  ? "font-bold border-b-gray-300 border-b-2 rounded-b-none"
-                  : "",
-              ]}
-            >
-              {i.text}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+  {
+    !isHomepage && (
+      <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1">
+          {navItems.map((i) => (
+            <li>
+              <a
+                href={i.route}
+                aria-current="page"
+                class:list={[
+                  currentParentRoute == i.route
+                    ? "font-bold border-b-gray-300 border-b-2 rounded-b-none"
+                    : "",
+                ]}
+              >
+                {i.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
   <div class="navbar-end">
     <details class="dropdown dropdown-end">
       <summary class="list-none cursor-pointer m-1">
