@@ -11,30 +11,41 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
 <Layout frontmatter={{ title: page?.title }}>
   <NavPage page={page}>
     <Section class="w-full justify-items-center">
+      <p>How can we partner with you?</p>
       <form>
-
         <fieldset class="fieldset">
           <!-- <legend class="fieldset-legend">Your name</legend> -->
-  
+
           <label class="fieldset-label">Your name</label>
-          <input type="text" class="input validator" placeholder="Type here" required />
+          <input
+            type="text"
+            class="input validator"
+            placeholder="Type here"
+            required
+          />
           <div class="validator-hint">Please provide us with your name</div>
           <!-- <p class="fieldset-label">Optional</p> -->
-  
+
           <label class="fieldset-label mt-4">Your email</label>
-          <input type="text" class="input validator" placeholder="Type here" required />
+          <input
+            type="text"
+            class="input validator"
+            placeholder="Type here"
+            required
+          />
           <div class="validator-hint">Enter a valid email address</div>
           <!-- <p class="fieldset-label">Optional</p> -->
-  
+
           <label class="fieldset-label mt-4">Your ask</label>
-          <textarea class="textarea h-24 validator" placeholder="Type here" required
-          ></textarea>
+          <textarea
+            class="textarea h-24 validator"
+            placeholder="Type here"
+            required></textarea>
           <div class="validator-hint">Let us know what we can do for you</div>
           <!-- <div class="fieldset-label">Optional</div> -->
         </fieldset>
 
         <button class="btn" type="submit">Send</button>
-
       </form>
     </Section>
   </NavPage>
