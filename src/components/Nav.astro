@@ -1,5 +1,6 @@
 ---
-import Logo from "@assets/logo/circle5.svg";
+import { Image } from 'astro:assets';
+import Logo2 from "@assets/logo/circle2.svg";
 import MenuButton from "@assets/menubutton.svg";
 import UserIcon from "@assets/usericon.svg";
 import navItems from "@components/NavItems.ts";
@@ -10,7 +11,7 @@ const isHomepage = Astro.url.pathname === "/";
 ---
 
 
-<div class="navbar bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-8 border-b border-gray-200">
+<div class="navbar bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-8 border-b border-gray-00">
   <div class="navbar-start">
     {
       !isHomepage && (
@@ -45,29 +46,16 @@ const isHomepage = Astro.url.pathname === "/";
     }
     {
       !isHomepage && (
-        <a
-          href="/"
-          class="text-xl gap-0 flex flex-nowrap flex-row items-center justify-center text-left"
-          style="
-      height: var(--size); 
-      --size: calc(var(--size-field, 0.25rem) * 10); 
-      font-weight: 600;
-      flex-shrink: 0;
-      "
-        >
-          <Logo
-            class="inline pr-3 pl-3 text-base-content"
-            width="100%"
-            height="100%"
-            transition:name="logo"
-          />
-          Fogdough
+        <a href="/" data-astro-prefetch>        
+        <div class='gradient logo-nav mr-4' transition:name="logo">
+          <Image style=''src={Logo2} alt="Fogdough logo" />
+        </div>
         </a>
       )
     }
+          Fogdough
+
   </div>
-  {
-    !isHomepage && (
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
           {navItems.map((i) => (
@@ -86,8 +74,6 @@ const isHomepage = Astro.url.pathname === "/";
           ))}
         </ul>
       </div>
-    )
-  }
   <div class="navbar-end">
     <details class="dropdown dropdown-end">
       <summary class="list-none cursor-pointer m-1">
