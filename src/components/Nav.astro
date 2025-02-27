@@ -6,25 +6,11 @@ import navItems from "@components/NavItems.ts";
 const currentPath = Astro.url.pathname;
 const currentParentRoute =
   "/" + currentPath.split("/").filter((i) => i && i != "")[0];
-// const navItems = [
-//   { name: "about", route: "/about", text: "About" },
-//   { name: "portfolio", route: "/portfolio", text: "Portfolio" },
-//   { name: "contact", route: "/contact", text: "Contact" },
-// ];
-
 const isHomepage = Astro.url.pathname === "/";
 ---
 
-<!-- <nav class="nav-links z-20 big">
 
-  <ul class="mt-14">
-    <li><a data-link="home" class='control' href="/">Home</a></li>
-    <li><a data-link="cs" class:list={['control', 'case-studies',{active: isCs}] } href="/casestudies">Case Studies</a></li>
-    <li><a data-link="bio" class:list={['control', 'bio',{active: isBio}] } href="/bio">Bio</a></li>
-    <li><a data-link="contact" class:list={[ 'control','contact',{active: isContact}] }  href="/contact">Contact</a></li>
-  </ul>
-</nav> -->
-<div class="navbar bg-base-100">
+<div class="navbar bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-8 border-b border-gray-200">
   <div class="navbar-start">
     {
       !isHomepage && (
@@ -38,7 +24,7 @@ const isHomepage = Astro.url.pathname === "/";
           </div>
           <ul
             tabindex="0"
-            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            class="menu menu-sm dropdown-content rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             {navItems.map((i) => (
               <li class={i.name}>
