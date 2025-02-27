@@ -1,8 +1,13 @@
 ---
 import Layout from "@layouts/Layout.astro";
-const pageTitle = 'Contact';
+import NavPage from "@components/NavPage.astro";
+import { getNavItemFromUrlPath } from "@components/NavItems.ts";
+
+const page = getNavItemFromUrlPath(Astro.url.pathname);
 ---
 
-<Layout frontmatter={{ title: pageTitle }}>
-  This is the {pageTitle} astro.
+<Layout frontmatter={{ title: page?.title }}>
+  <NavPage page={page}>
+    This is the {page?.title} astro.
+  </NavPage>
 </Layout>

@@ -1,15 +1,28 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import { getCollection } from 'astro:content';
+import NavPage from "@components/NavPage.astro";
+import { getCollection } from "astro:content";
+import { getNavItemFromUrlPath } from "@components/NavItems.ts";
+
+const page = getNavItemFromUrlPath(Astro.url.pathname);
+
 const portfolios = await getCollection("portfolios");
 ---
 
-<Layout frontmatter={{ title: "Portfolio" }}>
-  This is the Portfolio from a collection
-  <p><a href="/portfolio/exits">Exits</a></p>
-  <ul>
-    {portfolios.filter(portfolio => portfolio.data.status!="Inactive").map(portfolio => (
-      <li><a href={`/portfolio/${portfolio.id}`}>{portfolio.data.name}</a></li>
-    ))}
-  </ul>
+<Layout frontmatter={{ title: page?.title }}>
+  <NavPage page={page}>
+    This is the Portfolio from a collection
+    <p><a href="/portfolio/exits">Exits</a></p>
+    <ul>
+      {
+        portfolios
+          .filter((portfolio) => portfolio.data.status != "Inactive")
+          .map((portfolio) => (
+            <li>
+              <a href={`/portfolio/${portfolio.id}`}>{portfolio.data.name}</a>
+            </li>
+          ))
+      }
+    </ul>
+  </NavPage>
 </Layout>
