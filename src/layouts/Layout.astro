@@ -1,4 +1,5 @@
 ---
+import Logo2 from "@assets/logo/circle2.svg";
 import "../styles/lib.css";
 import "../styles/global.styl";
 import Nav from "@components/Nav.astro";
@@ -56,6 +57,9 @@ const { frontmatter, useTransitions = true } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
       rel="stylesheet"
     />
+
+    <link rel="preload" href={Logo2} as="image" /> 
+
   </head>
   <body>
     <div class="layout-container">
