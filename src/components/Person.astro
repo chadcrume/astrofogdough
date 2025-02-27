@@ -5,13 +5,16 @@ const { id, image , first_name, last_name, title, class:addClass } = Astro.props
 <a href={`/people/${id}`} class="hover:bg-gray-100 p-4 rounded-lg">
   <div class="avatar self-start">
     <div class="mask mask-hexagon max-w-24">
-      <img src={image} />
+        <img 
+        src={image} 
+        transition:name={id}
+      />
     </div>
   </div>
   <div>
     <h6 class="mt-4 mb-2">
       {first_name} {last_name}
     </h6>
-    <h7>{title}</h7>
+    <h7 class="person_title">{title}</h7>
   </div>
 </a>
