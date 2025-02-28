@@ -1,50 +1,29 @@
 ---
+import { Image } from 'astro:assets';
+
 import Logo from "@assets/logo/circle5.svg";
+import Logo2 from "@assets/logo/circle2.svg";
 import Layout from "@layouts/Layout.astro";
 import Section from "@layouts/Section.astro";
 import navItems from "@components/NavItems.ts";
-
 const pageTitle = "home";
 ---
 
 <Layout>
-  <Section type="splash">
     <div
-      class="cta cta-splash my-8 flex flex-col md:flex-row items-center justify-around gap-12"
+      class="cta cta-splash my-8 flex flex-col items-center md:flex-row gap-12"
     >
       <div>
-        <!-- <h1 class="">
-          On-chain. <br />Permissionless. <br />Finance reprogrammed.
-        </h1> -->
-        <Logo
-        class="inline pr-3 pl-3 text-base-content max-h-42"
-        width="100%"
-        transition:name="logo"
-      />
-  </div>
-      <div class="justify-self-center">
-        <!-- <button
-          class="btn btn-wide sm:btn-md md:btn-xl btn-outline btn-secondary"
-          >Get Started</button
-        > -->
-        <ul class="menu menu-vertical">
-          {
-            navItems.map((i) => (
-              <li>
-                <button class:list={["btn", i.name]} 
-                // transition:name={i.name}
-                >
-                  <a href={i.route}>{i.title}</a>
-                </button>
-              </li>
-            ))
-          }
-        </ul>
+        <div class='gradient logo-home' transition:name="logo">
+          <Image style='' src={Logo2} alt="Fogdough logo" />
+        </div>
       </div>
-    </div>
-  </Section>
-
-  <div class="divider mt-24">~</div>
+        
+        <h1 class="text-center md:text-left">
+          On-chain. <br />Permissionless. <br />Finance reprogrammed.
+        </h1> 
+      </div>
+     
 
   <Section type="content:1col">
     <div class="my-24 max-w-3xl mx-auto rounded-lg border p-8">
