@@ -19,5 +19,17 @@ const portfolios = defineCollection({
       })
 });
 
+const people = defineCollection({
+    loader: glob({ pattern: "**/*.md", base: "./content/people" }),
+    schema: z.object({
+        first_name: z.string(),
+        last_name: z.string(),
+        title: z.string(),
+        image: z.string(),
+        status: z.enum(['Active', 'Inactive']),
+      })
+});
+
+
 // 4. Export a single `collections` object to register your collection(s)
-export const collections = { portfolios };
+export const collections = { portfolios, people };
