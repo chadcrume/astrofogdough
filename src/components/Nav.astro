@@ -1,97 +1,107 @@
 ---
-import Logo from "@assets/logo/PXL_20250121_124406946 n4 no shadow.svg";
+import Logo from "@assets/logo/circle5.svg";
 import MenuButton from "@assets/menubutton.svg";
 import UserIcon from "@assets/usericon.svg";
+import navItems from "@components/NavItems.ts";
 const currentPath = Astro.url.pathname;
 const currentParentRoute =
   "/" + currentPath.split("/").filter((i) => i && i != "")[0];
-const navItems = [
-  { route: "/about", text: "About" },
-  { route: "/portfolio", text: "Portfolio" },
-  { route: "/contact", text: "Contact" },
-];
+// const navItems = [
+//   { name: "about", route: "/about", text: "About" },
+//   { name: "portfolio", route: "/portfolio", text: "Portfolio" },
+//   { name: "contact", route: "/contact", text: "Contact" },
+// ];
+
+const isHomepage = Astro.url.pathname === "/";
 ---
 
+<!-- <nav class="nav-links z-20 big">
+
+  <ul class="mt-14">
+    <li><a data-link="home" class='control' href="/">Home</a></li>
+    <li><a data-link="cs" class:list={['control', 'case-studies',{active: isCs}] } href="/casestudies">Case Studies</a></li>
+    <li><a data-link="bio" class:list={['control', 'bio',{active: isBio}] } href="/bio">Bio</a></li>
+    <li><a data-link="contact" class:list={[ 'control','contact',{active: isContact}] }  href="/contact">Contact</a></li>
+  </ul>
+</nav> -->
 <div class="navbar bg-base-100">
   <div class="navbar-start">
-    <div class="dropdown">
-      <div
-        tabindex="0"
-        role="button"
-        class="btn btn-ghost border-none lg:hidden"
-      >
-        <MenuButton />
-      </div>
-      <ul
-        tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-      >
-        {
-          navItems.map((i) => (
-            <li>
-              <a
-                href={i.route}
-                aria-current="page"
-                class:list={[currentParentRoute == i.route ? "font-bold" : ""]}
-              >
-                {i.text}
-              </a>
-            </li>
-          ))
-        }
-        <!-- 
-        <li>
-          <a href="/portfolio">Portfolio</a>
-        </li>
-        <li>
-          <a href="/contact">Contact</a>
-        </li> -->
-      </ul>
-    </div>
-    <!-- 
-      DaisyUI default:
-    -->
-    <!-- 
-    class="btn btn-ghost text-xl gap-0" 
-    -->
-    <!-- 
-      I removed btn and extracted only parts that make this display work without button effects.
-    -->
-    <a
-      href="/"
-      class="text-xl gap-0 flex flex-nowrap flex-row items-center justify-center text-left"
-      style="
+    {
+      !isHomepage && (
+        <div class="dropdown">
+          <div
+            tabindex="0"
+            role="button"
+            class="btn btn-ghost border-none lg:hidden"
+          >
+            <MenuButton />
+          </div>
+          <ul
+            tabindex="0"
+            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+          >
+            {navItems.map((i) => (
+              <li class={i.name}>
+                <a
+                  href={i.route}
+                  aria-current="page"
+                  class:list={[
+                    currentParentRoute == i.route ? "current-nav-page" : "",
+                  ]}
+                >
+                  {i.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    {
+      !isHomepage && (
+        <a
+          href="/"
+          class="text-xl gap-0 flex flex-nowrap flex-row items-center justify-center text-left"
+          style="
       height: var(--size); 
       --size: calc(var(--size-field, 0.25rem) * 10); 
       font-weight: 600;
       flex-shrink: 0;
       "
-    >
-      <Logo class="inline pr-3 pl-3 text-cyan-600" width="auto" height="auto" />
-      Curiodough
-    </a>
+        >
+          <Logo
+            class="inline pr-3 pl-3 text-base-content"
+            width="100%"
+            height="100%"
+            transition:name="logo"
+          />
+          Fogdough
+        </a>
+      )
+    }
   </div>
-  <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1">
-      {
-        navItems.map((i) => (
-          <li>
-            <a
-              href={i.route}
-              aria-current="page"
-              class:list={[
-                currentParentRoute == i.route
-                  ? "font-bold border-b-gray-300 border-b-2 rounded-b-none"
-                  : "",
-              ]}
-            >
-              {i.text}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+  {
+    !isHomepage && (
+      <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1">
+          {navItems.map((i) => (
+            <li class={i.name}>
+              <a
+                href={i.route}
+                aria-current="page"
+                class:list={[
+                  "nav",
+                  currentParentRoute == i.route ? "current-nav-page" : "",
+                ]}
+              >
+                {i.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
   <div class="navbar-end">
     <details class="dropdown dropdown-end">
       <summary class="list-none cursor-pointer m-1">
@@ -99,7 +109,7 @@ const navItems = [
           <div
             class="w-7 bg-black text-white rounded-full text-left justify-center items-center p-1"
           >
-          <UserIcon/>
+            <UserIcon />
           </div>
         </div>
       </summary>
