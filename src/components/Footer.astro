@@ -1,16 +1,15 @@
 ---
-import Logo from '@assets/logo/PXL_20250121_124406946 n4 no shadow.svg';
-import MastadonLogo from '@assets/social/mastodon-svgrepo-com.svg'
-import FriendicaLogo from '@assets/social/friendica-svgrepo-com.svg'
-import PeertubeLogo from '@assets/social/peertube-svgrepo-com.svg'
-import PixelfedLogo from '@assets/social/pixelfed-svgrepo-com.svg'
+import Logo from "@assets/logo/PXL_20250121_124406946 n4 no shadow.svg";
+import socialItems from "@components/SocialItems.ts";
 ---
 
 <footer
   class="footer sm:footer-horizontal text-base-content p-10 place-items-center"
 >
   <aside class="justify-center items-center gap-0 w-full">
-    <div class="w-full text-center"><Logo class="inline p-3 text-base-content" width="4rem" height="auto"/> </div>
+    <div class="w-full text-center">
+      <Logo class="inline p-3 text-base-content" width="4rem" height="auto" />
+    </div>
     <h6 class="footer-title text-center w-full">Curiodough</h6>
     <!-- <p>Providing reliable DeFi since 2026</p> -->
   </aside>
@@ -34,18 +33,25 @@ import PixelfedLogo from '@assets/social/pixelfed-svgrepo-com.svg'
   <nav>
     <!-- <h6 class="footer-title">Social</h6> -->
     <div class="grid grid-flow-col gap-4 max-h-1">
-      <a>
-        <MastadonLogo width={'auto'} height={'2rem'} class="fill-base-content"/>
-      </a>
-      <a>
-        <FriendicaLogo width={'auto'} height={'2rem'} class="fill-base-content"/>
-      </a>
-      <a>
-        <PeertubeLogo width={'auto'} height={'2rem'} class="fill-base-content"/>
-      </a>
-      <a>
-        <PixelfedLogo width={'auto'} height={'2rem'} class="fill-base-content"/>
-      </a>
+      {
+        socialItems.map((socialItem) => (
+          <div class="tooltip" data-tip={socialItem.title}>
+            <a
+              role="button"
+              href={socialItem.url}
+              name={socialItem.name}
+              title={socialItem.title}
+              aria-label={socialItem.title}
+            >
+              <socialItem.icon
+                width={"auto"}
+                height={"2rem"}
+                class="fill-base-content"
+              />
+            </a>
+          </div>
+        ))
+      }
     </div>
   </nav>
 </footer>
