@@ -6,26 +6,32 @@ import Card from "@components/Card.astro";
 import Person from "@components/Person.astro";
 import Grid from "@components/Grid.astro";
 import Accordion from "@components/Accordion.astro";
+import { getCollection } from 'astro:content';
 import {getNavItemFromUrlPath} from "@components/NavItems.ts"
 
+const people = await getCollection("people");
+const pageTitle = 'About';
 const page = getNavItemFromUrlPath(Astro.url.pathname);
 ---
 
 <Layout frontmatter={{ title: page?.title }}>
   <NavPage page={page}>
   
-    <Section>
 
-      <Grid title="Team" class="items-center">     
-          <Person name="John Dos Passos " title="CEO" />
-          <Person name="Olaf Stapledon " title="CTO" />
-          <Person name="Anna Maria Ortese" title="CFO" />
-          <Person name="Dambudzo Marechera" title="Partner" />
-          <Person name="Henry Dumas" title="Partner" />
-          <Person name="Marianne Hauser" title="Partner" />
-      </Grid>
+  <Section>
 
-    </Section>
+    <Grid title="Team" class="items-center">     
+      {people.filter(person => person.data.status!="Inactive").map(person => (
+            
+          <Person key={person.id} id={person.id} image={person.data.image} first_name={person.data.first_name} last_name={person.data.last_name} title={person.data.title} />
+  
+      ))}
+    </Grid>
+
+  </Section>
+
+
+
 
     <Card title="Focus" /> 
 
