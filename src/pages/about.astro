@@ -6,31 +6,20 @@ import Card from "@components/Card.astro";
 import Person from "@components/Person.astro";
 import Grid from "@components/Grid.astro";
 import Accordion from "@components/Accordion.astro";
-<<<<<<< HEAD
-=======
 import { getCollection } from 'astro:content';
->>>>>>> main
 import {getNavItemFromUrlPath} from "@components/NavItems.ts"
 
 const people = await getCollection("people");
 const pageTitle = 'About';
 const page = getNavItemFromUrlPath(Astro.url.pathname);
-<<<<<<< HEAD
-import { getCollection } from 'astro:content';
-const people = await getCollection("people");
-=======
->>>>>>> main
 ---
 
 <Layout frontmatter={{ title: page?.title }}>
   <NavPage page={page}>
   
 
-<<<<<<< HEAD
-=======
   <Section>
 
->>>>>>> main
     <Grid title="Team" class="items-center">     
       {people.filter(person => person.data.status!="Inactive").map(person => (
             
@@ -39,28 +28,7 @@ const people = await getCollection("people");
       ))}
     </Grid>
 
-<<<<<<< HEAD
-    </Section>
-=======
   </Section>
-
-
-
->>>>>>> main
-
-    <Card title="Focus" /> 
-
-      <Card class={["items-end", "text-right"]} title="Expertise">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, quod
-        quae harum dolorem modi dicta est nihil itaque quasi ad optio hic
-        reprehenderit recusandae placeat voluptate aliquam iure id unde.
-      </Card>
-
-      <Card title="Services">
-        <Accordion />
-      </Card>
-
-    </Card>
 
   </NavPage>
 </Layout>
