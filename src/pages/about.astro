@@ -9,6 +9,8 @@ import Accordion from "@components/Accordion.astro";
 import {getNavItemFromUrlPath} from "@components/NavItems.ts"
 
 const page = getNavItemFromUrlPath(Astro.url.pathname);
+import { getCollection } from 'astro:content';
+const people = await getCollection("people");
 ---
 
 <Layout frontmatter={{ title: page?.title }}>
@@ -16,14 +18,13 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
   
     <Section>
 
-      <Grid title="Team" class="items-center">     
-          <Person name="John Dos Passos " title="CEO" />
-          <Person name="Olaf Stapledon " title="CTO" />
-          <Person name="Anna Maria Ortese" title="CFO" />
-          <Person name="Dambudzo Marechera" title="Partner" />
-          <Person name="Henry Dumas" title="Partner" />
-          <Person name="Marianne Hauser" title="Partner" />
-      </Grid>
+    <Grid title="Team" class="items-center">     
+      {people.filter(person => person.data.status!="Inactive").map(person => (
+            
+          <Person key={person.id} id={person.id} image={person.data.image} first_name={person.data.first_name} last_name={person.data.last_name} title={person.data.title} />
+  
+      ))}
+    </Grid>
 
     </Section>
 

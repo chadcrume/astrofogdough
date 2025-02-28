@@ -1,0 +1,18 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getCollection } from 'astro:content';
+const people = await getCollection("people");
+import Grid from "@components/Grid.astro";
+import Person from "@components/Person.astro";
+
+---
+
+<Layout frontmatter={{ title: "People" }}>
+  <Grid title="Team" class="items-center">     
+    {people.filter(person => person.data.status!="Inactive").map(person => (
+          
+        <Person key={person.id} id={person.id} image={person.data.image} first_name={person.data.first_name} last_name={person.data.last_name} title={person.data.title} />
+
+    ))}
+  </Grid>
+</Layout>
