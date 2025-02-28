@@ -13,8 +13,7 @@ const isHomepage = Astro.url.pathname === "/";
 
 <div class="navbar bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-8 border-b border-gray-00">
   <div class="navbar-start">
-    {
-      !isHomepage && (
+
         <div class="dropdown">
           <div
             tabindex="0"
@@ -42,8 +41,6 @@ const isHomepage = Astro.url.pathname === "/";
             ))}
           </ul>
         </div>
-      )
-    }
     {
       !isHomepage && (
         <a href="/" data-astro-prefetch>        
