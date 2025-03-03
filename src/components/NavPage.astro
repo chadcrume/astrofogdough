@@ -4,8 +4,9 @@ interface Props {
   class?: string | undefined;
   id?: string | undefined;
   page?: INavItem | undefined;
+  showTitle?: string | undefined;
 }
-const { class: addClass, id, page }: Props = Astro.props;
+const { class: addClass, id, page, showTitle }: Props = Astro.props;
 ---
 
 <section
@@ -14,6 +15,6 @@ const { class: addClass, id, page }: Props = Astro.props;
 >
 <!-- transition:name={page && page.name || id}
    -->
-<h1 class:list={[page?.name]}>{page?.title}</h1>
+<h1 class:list={[page?.name]}>{showTitle || page?.title}</h1>
   <slot />
 </section>
