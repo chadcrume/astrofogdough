@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from "astro:content";
+interface IPortfolioItem {
+  portfolio: CollectionEntry<"portfolios">;
+  class?: string | string[];
+}
+const { portfolio, class: addClass }: IPortfolioItem =
+  Astro.props as IPortfolioItem;
+---
+
+<a
+  href={`/portfolio/${portfolio.id}`}
+  class="hover:bg-gray-100 p-4 rounded-lg"
+  data-astro-prefetch
+>
+  <div class="avatar self-start">
+    <div class="mask mask-hexagon-2 max-w-24">
+      <img src={portfolio.data.image} transition:name={portfolio.id} />
+    </div>
+  </div>
+  <div>
+    <h6 class="mt-4 mb-2">
+      {portfolio.data.name}
+    </h6>
+    <h7>{portfolio.data.status}</h7>
+  </div>
+</a>

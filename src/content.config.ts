@@ -11,6 +11,7 @@ const portfolios = defineCollection({
         name: z.string(),
         status: z.enum(['Active', 'Inactive']),
         stage: z.optional(z.enum(['First round', 'Second round', 'Exited'])),
+        image: z.string(),
         // type: z.enum(['Space Probe', 'Mars Rover', 'Comet Lander']),
         // launch_date: z.date(),
         // destination: z.string(),

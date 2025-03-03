@@ -1,5 +1,6 @@
 ---
 name: Flogger
 status: Active
+image: /portfolio/flogger1.jpeg
 ---
-This is one portfolio from a *collection **md** page*
+Helping us note our flogs.

@@ -1,5 +1,6 @@
 ---
 name: FogRunner
 status: Active
+image: /portfolio/fogrunner2.jpeg
 ---
-This is one portfolio from a *collection **md** page*
+There's a lot to be said about the humble art deco beginnings of FogRunner...
