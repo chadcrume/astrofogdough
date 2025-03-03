@@ -1,6 +1,10 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import NavPage from "@components/NavPage.astro";
+import Section from "@layouts/Section.astro";
+import Grid from "@components/Grid.astro";
+import PortfolioItem from "@components/PortfolioItem.astro";
+import Card from "@components/Card.astro";
 import { getCollection } from "astro:content";
 import { getNavItemFromUrlPath } from "@components/NavItems.ts";
 
@@ -10,18 +14,23 @@ const portfolios = await getCollection("portfolios");
 ---
 
 <Layout frontmatter={{ title: "Exits" }}>
-  <NavPage page={page}>
-    This is the Exits from a collection
-    <ul>
-      {
-        portfolios
-          .filter((portfolio) => portfolio.data.status == "Inactive")
-          .map((portfolio) => (
-            <li>
-              <a href={`/portfolio/${portfolio.id}`}>{portfolio.data.name}</a>
-            </li>
-          ))
-      }
-    </ul>
+  <NavPage showTitle="Exits" page={page}>
+    <Section>
+      <Grid class="items-center">
+        {
+          portfolios
+            .filter((portfolio) => portfolio.data.status == "Inactive")
+            .map((portfolio) => (
+              <PortfolioItem key={portfolio.id} portfolio={portfolio} />
+            ))
+        }
+      </Grid>
+    </Section>
+
+    <Section>
+      <Card>
+        <p><a href="/portfolio">View active here.</a></p>
+      </Card>
+    </Section>
   </NavPage>
 </Layout>

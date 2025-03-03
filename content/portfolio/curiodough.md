@@ -1,5 +1,6 @@
 ---
 name: CurioDough
 status: Active
+image: /portfolio/curiodough.png
 ---
-This is one portfolio from a *collection **md** page*
+Mmm. Hm.

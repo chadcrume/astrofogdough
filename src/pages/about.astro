@@ -13,14 +13,13 @@ const people = await getCollection("people");
 const pageTitle = 'About';
 const page = getNavItemFromUrlPath(Astro.url.pathname);
 ---
-
 <Layout frontmatter={{ title: page?.title }}>
   <NavPage page={page}>
   
 
   <Section>
 
-    <Grid title="Team" class="items-center">     
+    <Grid title="Team" class="items-center team-grid">     
       {people.filter(person => person.data.status!="Inactive").map(person => (
             
           <Person key={person.id} id={person.id} image={person.data.image} first_name={person.data.first_name} last_name={person.data.last_name} title={person.data.title} />

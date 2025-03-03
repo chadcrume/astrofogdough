@@ -1,17 +1,33 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { render } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
 
 interface Props {
   portfolio: CollectionEntry<"portfolios">;
 }
 
 const { portfolio } = Astro.props;
-const { Content, headings } = await render(portfolio);
+const statusClass =
+  portfolio.data.status == "Active" ? "badge-accent" : "badge-info";
 ---
 
 <div>
-    <h2>{portfolio.data.name}</h2>
-    <div><label>status:</label> {portfolio.data.status}</div>
-    {portfolio.data.stage && <div><label>stage:</label> {portfolio.data.stage}</div>}
+  <div class="badge- avatar indicator self-start">
+    <span class:list={["indicator-item badge", statusClass]}
+      >{portfolio.data.status}</span
+    >
+    <div class="mask mask-hexagon-2 max-w-24">
+      <img src={portfolio.data.image} transition:name={portfolio.id} />
+    </div>
+  </div>
+  <h2 class="mt-7 mb-2">{portfolio.data.name}</h2>
+  <div>
+    {
+      portfolio.data.stage && (
+        <div>
+          <label>stage:</label> {portfolio.data.stage}
+        </div>
+      )
+    }
+  </div>
 </div>

@@ -2,5 +2,6 @@
 name: Barking Squid
 status: Inactive
 stage: Exited
+image: /portfolio/barkingsquid3.jpeg
 ---
-This is one portfolio from a *collection **md** page*
+So exciting
