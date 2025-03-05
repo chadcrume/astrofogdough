@@ -120,6 +120,7 @@ small
   min-height 100vh
   max-width 1600px
   margin 0 auto
+  padding 0 10px
 
 // Sticky header styling
 header
@@ -139,19 +140,22 @@ footer
   padding 20px
   text-align left
 
+header, main, footer
+  padding 0px 28px
+
 // Responsive breakpoints for mobile devices
 @media (max-width: 767px)
   .layout-container
     padding 0 10px
   header, main, footer
-    padding 10px
+    padding 0px 14px
 
 // Responsive breakpoints for tablet devices
 @media (min-width: 768px) and (max-width: 1023px)
   .layout-container
-    padding 0 20px
+    padding 0 10px
   header, main, footer
-    padding 15px
+    padding 0px 28px
 
 
 @css {
@@ -185,4 +189,5 @@ footer
 
 .logo-nav 
   width 30px
+  height 30px
   
