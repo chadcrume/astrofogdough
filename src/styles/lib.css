@@ -53,3 +53,12 @@ h1.portfolio {
 h1.contact {
     @apply text-success
 }
+
+
+.navpage-title>.navpage-link-icon:not(.current-navpage-link) {
+    @apply opacity-100 
+}
+.navpage-title>.navpage-link-icon.current-navpage-link {
+    @apply opacity-0;
+}
+
