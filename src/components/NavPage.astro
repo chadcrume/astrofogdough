@@ -10,11 +10,58 @@ const { class: addClass, id, page, showTitle }: Props = Astro.props;
 ---
 
 <section
-  id={page && page.name || id}
+  id={(page && page.name) || id}
   class:list={["Xcontainer max-w-196 mx-auto px-4 py-8 text-center", addClass]}
 >
-<!-- transition:name={page && page.name || id}
-   -->
-<h1 class:list={[page?.name]}>{showTitle || page?.title}</h1>
+  <h1 class:list={["navpage-title", page?.name]}>
+    <!-- Two versions: one for when page prop is current page, and one for not -->
+    <!-- Both versions have the same element structure: back icon, title, filler -->
+    <!-- But icon and title are linked when page prop is not the current page -->
+    {
+      Astro.url.pathname == page?.route ? (
+        <>
+          <span>
+            <div
+              class:list={[
+                "inline-block w-[0.7em] h-[0.7em] rotate-45",
+                "opacity-0",
+              ]}
+            >
+              {" "}
+            </div>
+            {showTitle || page?.title}
+          </span>
+          <div
+            class:list={[
+              "inline-block w-[0.7em] h-[0.7em] rotate-45",
+              "opacity-0",
+            ]}
+          >
+            {" "}
+          </div>
+        </>
+      ) : (
+        <>
+          <a class:list={["navpage-link", page?.name]} href={page?.route}>
+            <div
+              class:list={[
+                "inline-block w-[0.7em] h-[0.7em] rotate-45",
+                "border-l-2 border-b-2",
+              ]}
+            />
+            {showTitle || page?.title}
+          </a>
+          <div
+            class:list={[
+              "inline-block w-[0.7em] h-[0.7em] rotate-45",
+              "opacity-0",
+            ]}
+          >
+            {" "}
+          </div>
+        </>
+      )
+    }
+  </h1>
   <slot />
 </section>

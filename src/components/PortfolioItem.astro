@@ -1,11 +1,10 @@
 ---
 import type { CollectionEntry } from "astro:content";
-interface IPortfolioItem {
+interface Props {
   portfolio: CollectionEntry<"portfolios">;
   class?: string | string[];
 }
-const { portfolio, class: addClass }: IPortfolioItem =
-  Astro.props as IPortfolioItem;
+const { portfolio, class: addClass } = Astro.props;
 ---
 
 <a
