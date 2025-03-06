@@ -18,13 +18,13 @@ const isHomepage = Astro.url.pathname === "/";
       {
         !isHomepage && (
           <>
-            <div>
+            <div class="mr-2">
               <a href="/" data-astro-prefetch class="whitespace-nowrap">
                 Fogdough
               </a>
             </div>
             <div>
-              <div class="gradient logo-nav ml-2 mr-2" transition:name="logo">
+              <div class="gradient logo-nav ml-1 mr-1" transition:name="logo">
                 <a href="/" data-astro-prefetch class="whitespace-nowrap">
                   <Image src={Logo2} alt="Fogdough logo" />
                 </a>
@@ -38,7 +38,7 @@ const isHomepage = Astro.url.pathname === "/";
           <>
             <div>Fogdough</div>
             <div>
-              <div class="logo-nav ml-2 mr-2">
+              <div class="logo-nav ml-1 mr-1">
                 <Image class=" opacity-0" src={Logo2} alt="Fogdough logo" />
               </div>
             </div>
