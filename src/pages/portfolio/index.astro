@@ -15,7 +15,7 @@ const portfolios = await getCollection("portfolios");
 <Layout frontmatter={{ title: page?.title }}>
   <NavPage page={page}>
     <Section>
-      <Grid title="Active" class="items-center">
+      <Grid title="Active" class="items-left">
         {
           portfolios
             .filter((portfolio) => portfolio.data.status != "Inactive")
@@ -32,7 +32,7 @@ const portfolios = await getCollection("portfolios");
       </Card>
     </Section> -->
     <Section>
-      <Grid title="Exits" class="items-center">
+      <Grid title="Exits" class="items-left">
         {
           portfolios
             .filter((portfolio) => portfolio.data.status == "Inactive")

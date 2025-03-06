@@ -18,6 +18,7 @@
 a.nav {
     @apply bg-transparent border-transparent lg:border-b-2 lg:rounded-b-none p-0 pl-1 pr-2
 }
+
 a.nav:hover {
     @apply border-solid
 }
@@ -39,6 +40,11 @@ a.nav:hover {
 .contact>a.nav:hover,
 .contact>.current-nav-page {
     @apply text-success border-success
+}
+
+.page-section,
+.nav-section {
+    @apply max-w-full mx-auto px-0 py-8 text-left
 }
 
 .btn.about {
@@ -67,9 +73,9 @@ h1.contact {
 
 
 .navpage-title>.navpage-link-icon:not(.current-navpage-link) {
-    @apply opacity-100 
+    @apply opacity-100
 }
+
 .navpage-title>.navpage-link-icon.current-navpage-link {
     @apply opacity-0;
 }
-
