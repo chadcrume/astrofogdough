@@ -23,6 +23,23 @@ const pageTitle = "home";
       On-chain. <br />Permissionless. <br />Finance reprogrammed.
     </h1>
   </div>
+  <h1>Grid test</h1>
+  <div class="grid sm:grid-cols-1 md:grid-cols-[1fr_0.7fr] lg:grid-cols-[1fr_1fr_0.7fr] gap-1">
+    <div>One</div>
+    <div>Two</div>
+    <div>Three</div>
+    <div>Four</div>
+    <div>Five</div>
+    <div class="md:col-span-2">Six</div>
+    <div class="md:col-span-2 lg:col-span-3">Seven</div>
+    <div>Eight</div>
+    <div class="md:col-span-2 lg:col-start-2 grid grid-cols-subgrid">
+      Nine
+      <div>Nine and some</div>
+      <div>Nine and some</div>
+      <div>Nine and some</div>
+    </div>
+  </div>
 
   <Section type="content:1col">
     <div>
@@ -70,5 +87,7 @@ const pageTitle = "home";
   </Section>
 
   <style lang="styl">
-</style></Layout
->
+    .grid div 
+      border 1px solid blue
+  </style>
+</Layout>
