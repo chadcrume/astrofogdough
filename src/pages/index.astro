@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 
 import Logo from "@assets/logo/circle5.svg";
 import Logo2 from "@assets/logo/circle2.svg";
@@ -10,23 +10,22 @@ const pageTitle = "home";
 ---
 
 <Layout>
-    <div
-      class="cta cta-splash my-8 flex flex-col items-center md:flex-row gap-12"
-    >
-      <div>
-        <div class='gradient logo-home' transition:name="logo">
-          <Image style='' src={Logo2} alt="Fogdough logo" />
-        </div>
+  <div
+    class="cta cta-splash my-8 flex flex-col items-center md:flex-row gap-12"
+  >
+    <div>
+      <div class="gradient logo-home" transition:name="logo">
+        <Image src={Logo2} alt="Fogdough logo" />
       </div>
-        
-        <h1 class="text-center md:text-left">
-          On-chain. <br />Permissionless. <br />Finance reprogrammed.
-        </h1> 
-      </div>
-     
+    </div>
+
+    <h1 class="text-center md:text-left">
+      On-chain. <br />Permissionless. <br />Finance reprogrammed.
+    </h1>
+  </div>
 
   <Section type="content:1col">
-    <div class="my-24 max-w-3xl mx-auto rounded-lg border p-8">
+    <div>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
         imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae
