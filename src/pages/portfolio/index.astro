@@ -1,6 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import NavPage from "@components/NavPage.astro";
+import NavPage from "@layouts/NavPage.astro";
 import Section from "@layouts/Section.astro";
 import Grid from "@components/Grid.astro";
 import PortfolioItem from "@components/PortfolioItem.astro";
@@ -14,8 +14,8 @@ const portfolios = await getCollection("portfolios");
 
 <Layout frontmatter={{ title: page?.title }}>
   <NavPage page={page}>
-    <Section>
-      <Grid title="Active" class="items-left">
+    <Section type="full">
+      <Grid title="Active">
         {
           portfolios
             .filter((portfolio) => portfolio.data.status != "Inactive")
@@ -31,8 +31,8 @@ const portfolios = await getCollection("portfolios");
         <p><a href="/portfolio/exits">View exits here.</a></p>
       </Card>
     </Section> -->
-    <Section>
-      <Grid title="Exits" class="items-left">
+    <Section type="full" class="!mt-14" >
+      <Grid title="Exits">
         {
           portfolios
             .filter((portfolio) => portfolio.data.status == "Inactive")

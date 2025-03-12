@@ -1,5 +1,4 @@
 ---
-
 /* 
 props ideas:
 - size
@@ -11,14 +10,39 @@ props ideas:
 interface Props {
   class?: string | undefined;
   id?: string | undefined;
-  type?: string | undefined; // Not used but as an example
+  type?:
+    | "single-unit"
+    | "left"
+    | "middle"
+    | "right"
+    | "big-left"
+    | "big-right"
+    | "full"
+    | undefined; // Not used but as an example
 }
-const { class: addClass, id }: Props = Astro.props;
+const { class: addClass, id, type }: Props = Astro.props;
+
+const getSectionClass = () => {
+  switch (type) {
+    case "single-unit":
+      return "";
+    case "left":
+      return "md:col-start-1";
+    case "middle":
+      return "md:col-start-2";
+    case "right":
+      return "md:col-start-2 lg:col-start-3";
+    case "big-left":
+      return "md:col-span-2 col-start-1";
+    case "big-right":
+      return "md:col-span-2 lg:col-start-2";
+    case "full":
+    default:
+      return "md:col-span-2 lg:col-span-3";
+  }
+};
 ---
 
-<section
-  id={id}
-  class:list={["page-section", addClass]}
->
+<section id={id} class:list={[addClass, "page-section", getSectionClass()]}>
   <slot />
 </section>

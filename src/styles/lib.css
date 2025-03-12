@@ -42,7 +42,10 @@ a.nav:hover {
     @apply text-success border-success
 }
 
-.page-section,
+.page-section {
+    @apply max-w-full m-0 p-0 pr-7 h-full align-middle text-left
+}
+
 .nav-section {
     @apply max-w-full mx-auto px-0 py-8 text-left
 }

@@ -2,7 +2,7 @@
 const { id, image , first_name, last_name, title, class:addClass } = Astro.props;
 ---
 
-<a href={`/people/${id}`} class="hover:bg-gray-100 p-4 rounded-lg" data-astro-prefetch>
+<a href={`/about/people/${id}`} class="hover:bg-gray-100 p-4 rounded-lg" data-astro-prefetch>
   <div class="avatar self-start">
     <div class="mask mask-hexagon max-w-24">
         <img 
