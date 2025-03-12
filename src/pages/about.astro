@@ -8,7 +8,7 @@ import Grid from "@components/Grid.astro";
 import Accordion from "@components/Accordion.astro";
 import { getCollection } from "astro:content";
 import { getNavItemFromUrlPath } from "@components/NavItems.ts";
-import { fade } from 'astro:transitions';
+import { fade } from "astro:transitions";
 
 const people = await getCollection("people");
 const pageTitle = "About";
@@ -80,16 +80,15 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
     <Section type="right">
       <!-- <img class="mask mask-triangle" src="/fractals_generative.jpg" /> -->
       <div
-        class="mask mask-triangle-3 h-full w-full 
-        bg-gradient-to-tl 
-        to-stone-400 
-        via-transparent via-33% 
+        class="mask mask-triangle-3 h-full w-full
+        bg-gradient-to-tl
+        to-stone-400
+        via-transparent via-33%
         from-blue-200"
         transition:name="keeper-1"
         style="background-size: 210% 210%"
       >
       </div>
     </Section>
-  
   </NavPage>
 </Layout>
