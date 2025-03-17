@@ -1,17 +1,13 @@
 ---
-import Logo from "@assets/logo/PXL_20250121_124406946 n4 no shadow.svg";
 import socialItems from "@components/SocialItems.ts";
-import Logo from "@assets/logo/circle5.svg";
 ---
 
 <footer
-  class="footer sm:footer-horizontal text-base-content p-10 place-items-center"
+  class="footer sm:footer-horizontal text-base-content mt-32 mb-18 m p-10 place-items-center"
 >
   <aside class="justify-center items-center gap-0 w-full">
 
-    <div class="w-full text-center"><Logo class="inline p-3 text-base-content" width="4rem" height="auto"/> </div>
-    <h6 class="footer-title text-center w-full">Fogdough</h6>
-    <!-- <p>Providing reliable DeFi since 2026</p> -->
+    <h6 class="xtext-center w-full">Fogdough</h6>
   </aside>
   <form>
     <!-- <h6 class="footer-title">Newsletter</h6> -->
@@ -55,3 +51,15 @@ import Logo from "@assets/logo/circle5.svg";
     </div>
   </nav>
 </footer>
+
+<style lang="styl">
+h6::before 
+    content: ''
+    display: inline-block
+    width: 15px
+    height: 15px
+    border-radius: 7.5px
+    background-color: orange 
+    vertical-align: middle
+    margin-right: 5px
+</style>
