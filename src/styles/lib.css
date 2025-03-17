@@ -7,6 +7,20 @@
     themes: all;
 }
 
+
+/* https://daisyui.com/docs/themes/ */
+@plugin "daisyui/theme" {
+  name: "fogdough";
+  default: true; /* set as default */
+  prefersdark: false; /* set as default dark mode (prefers-color-scheme:dark) */
+  Xcolor-scheme: light; /* color of browser-provided UI */
+
+  --color-primary: #000;
+
+}
+
+
+
 .team-grid>.card-title {
     @apply mb-14
 }
