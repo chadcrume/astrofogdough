@@ -1,6 +1,6 @@
 ---
 name: CurioDough
 status: Active
-image: /portfolio/curiodough.png
+image: /portfolio/curiodough.png 
 ---
 Mmm. Hm.
