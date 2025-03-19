@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 import Logo2 from "@assets/logo/circle2.svg";
 import MenuButton from "@assets/menubutton.svg";
 import UserIcon from "@assets/usericon.svg";
@@ -8,69 +8,128 @@ const currentPath = Astro.url.pathname;
 const currentParentRoute =
   "/" + currentPath.split("/").filter((i) => i && i != "")[0];
 const isHomepage = Astro.url.pathname === "/";
----
 
+---
+<script>
+  const toaster = document.querySelector('.toaster');
+  const toast = document.querySelector('.toast');
+  toaster.addEventListener('click', (event) => {
+    event.preventDefault(); // Prevents default anchor behavior
+    toast.classList.remove('hide');
+    setTimeout(() => {
+      toast.classList.add('hide');
+    }, 2000);
+  });
+</script>
 
 <div class="navbar bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-8 border-b border-gray-00">
   <div class="navbar-start">
+    <div class="flex items-center">
+      {
+        !isHomepage && (
+          <>
+            <div class="mr-2">
+              <a href="/" data-astro-prefetch class="whitespace-nowrap">
+                Fogdough
+              </a>
+            </div>
+            <div>
+              <div class="gradient logo-nav ml-1 mr-1" transition:name="logo">
+                <a href="/" data-astro-prefetch class="whitespace-nowrap">
+                  <Image src={Logo2} alt="Fogdough logo" />
+                </a>
+              </div>
+            </div>
+          </>
+        )
+      }
+      {
+        isHomepage && (
+          <>
+            <div>Fogdough</div>
+            <div>
+              <div class="logo-nav ml-1 mr-1">
+                <Image class=" opacity-0" src={Logo2} alt="Fogdough logo" />
+              </div>
+            </div>
+          </>
+        )
+      }
 
-        <div class="dropdown">
-          <div
-            tabindex="0"
-            role="button"
-            class="btn btn-ghost border-none lg:hidden"
-          >
-            <MenuButton />
-          </div>
-          <ul
-            tabindex="0"
-            class="menu menu-sm dropdown-content rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            {navItems.map((i) => (
-              <li class={i.name}>
+      <div class="dropdown">
+        <div
+          tabindex="0"
+          role="button"
+          class="lg:hidden btn btn-ghost border-none pl-1 pr-1"
+        >
+          <MenuButton />
+        </div>
+        <ul
+          tabindex="0"
+          class="menu menu-sm dropdown-content rounded-xs z-1 mt-3 w-52 p-1 shadow bg-base-300"
+        >
+          {
+            navItems.map((i) => (
+              <li class:list={["p-0", i.name]}>
                 <a
                   href={i.route}
                   aria-current="page"
                   class:list={[
+                    "p-1",
                     currentParentRoute == i.route ? "current-nav-page" : "",
                   ]}
                 >
                   {i.title}
                 </a>
               </li>
-            ))}
-          </ul>
-        </div>
-    {
-      !isHomepage && (
-        <a href="/" data-astro-prefetch>        
-        <div class='gradient logo-nav mr-4' transition:name="logo">
-          <Image style=''src={Logo2} alt="Fogdough logo" />
-        </div>
-        </a>
-      )
-    }
-          Fogdough
-
-  </div>
-      <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
-          {navItems.map((i) => (
-            <li class={i.name}>
-              <a
-                href={i.route}
-                aria-current="page"
-                class:list={[
-                  "nav",
-                  currentParentRoute == i.route ? "current-nav-page" : "",
-                ]}
-              >
-                {i.title}
-              </a>
-            </li>
-          ))}
+            ))
+          }
         </ul>
       </div>
+
+      <div class="hidden lg:flex">
+        <ul class="menu menu-horizontal px-1">
+          {
+            navItems.map((i) => (
+              <li class={i.name}>
+                <a
+                  href={i.route}
+                  aria-current="page"
+                  class:list={[
+                    "nav",
+                    currentParentRoute == i.route ? "current-nav-page" : "",
+                  ]}
+                >
+                  {i.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="navbar-center hidden">
+    <!-- lg:flex -->
+    <ul class="menu menu-horizontal px-1">
+      {
+        navItems.map((i) => (
+          <li class={i.name}>
+            <a
+              href={i.route}
+              aria-current="page"
+              class:list={[
+                "nav",
+                currentParentRoute == i.route ? "current-nav-page" : "",
+              ]}
+            >
+              {i.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
   <div class="navbar-end">
     <details class="dropdown dropdown-end">
       <summary class="list-none cursor-pointer m-1">
@@ -90,7 +149,7 @@ const isHomepage = Astro.url.pathname === "/";
           <div class="w-full block text-left bg-base-400 hover:bg-transparent">
             <div>User Name</div>
             <div class="pt-0 mb-0 mt-0 text-xs bg-none">
-              alice.brown@gmail.com
+              name@company.com
             </div>
           </div>
           <div class="w-full block text-left bg-base-400 hover:bg-transparent">
@@ -111,17 +170,26 @@ const isHomepage = Astro.url.pathname === "/";
           </div>
         </li>
         <li>
-          <div class="w-full block text-left"><a href="#">Dashboard</a></div>
+          <div class="w-full block text-left"><a href="/user-settings">Settings</a></div>
         </li>
         <li>
-          <div class="w-full block text-left"><a href="/user">Settings</a></div>
-        </li>
-        <li>
-          <div class="w-full block text-left"><a href="#">Sign Out</a></div>
+          <div class="w-full block text-left toaster"><a href="#">Sign Out</a></div>
         </li>
       </ul>
     </details>
   </div>
 </div>
 
-<style></style>
+<div class="toast toast-top toast-center hide">
+  <div class="alert alert-info flex items-center justify-between">
+    <span>Signed Out</span>
+  </div>
+</div>
+
+<style>
+.hide {
+  opacity: 0;
+  transition: opacity 1s linear;
+}
+
+</style>

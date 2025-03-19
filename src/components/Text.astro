@@ -1,0 +1,8 @@
+---
+const { class: addClass, align } = Astro.props;
+
+---
+
+<div class:list={[addClass, {'justify-self-end': align === 'right'}, '_text w-[35em]' ]}>
+    <slot />
+</div>

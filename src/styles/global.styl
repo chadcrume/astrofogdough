@@ -53,6 +53,7 @@ For browsers that support clamp  */
 h1, h2, h3, h5, h6
   font-weight bold
   line-height 1.1
+  margin-bottom 1.4rem
 
 
 /* Major 3rd 
@@ -120,6 +121,7 @@ small
   min-height 100vh
   max-width 1600px
   margin 0 auto
+  padding 0 10px
 
 // Sticky header styling
 header
@@ -127,31 +129,32 @@ header
   top 0
   transition padding 0.3s ease, background-color 0.3s ease
   z-index 100
-
+  padding 8px 28px
 
 
 // Main content styling
 main
-  padding 20px
+  padding 0px 28px
 
 // Footer styling that sticks to the bottom
 footer
   text-align left
   background #f8f9fa
+  padding 0px 28px
 
 // Responsive breakpoints for mobile devices
 @media (max-width: 767px)
   .layout-container
     padding 0 10px
   header, main, footer
-    padding 10px
+    padding 0px 14px
 
 // Responsive breakpoints for tablet devices
 @media (min-width: 768px) and (max-width: 1023px)
   .layout-container
-    padding 0 20px
+    padding 0 10px
   header, main, footer
-    padding 15px
+    padding 0px 28px
 
 
 @css {
@@ -165,6 +168,9 @@ footer
   background-size: 400% 400%;
   height: 100%;
   width: 100%;
+  mask:url(/logo/circle.svg#circle); 
+  mask-size: contain;
+  mask-position: left;
 }
 
 @keyframes gradient {
@@ -185,4 +191,3 @@ footer
 
 .logo-nav 
   width 30px
-  

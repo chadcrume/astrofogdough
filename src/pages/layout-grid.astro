@@ -1,0 +1,200 @@
+---
+import { Image } from "astro:assets";
+
+import Logo from "@assets/logo/circle5.svg";
+import Logo2 from "@assets/logo/circle0.svg";
+import Layout from "@layouts/Layout.astro";
+import Section from "@layouts/Section.astro";
+import Card from "@components/Card.astro";
+import navItems from "@components/NavItems.ts";
+const pageTitle = "home";
+---
+
+<Layout>
+  <Section><h1>Grid test</h1></Section>
+  <div class="example">One</div>
+  <div class="example">Two</div>
+  <div class="example">Three</div>
+  <div class="example">Four</div>
+  <div class="example">Five</div>
+  <div class="example md:col-span-2">Six</div>
+  <div class="example md:col-span-2 lg:col-span-3">Seven</div>
+  <div class="example">Eight</div>
+  <div class="example md:col-span-2 lg:col-start-2 grid grid-cols-subgrid">
+    Nine
+    <div class="example">Nine and some</div>
+    <div class="example">Nine and some</div>
+    <div class="example">Nine and some</div>
+  </div>
+
+  <Section type="big-right">
+    <h2>Section type=big-right</h2>
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+        imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae
+        scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec
+        congue eget, auctor vitae massa. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante
+        dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis
+        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper
+        porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
+      </p>
+      <p>
+        Curabitur sit amet mauris morbi in dui quis est pulvinar ullamcorper.
+        Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed
+        aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis,
+        venenatis tristique, dignissim in.
+      </p>
+    </div>
+    <Card
+      title="Card"
+      class="bg-[#333] text-neutral-content mx-auto items-center text-center"
+    >
+      <p>
+        Curabitur sit amet mauris morbi in dui quis est pulvinar ullamcorper.
+        Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed
+        aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis,
+        venenatis tristique, dignissim in.
+      </p>
+    </Card>
+  </Section>
+  <Section type="big-left">
+    <h2>Section type=big-left</h2>
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+        imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae
+        scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec
+        congue eget, auctor vitae massa. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante
+        dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis
+        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper
+        porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
+      </p>
+      <p>
+        Curabitur sit amet mauris morbi in dui quis est pulvinar ullamcorper.
+        Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed
+        aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis,
+        venenatis tristique, dignissim in.
+      </p>
+    </div>
+    <Card
+      title="Card"
+      class="bg-[#333] text-neutral-content md:w-160 mx-auto items-center text-center"
+    >
+    <p>
+      Curabitur sit amet mauris morbi in dui quis est pulvinar ullamcorper.
+      Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed
+      aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis,
+      venenatis tristique, dignissim in.
+    </p>
+</Card>
+  </Section>
+
+  <Section type="full">
+    <hr class="example"/>
+  </Section>
+
+  <Section type="left">
+    <h1>Section type=left</h1>
+    <p>default</p>
+  </Section>
+  <Section type="middle">
+    <h2>Section type=middle</h2>
+    <p>default</p>
+  </Section>
+  <Section type="right">
+    <h3>Section type=right</h3>
+    <p>default</p>
+  </Section>
+  <Section type="left">
+    <div class="flex flex-col h-full justify-center">
+      <h3>Section type=left</h3>
+      <p>flex justify-center</p>
+    </div>
+  </Section>
+  <Section type="middle">
+    <div class="flex flex-col h-full justify-center">
+      <h2>Section type=middle</h2>
+      <p>flex justify-center</p>
+    </div>
+  </Section>
+  <Section type="right">
+    <div class="flex flex-col h-full justify-center">
+      <h3>Section type=right</h3>
+      <p>flex justify-center</p>
+    </div>
+  </Section>
+  <Section type="left">
+    <div class="flex flex-col h-full justify-end">
+      <h3>Section type=left</h3>
+      <p>flex justify-end</p>
+    </div>
+  </Section>
+  <Section type="middle">
+    <div class="flex flex-col h-full justify-end">
+      <h2>Section type=middle</h2>
+      <p>flex justify-end</p>
+    </div>
+  </Section>
+  <Section type="right">
+    <div class="flex flex-col h-full justify-end">
+      <h1>Section type=right</h1>
+      <p>flex justify-end</p>
+    </div>
+  </Section>
+
+  <Section type="full">
+    <hr class="example"/>
+  </Section>
+
+  <Section type="full">
+    <h2>Section type=full</h2>
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+        imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae
+        scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec
+        congue eget, auctor vitae massa. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante
+        dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis
+        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper
+        porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
+      </p>
+      <p>
+        Curabitur sit amet mauris morbi in dui quis est pulvinar ullamcorper.
+        Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed
+        aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis,
+        venenatis tristique, dignissim in.
+      </p>
+    </div>
+    <!-- <Section type="card"> -->
+    <Card
+      title="Card"
+      class="bg-[#333] text-neutral-content md:w-160 mx-auto items-center text-center"
+    >
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+      imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae
+      scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices
+      nec congue eget, auctor vitae massa. Lorem ipsum dolor sit amet,
+      consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed
+      cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum
+      imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed
+      augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
+    </p>
+    <p>
+      Curabitur sit amet mauris morbi in dui quis est pulvinar ullamcorper.
+      Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed
+      aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis,
+      venenatis tristique, dignissim in.
+    </p>
+</Card>
+  </Section>
+
+  <style lang="styl">
+    .example
+      border 1px solid blue
+  </style>
+</Layout>
