@@ -15,19 +15,39 @@
     @apply lg:border-b-gray-300 lg:border-b-2 lg:rounded-b-none
 }
 
+a.nav {
+    @apply bg-transparent border-transparent lg:border-b-2 lg:rounded-b-none p-0 pl-1 pr-2
+}
+
+a.nav:hover {
+    @apply border-solid
+}
+
 .about>a.nav:hover,
 .about>.current-nav-page {
-    @apply text-primary border-primary bg-transparent lg:border-b-2 lg:rounded-b-none
+    @apply text-primary border-primary
 }
+
+/* li.portfolio {
+    background-color: lch(from #ff0000 l c h);
+} */
 
 .portfolio>a.nav:hover,
 .portfolio>.current-nav-page {
-    @apply text-secondary border-secondary bg-transparent lg:border-b-2 lg:rounded-b-none
+    @apply text-secondary border-secondary
 }
 
 .contact>a.nav:hover,
 .contact>.current-nav-page {
-    @apply text-success border-success bg-transparent lg:border-b-2 lg:rounded-b-none
+    @apply text-success border-success
+}
+
+.page-section {
+    @apply max-w-full m-0 p-0 pr-7 h-full align-middle text-left
+}
+
+.nav-section {
+    @apply max-w-full mx-auto px-0 py-8 text-left
 }
 
 .btn.about {
@@ -52,4 +72,13 @@ h1.portfolio {
 
 h1.contact {
     @apply text-success
+}
+
+
+.navpage-title>.navpage-link-icon:not(.current-navpage-link) {
+    @apply opacity-100
+}
+
+.navpage-title>.navpage-link-icon.current-navpage-link {
+    @apply opacity-0;
 }

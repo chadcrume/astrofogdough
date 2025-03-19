@@ -2,9 +2,9 @@
 const { title, content, class: addClass, icon } = Astro.props;
 ---
 
-<div class="card bg-base-100 max-w-196 shadow-xl my-8 mx-auto">
-  <div class:list={["card-body", addClass]}>
-    {title && <h2 class="card-title">{title}</h2>}
+<div class:list={[addClass, "card shadow-xl m-0 py-14 rounded-1xl"]}>
+  {title && <h2 class="card-title">{title}</h2>}
+  <div class:list={["card-body w-full h-full"]}>
     <slot>
       <p>This is my fallback content, if there is no child passed into slot</p>
     </slot>
