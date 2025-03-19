@@ -1,0 +1,46 @@
+---
+import Layout from "@layouts/Layout.astro";
+import NavPage from "@layouts/NavPage.astro";
+import Section from "@layouts/Section.astro";
+import { getCollection, render } from "astro:content";
+import { getNavItemFromUrlPath } from "@components/NavItems.ts";
+
+const page = getNavItemFromUrlPath(Astro.url.pathname);
+
+// 1. Generate a new path for every collection entry
+export async function getStaticPaths() {
+  const people = await getCollection("people");
+  return people.map((person) => ({
+    params: { id: person.id },
+    props: { person },
+  }));
+}
+// 2. For your template, you can get the entry directly from the prop
+const { person } = Astro.props;
+const { Content } = await render(person);
+---
+
+<Layout>
+  <NavPage page={page}>
+    <Section type="full">
+      <div
+        class="flex-col justify-items-center md:flex-row md:justify-items-start flex"
+      >
+        <div class="avatar self-start">
+          <div class="mask mask-hexagon w-96">
+            <img
+              src={person.data.image}
+              alt={person.data.title}
+              transition:name={person.id}
+            />
+          </div>
+        </div>
+        <div class="ml-6 mr-48 mt-24">
+          <h1>{person.data.first_name} {person.data.last_name}</h1>
+          <h2 class="person_title">{person.data.title}</h2>
+          <Content />
+        </div>
+      </div>
+    </Section>
+  </NavPage>
+</Layout>
