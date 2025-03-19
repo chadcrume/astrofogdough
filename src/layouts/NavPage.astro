@@ -7,15 +7,20 @@ interface Props {
   showTitle?: string | undefined;
 }
 const { class: addClass, id, page, showTitle }: Props = Astro.props;
+
+const currentRouteIsNavPage = Astro.url.pathname == page?.route + "/";
 ---
 
-<section id={(page && page.name) || id} class:list={["grid grid-cols-subgrid col-span-full nav-section", addClass]}>
+<section
+  id={(page && page.name) || id}
+  class:list={["grid grid-cols-subgrid col-span-full nav-section", addClass]}
+>
   <h1 class:list={["navpage-title col-span-full", page?.name]}>
     <!-- Two versions: one for when page prop is current page, and one for not -->
     <!-- Both versions have the same element structure: back icon, title, filler -->
     <!-- But icon and title are linked when page prop is not the current page -->
     {
-      Astro.url.pathname == page?.route ? (
+      currentRouteIsNavPage ? (
         <>
           <span>
             {showTitle || page?.title}
