@@ -8,11 +8,21 @@ const currentPath = Astro.url.pathname;
 const currentParentRoute =
   "/" + currentPath.split("/").filter((i) => i && i != "")[0];
 const isHomepage = Astro.url.pathname === "/";
----
 
-<div
-  class="navbar bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-0 border-b border-gray-00"
->
+---
+<script>
+  const toaster = document.querySelector('.toaster');
+  const toast = document.querySelector('.toast');
+  toaster.addEventListener('click', (event) => {
+    event.preventDefault(); // Prevents default anchor behavior
+    toast.classList.remove('hide');
+    setTimeout(() => {
+      toast.classList.add('hide');
+    }, 2000);
+  });
+</script>
+
+<div class="navbar bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-8 border-b border-gray-00">
   <div class="navbar-start">
     <div class="flex items-center">
       {
@@ -139,7 +149,7 @@ const isHomepage = Astro.url.pathname === "/";
           <div class="w-full block text-left bg-base-400 hover:bg-transparent">
             <div>User Name</div>
             <div class="pt-0 mb-0 mt-0 text-xs bg-none">
-              alice.brown@gmail.com
+              name@company.com
             </div>
           </div>
           <div class="w-full block text-left bg-base-400 hover:bg-transparent">
@@ -160,17 +170,26 @@ const isHomepage = Astro.url.pathname === "/";
           </div>
         </li>
         <li>
-          <div class="w-full block text-left"><a href="#">Dashboard</a></div>
+          <div class="w-full block text-left"><a href="/user-settings">Settings</a></div>
         </li>
         <li>
-          <div class="w-full block text-left"><a href="/user">Settings</a></div>
-        </li>
-        <li>
-          <div class="w-full block text-left"><a href="#">Sign Out</a></div>
+          <div class="w-full block text-left toaster"><a href="#">Sign Out</a></div>
         </li>
       </ul>
     </details>
   </div>
 </div>
 
-<style></style>
+<div class="toast toast-top toast-center hide">
+  <div class="alert alert-info flex items-center justify-between">
+    <span>Signed Out</span>
+  </div>
+</div>
+
+<style>
+.hide {
+  opacity: 0;
+  transition: opacity 1s linear;
+}
+
+</style>
