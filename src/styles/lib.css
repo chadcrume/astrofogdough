@@ -10,16 +10,41 @@
 
 /* https://daisyui.com/docs/themes/ */
 @plugin "daisyui/theme" {
-  name: "fogdough";
-  default: true; /* set as default */
-  prefersdark: false; /* set as default dark mode (prefers-color-scheme:dark) */
-  Xcolor-scheme: light; /* color of browser-provided UI */
+    name: "fogdough";
+    default: true;
+    /* set as default */
+    prefersdark: false;
+    /* set as default dark mode (prefers-color-scheme:dark) */
+    Xcolor-scheme: light;
+    /* color of browser-provided UI */
 
-  --color-primary: #000;
+    --color-primary: #000;
 
 }
 
+._text,
+._text p,
+._text div {
+    /* 
+        Following method described here:
+        https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
+        Using cqw instead of vw for widths. From tailwind…
+        @md = 28rem, best font size = 0.75rem
+        @lg = 32rem, best font size = 0.87rem
 
+        slope = (maxFontSize - minFontSize) / (maxWidth - minWidth)
+            = (0.87 - 0.75) / (32 - 28) = 0.03
+        yAxisIntersection = -minWidth * slope + minFontSize
+            = -28 * 0.03 + 0.75 = -0.09
+        preferredValue = yAxisIntersection[rem] + (slope * 100)[cqw]
+            = -0.09rem + (0.03 * 100)vw = -0.09rem + 3cqw
+        
+        For the clamp I'm using our min/max font sizes for 
+        all cqw rather than just for that @md-@lg range
+    */
+    font-size: clamp(0.75rem, -0.09rem + 3cqw, 5rem);
+    @apply w-full
+}
 
 .team-grid>.card-title {
     @apply mb-14
