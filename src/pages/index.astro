@@ -11,13 +11,16 @@ const pageTitle = "home";
 ---
 
 <Layout>
-  <div class="gap-0 w-auto h-auto m-0 p-0 py-20 text-left items-start">
+  <div
+    class="col-span-1 gap-0 w-full h-auto m-0 p-0 pt-5 md:pr-5 md:py-10
+  text-center lg:text-left justify-items-center"
+  >
     <div
-      class="gradient logo-home m-0 w-fit h-auto text-left"
+      class="gradient logo-home m-0 w-fit"
       transition:name="logo"
     >
       <Image
-        class="m-0 w-fit h-auto text-left"
+        class="m-0 w-[30vw] md:w-full  h-full text-center lg:text-left items-center lg:items-start"
         src={Logo2}
         alt="Fogdough logo"
       />
@@ -27,7 +30,7 @@ const pageTitle = "home";
   <div
     class="md:col-span-1 lg:col-span-2 h-auto align-middle flex items-center p-0 gap-0"
   >
-    <h1 class="text-center md:text-left align-middle m-0">
+    <h1 class="text-center md:text-left align-middle m-0 w-full">
       On-chain. <br />Permissionless. <br />Finance reprogrammed.
     </h1>
   </div>
@@ -53,7 +56,7 @@ const pageTitle = "home";
       </p>
     </Text>
   </Section>
-  <Section type="right">
+  <Section type="right" class="opacity-0 lg:opacity-100">
     <div
       class="mask mask-square h-full w-full
       bg-gradient-to-tl
