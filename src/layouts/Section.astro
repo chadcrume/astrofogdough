@@ -11,6 +11,9 @@ interface Props {
   class?: string | undefined;
   id?: string | undefined;
   type?:
+    | "subgrid"
+    | "subgrid-left"
+    | "subgrid-right"
     | "single-unit"
     | "left"
     | "middle"
@@ -24,6 +27,12 @@ const { class: addClass, id, type }: Props = Astro.props;
 
 const getSectionClass = () => {
   switch (type) {
+    case "subgrid":
+      return "grid grid-cols-subgrid col-span-full";
+    case "subgrid-left":
+      return "grid grid-cols-subgrid md:col-span-2 col-start-1";
+    case "subgrid-right":
+      return "grid grid-cols-subgrid md:col-span-2 md:col-start-2";
     case "single-unit":
       return "";
     case "left":
@@ -43,6 +52,9 @@ const getSectionClass = () => {
 };
 ---
 
-<section id={id} class:list={[addClass, "page-section", getSectionClass()]}>
+<section
+  id={id}
+  class={[addClass, "page-section", getSectionClass()].join(" ")}
+>
   <slot />
 </section>

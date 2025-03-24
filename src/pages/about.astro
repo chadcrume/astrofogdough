@@ -17,7 +17,7 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
 
 <Layout frontmatter={{ title: page?.title }}>
   <NavPage page={page}>
-    <Section type="big-left" class="w-full col-start-1">
+    <Section type="subgrid-left" class="col-span-2">
       <Grid title="Team" class="text-left team-grid">
         {
           people
