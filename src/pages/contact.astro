@@ -2,7 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import NavPage from "@layouts/NavPage.astro";
 import { getNavItemFromUrlPath } from "@components/NavItems.ts";
-import Section from "@layouts/Section.astro";
+import LayoutSection from "@layouts/LayoutSection.astro";
 import Card from "@components/Card.astro";
 
 const page = getNavItemFromUrlPath(Astro.url.pathname);
@@ -10,7 +10,7 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
 
 <Layout frontmatter={{ title: page?.title }}>
   <NavPage page={page}>
-    <Section type="subgrid">
+    <LayoutSection type="subgrid">
       <p class="col-span-full">How can we partner with you?</p>
       <form class="grid grid-cols-subgrid col-span-full md:col-span-2">
         <div class="text-center w-full pr-2">
@@ -83,6 +83,6 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
           >
         </div>
       </form>
-    </Section>
+    </LayoutSection>
   </NavPage>
 </Layout>

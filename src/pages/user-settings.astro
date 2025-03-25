@@ -1,13 +1,13 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Section from "@layouts/Section.astro";
+import LayoutSection from "@layouts/LayoutSection.astro";
 import Card from "@components/Card.astro";
 import Accordion from "@components/Accordion.astro";
 const pageTitle = "About";
 ---
 
 <Layout frontmatter={{ title: pageTitle }}>
-  <Section addClass="border">
+  <LayoutSection addClass="border">
       <h2 class="text-left mb-8">Themes</h2>
       <fieldset class="fieldset">
         <!-- <legend class="fieldset-legend">Themes</legend> -->
@@ -25,5 +25,5 @@ const pageTitle = "About";
           <option value="synthwave">Synthwave</option>
         </select>
       </fieldset>
-    </Section>
+    </LayoutSection>
 </Layout>

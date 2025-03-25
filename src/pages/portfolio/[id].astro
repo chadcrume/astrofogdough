@@ -4,7 +4,7 @@ import { getCollection, render } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import { getNavItemFromUrlPath } from "@components/NavItems.ts";
 import NavPage from "@layouts/NavPage.astro";
-import Section from "@layouts/Section.astro";
+import LayoutSection from "@layouts/LayoutSection.astro";
 import Card from "@components/Card.astro";
 import PortfolioHeader from "@components/PortfolioHeader.astro";
 
@@ -29,13 +29,13 @@ const { Content } = await render(portfolio);
 
 <Layout>
   <NavPage page={page}>
-    <Section type="full">
+    <LayoutSection type="full">
       <Card>
         <PortfolioHeader portfolio={portfolio} />
         <div class="mt-14">
           <Content />
         </div>
       </Card>
-      </Section>
+      </LayoutSection>
   </NavPage>
 </Layout>
