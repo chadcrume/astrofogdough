@@ -17,7 +17,10 @@ interface Props {
     | "single-unit"
     | "left"
     | "middle"
+    | "middle-left"
     | "right"
+    | "med-left"
+    | "med-right"
     | "big-left"
     | "big-right"
     | "full"
@@ -36,18 +39,24 @@ const getSectionClass = () => {
     case "single-unit":
       return "";
     case "left":
-      return "md:col-start-1";
+      return "col-start-1";
     case "middle":
       return "md:col-start-2";
+    case "middle-left":
+      return "lg:col-start-2";
     case "right":
       return "md:col-start-2 lg:col-start-3";
+    case "med-left":
+      return "col-start-1 md:col-span-2 lg:col-span-1";
+    case "med-right":
+      return "col-start-1 md:col-span-2 lg:col-span-1 lg:col-start-3";
     case "big-left":
       return "md:col-span-2 col-start-1";
     case "big-right":
       return "md:col-span-2 lg:col-start-2";
     case "full":
     default:
-      return "md:col-span-2 lg:col-span-3";
+      return "md:col-span-2 lg:col-span-3 col-start-1";
   }
 };
 ---
