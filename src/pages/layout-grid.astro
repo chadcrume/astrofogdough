@@ -4,14 +4,14 @@ import { Image } from "astro:assets";
 import Logo from "@assets/logo/circle5.svg";
 import Logo2 from "@assets/logo/circle0.svg";
 import Layout from "@layouts/Layout.astro";
-import Section from "@layouts/Section.astro";
+import LayoutSection from "@layouts/LayoutSection.astro";
 import Card from "@components/Card.astro";
 import navItems from "@components/NavItems.ts";
 const pageTitle = "home";
 ---
 
 <Layout>
-  <Section><h1>Grid test</h1></Section>
+  <LayoutSection><h1>Grid test</h1></LayoutSection>
   <div class="example">One</div>
   <div class="example">Two</div>
   <div class="example">Three</div>
@@ -27,8 +27,8 @@ const pageTitle = "home";
     <div class="example">Nine and some</div>
   </div>
 
-  <Section type="big-right">
-    <h2>Section type=big-right</h2>
+  <LayoutSection type="big-right">
+    <h2>LayoutSection type=big-right</h2>
     <div>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
@@ -58,9 +58,9 @@ const pageTitle = "home";
         venenatis tristique, dignissim in.
       </p>
     </Card>
-  </Section>
-  <Section type="big-left">
-    <h2>Section type=big-left</h2>
+  </LayoutSection>
+  <LayoutSection type="big-left">
+    <h2>LayoutSection type=big-left</h2>
     <div>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
@@ -90,67 +90,67 @@ const pageTitle = "home";
       venenatis tristique, dignissim in.
     </p>
 </Card>
-  </Section>
+  </LayoutSection>
 
-  <Section type="full">
+  <LayoutSection type="full">
     <hr class="example"/>
-  </Section>
+  </LayoutSection>
 
-  <Section type="left">
-    <h1>Section type=left</h1>
+  <LayoutSection type="left">
+    <h1>LayoutSection type=left</h1>
     <p>default</p>
-  </Section>
-  <Section type="middle">
-    <h2>Section type=middle</h2>
+  </LayoutSection>
+  <LayoutSection type="middle">
+    <h2>LayoutSection type=middle</h2>
     <p>default</p>
-  </Section>
-  <Section type="right">
-    <h3>Section type=right</h3>
+  </LayoutSection>
+  <LayoutSection type="right">
+    <h3>LayoutSection type=right</h3>
     <p>default</p>
-  </Section>
-  <Section type="left">
+  </LayoutSection>
+  <LayoutSection type="left">
     <div class="flex flex-col h-full justify-center">
-      <h3>Section type=left</h3>
+      <h3>LayoutSection type=left</h3>
       <p>flex justify-center</p>
     </div>
-  </Section>
-  <Section type="middle">
+  </LayoutSection>
+  <LayoutSection type="middle">
     <div class="flex flex-col h-full justify-center">
-      <h2>Section type=middle</h2>
+      <h2>LayoutSection type=middle</h2>
       <p>flex justify-center</p>
     </div>
-  </Section>
-  <Section type="right">
+  </LayoutSection>
+  <LayoutSection type="right">
     <div class="flex flex-col h-full justify-center">
-      <h3>Section type=right</h3>
+      <h3>LayoutSection type=right</h3>
       <p>flex justify-center</p>
     </div>
-  </Section>
-  <Section type="left">
+  </LayoutSection>
+  <LayoutSection type="left">
     <div class="flex flex-col h-full justify-end">
-      <h3>Section type=left</h3>
+      <h3>LayoutSection type=left</h3>
       <p>flex justify-end</p>
     </div>
-  </Section>
-  <Section type="middle">
+  </LayoutSection>
+  <LayoutSection type="middle">
     <div class="flex flex-col h-full justify-end">
-      <h2>Section type=middle</h2>
+      <h2>LayoutSection type=middle</h2>
       <p>flex justify-end</p>
     </div>
-  </Section>
-  <Section type="right">
+  </LayoutSection>
+  <LayoutSection type="right">
     <div class="flex flex-col h-full justify-end">
-      <h1>Section type=right</h1>
+      <h1>LayoutSection type=right</h1>
       <p>flex justify-end</p>
     </div>
-  </Section>
+  </LayoutSection>
 
-  <Section type="full">
+  <LayoutSection type="full">
     <hr class="example"/>
-  </Section>
+  </LayoutSection>
 
-  <Section type="full">
-    <h2>Section type=full</h2>
+  <LayoutSection type="full">
+    <h2>LayoutSection type=full</h2>
     <div>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
@@ -169,7 +169,7 @@ const pageTitle = "home";
         venenatis tristique, dignissim in.
       </p>
     </div>
-    <!-- <Section type="card"> -->
+    <!-- <LayoutSection type="card"> -->
     <Card
       title="Card"
       class="bg-[#333] text-neutral-content md:w-160 mx-auto items-center text-center"
@@ -191,7 +191,7 @@ const pageTitle = "home";
       venenatis tristique, dignissim in.
     </p>
 </Card>
-  </Section>
+  </LayoutSection>
 
   <style lang="styl">
     .example

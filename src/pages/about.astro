@@ -1,7 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import NavPage from "@layouts/NavPage.astro";
-import Section from "@layouts/Section.astro";
+import LayoutSection from "@layouts/LayoutSection.astro";
 import Card from "@components/Card.astro";
 import Person from "@components/Person.astro";
 import Grid from "@components/Grid.astro";
@@ -17,7 +17,7 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
 
 <Layout frontmatter={{ title: page?.title }}>
   <NavPage page={page}>
-    <Section type="big-left" class="w-full col-start-1">
+    <LayoutSection type="subgrid-left" class="col-span-2">
       <Grid title="Team" class="text-left team-grid">
         {
           people
@@ -34,15 +34,15 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
             ))
         }
       </Grid>
-    </Section>
+    </LayoutSection>
 
-    <Section type="right" class="">
+    <LayoutSection type="med-right">
       <Card title="Services">
         <Accordion />
       </Card>
-    </Section>
+    </LayoutSection>
 
-    <Section type="left" class:list={["items-end", "text-right"]}>
+    <LayoutSection type="med-left" class:list={["items-end", "text-right"]}>
       <h2>Focus</h2>
       <p>
         Curabitur sit amet mauris morbi in dui quis est pulvinar ullamcorper.
@@ -60,9 +60,9 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
         sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper
         porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
       </p>
-    </Section>
+    </LayoutSection>
 
-    <Section type="middle">
+    <LayoutSection type="middle-left">
       <div class="flex flex-col h-full justify-center">
         <h2>Expertise</h2>
         <p>
@@ -76,8 +76,8 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
           augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
         </p>
       </div>
-    </Section>
-    <Section type="right">
+    </LayoutSection>
+    <LayoutSection type="right">
       <!-- <img class="mask mask-triangle" src="/fractals_generative.jpg" /> -->
       <div
         class="mask mask-triangle-3 h-full w-full
@@ -89,6 +89,6 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
         style="background-size: 210% 210%"
       >
       </div>
-    </Section>
+    </LayoutSection>
   </NavPage>
 </Layout>

@@ -1,6 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Section from "@layouts/Section.astro";
+import LayoutSection from "@layouts/LayoutSection.astro";
 import { getCollection } from "astro:content";
 const people = await getCollection("people");
 import Grid from "@components/Grid.astro";
@@ -8,7 +8,7 @@ import Person from "@components/Person.astro";
 ---
 
 <Layout frontmatter={{ title: "People" }}>
-  <Section type="full">
+  <LayoutSection type="full">
     <Grid title="Team" class="items-center">
       {
         people
@@ -25,5 +25,5 @@ import Person from "@components/Person.astro";
           ))
       }
     </Grid>
-  </Section>
+  </LayoutSection>
 </Layout>

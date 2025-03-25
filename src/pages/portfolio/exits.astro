@@ -1,7 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import NavPage from "@layouts/NavPage.astro";
-import Section from "@layouts/Section.astro";
+import LayoutSection from "@layouts/LayoutSection.astro";
 import Grid from "@components/Grid.astro";
 import PortfolioItem from "@components/PortfolioItem.astro";
 import Card from "@components/Card.astro";
@@ -15,7 +15,7 @@ const portfolios = await getCollection("portfolios");
 
 <Layout frontmatter={{ title: "Exits" }}>
   <NavPage showTitle="Exits" page={page}>
-    <Section>
+    <LayoutSection>
       <Grid class="items-center">
         {
           portfolios
@@ -25,12 +25,12 @@ const portfolios = await getCollection("portfolios");
             ))
         }
       </Grid>
-    </Section>
+    </LayoutSection>
 
-    <Section>
+    <LayoutSection>
       <Card>
         <p><a href="/portfolio">View active here.</a></p>
       </Card>
-    </Section>
+    </LayoutSection>
   </NavPage>
 </Layout>

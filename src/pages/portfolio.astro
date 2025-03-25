@@ -1,7 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import NavPage from "@layouts/NavPage.astro";
-import Section from "@layouts/Section.astro";
+import LayoutSection from "@layouts/LayoutSection.astro";
 import Grid from "@components/Grid.astro";
 import PortfolioItem from "@components/PortfolioItem.astro";
 import { getCollection } from "astro:content";
@@ -14,7 +14,7 @@ const portfolios = await getCollection("portfolios");
 
 <Layout frontmatter={{ title: page?.title }}>
   <NavPage page={page}>
-    <Section type="full">
+    <LayoutSection type="subgrid">
       <Grid title="Active">
         {
           portfolios
@@ -24,14 +24,14 @@ const portfolios = await getCollection("portfolios");
             ))
         }
       </Grid>
-    </Section>
+    </LayoutSection>
 
-    <!-- <Section>
+    <!-- <LayoutSection>
       <Card>
         <p><a href="/portfolio/exits">View exits here.</a></p>
       </Card>
-    </Section> -->
-    <Section type="full" class="!mt-14" >
+    </LayoutSection> -->
+    <LayoutSection type="full" class="!mt-14" >
       <Grid title="Exits">
         {
           portfolios
@@ -41,6 +41,6 @@ const portfolios = await getCollection("portfolios");
             ))
         }
       </Grid>
-    </Section>
+    </LayoutSection>
   </NavPage>
 </Layout>

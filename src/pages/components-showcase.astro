@@ -1,7 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Nav from "@components/Nav.astro";
-import Section from "@layouts/Section.astro";
+import LayoutSection from "@layouts/LayoutSection.astro";
 
 const pageTitle = "Components Showcase";
 ---
@@ -15,9 +15,9 @@ const pageTitle = "Components Showcase";
     </div>
   </div>
   <div class="component-entry">
-    <h2>The <b>Section</b> component</h2>
+    <h2>The <b>LayoutSection</b> component</h2>
     <div class="example">
-      <Section><div style="color:white">section takes a slot of whatever children</div></Section>
+      <LayoutSection><div style="color:white">section takes a slot of whatever children</div></LayoutSection>
     </div>
   </div>
 </Layout>

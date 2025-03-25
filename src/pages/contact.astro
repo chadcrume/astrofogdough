@@ -2,7 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import NavPage from "@layouts/NavPage.astro";
 import { getNavItemFromUrlPath } from "@components/NavItems.ts";
-import Section from "@layouts/Section.astro";
+import LayoutSection from "@layouts/LayoutSection.astro";
 import Card from "@components/Card.astro";
 
 const page = getNavItemFromUrlPath(Astro.url.pathname);
@@ -10,48 +10,79 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
 
 <Layout frontmatter={{ title: page?.title }}>
   <NavPage page={page}>
-    <Section>
-      <p>How can we partner with you?</p>
-      <form>
-        <fieldset class="fieldset">
-          <!-- <legend class="fieldset-legend">Your name</legend> -->
+    <LayoutSection type="subgrid">
+      <p class="col-span-full">How can we partner with you?</p>
+      <form class="grid grid-cols-subgrid col-span-full md:col-span-2">
+        <div class="text-center w-full pr-2">
+          <div class="justify-center">
+            <fieldset class="fieldset w-full">
+              <!-- <legend class="fieldset-legend">Your name</legend> -->
 
-          <label class="fieldset-label">Your name</label>
-          <input
-            type="text"
-            class="input validator"
-            placeholder="Type here"
-            required
-          />
-          <div class="validator-hint">Please provide us with your name</div>
-          <!-- <p class="fieldset-label">Optional</p> -->
+              <label class="fieldset-label w-full">Your name</label>
+              <input
+                type="text"
+                class="input validator w-full"
+                placeholder="Type here"
+                required
+              />
+              <div class="validator-hint w-full">
+                Please provide us with your name
+              </div>
+              <!-- <p class="fieldset-label">Optional</p> -->
+            </fieldset>
+          </div>
+        </div>
+        <div class="text-center w-full pr-2">
+          <div class="justify-center">
+            <fieldset class="fieldset w-full">
+              <label class="fieldset-label w-full">Your email</label>
+              <input
+                type="text"
+                class="input validator w-full"
+                placeholder="Type here"
+                required
+              />
+              <div class="validator-hint w-full">
+                Enter a valid email address
+              </div>
+              <!-- <p class="fieldset-label">Optional</p> -->
+            </fieldset>
+          </div>
+        </div>
+        <div class="text-center w-full pr-2">
+          <div class="justify-center">
+            <fieldset class="fieldset w-full">
+              <label class="fieldset-label w-full">Your ask</label>
+              <textarea
+                class="textarea h-24 validator w-full"
+                placeholder="Type here"
+                required></textarea>
+              <div class="validator-hint w-full">
+                Let us know what we can do for you
+              </div>
+              <!-- <div class="fieldset-label">Optional</div> -->
+            </fieldset>
+          </div>
+        </div>
+        <div class="text-center w-full pr-2">
+          <div class="justify-center">
+            <fieldset class="fieldset w-full">
+              <label class="fieldset-label w-full">Your pitch deck</label>
+              <input
+                type="file"
+                class="file-input file-input-bordered w-full max-w-xs"
+              />
+            </fieldset>
+          </div>
+        </div>
+        <div class="col-span-2 text-center">
+          <br />
 
-          <label class="fieldset-label mt-4">Your email</label>
-          <input
-            type="text"
-            class="input validator"
-            placeholder="Type here"
-            required
-          />
-          <div class="validator-hint">Enter a valid email address</div>
-          <!-- <p class="fieldset-label">Optional</p> -->
-
-          <label class="fieldset-label mt-4">Your ask</label>
-          <textarea
-            class="textarea h-24 validator"
-            placeholder="Type here"
-            required></textarea>
-          <div class="validator-hint">Let us know what we can do for you</div>
-          <!-- <div class="fieldset-label">Optional</div> -->
-
-          <label class="fieldset-label mt-4">Your pitch deck</label>
-          <input type="file" class="file-input file-input-bordered w-full max-w-xs" />
-        </fieldset>
-
-        <br/>
-
-        <button class="btn" type="submit">Send</button>
+          <button class="btn md:w-[50cqw] justify-center" type="submit"
+            >Send</button
+          >
+        </div>
       </form>
-    </Section>
+    </LayoutSection>
   </NavPage>
 </Layout>
