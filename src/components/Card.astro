@@ -2,7 +2,7 @@
 const { title, content, class: addClass, icon } = Astro.props;
 ---
 
-<div class:list={[addClass, "card shadow-xl m-0 py-14 rounded-1xl"]}>
+<div class:list={[addClass, "card col-span-full max-w-[60rem] m-auto shadow-xl m-0 p-14 my-28 rounded-1xl"]}>
   {title && <h2 class="card-title">{title}</h2>}
   <div class:list={["card-body w-full h-full"]}>
     <slot>
