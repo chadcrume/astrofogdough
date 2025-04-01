@@ -10,9 +10,12 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
 
 <Layout frontmatter={{ title: page?.title }}>
   <NavPage page={page}>
-    <LayoutSection type="subgrid">
-      <h2 class="col-span-full">How can we partner with you?</h2>
-      <div class="grid-col-subgrid">
+    <LayoutSection type="full">
+      <h2>How can we partner with you?</h2>
+    </LayoutSection>
+
+    <LayoutSection type="left">
+      <div>
         <p>We're always looking to connect with visionaries who understand the potential of decentralized finance. Whether you're an investor seeking new opportunities, a developer with innovative ideas, or a business looking to integrate DeFi solutions, we want to hear from you.</p>
         
         <h3>Submit Your Pitch</h3>
@@ -35,7 +38,10 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
         <p>Fill out the form below to start the conversation, and a member of our team will respond within 48 hours.</p>
         
       </div>
-      <form class=" grid-cols-subgrid ">
+
+    </LayoutSection>
+    <LayoutSection type="middle">
+      <form>
         <div class="text-center w-full pr-2">
           <div class="justify-center">
             <fieldset class="fieldset w-full">
@@ -98,10 +104,10 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
             </fieldset>
           </div>
         </div>
-        <div class="col-span-2 text-center">
+        <div class=" text-center">
           <br />
 
-          <button class="btn md:w-[50cqw] justify-center" type="submit"
+          <button class="btn justify-center" type="submit"
             >Send</button
           >
         </div>
@@ -110,12 +116,3 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
   </NavPage>
 </Layout>
 
-<style global>
-
-article {
-        grid-template-columns: 2fr 1fr 1fr !important;
-        grid-gap: 50px;
-    }
-    
-
-</style>
