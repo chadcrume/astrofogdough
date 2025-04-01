@@ -5,7 +5,6 @@ import LayoutSection from "@layouts/LayoutSection.astro";
 import Card from "@components/Card.astro";
 import Person from "@components/Person.astro";
 import Grid from "@components/Grid.astro";
-import Accordion from "@components/Accordion.astro";
 import { getCollection } from "astro:content";
 import { getNavItemFromUrlPath } from "@components/NavItems.ts";
 import { fade } from "astro:transitions";
@@ -35,13 +34,92 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
         }
       </Grid>
     </LayoutSection>
+    <LayoutSection type="full">
 
-    <LayoutSection type="med-right">
       <Card title="Services">
-        <Accordion />
+        <ul class="list bg-base-100 rounded-box">
+          <li class="list-row items-center p-4">
+            <div class="w-[80px] h-[80px]">
+              <div
+                class="mask mask-diamond h-full w-full
+          bg-linear-to-r from-cyan-500 to-blue-500
+          style="
+                background-size:
+                210%
+                210%"
+                data-astro-source-file="/Users/alvarsirlin/Sites/astrofogdough/src/pages/about.astro"
+                data-astro-source-loc="109:8"
+                data-astro-transition-scope="astro-vctypyhz-1"
+              >
+              </div>
+            </div>
+            <div>
+              <span class="text-xs uppercase font-semibold opacity-60"
+                >Leadership guidance</span
+              >
+              <p class="list-col-wrap text-xs">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                imperdiet, nulla et dictum interdum, nisi lorem egestas odio,
+                vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est,
+                ultrices nec congue eget, auctor vitae massa. Lorem ipsum dolor
+                sit amet, consectetur adipiscing elit. Integer nec odio.
+              </p>
+            </div>
+          </li>
+
+          <li class="list-row items-center p-4">
+            <div class="w-[80px] h-[80px]">
+              <div
+                class="mask mask-triangle-2 h-full w-full
+            bg-linear-to-t from-sky-500 to-indigo-500"
+                style="background-size: 210% 210%"
+                data-astro-source-file="/Users/alvarsirlin/Sites/astrofogdough/src/pages/about.astro"
+                data-astro-source-loc="109:8"
+                data-astro-transition-scope="astro-vctypyhz-1"
+              >
+              </div>
+            </div>
+            <div>
+              <span class="text-xs uppercase font-semibold opacity-60"
+                >Strategic growth funding</span
+              >
+              <p class="list-col-wrap text-xs">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                imperdiet, nulla et dictum interdum, nisi lorem egestas odio,
+                vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est,
+                ultrices nec congue eget, auctor vitae massa. Lorem ipsum dolor
+                sit amet, consectetur adipiscing elit. Integer nec odio.
+              </p>
+            </div>
+          </li>
+          <li class="list-row items-center p-4">
+            <div class="w-[80px] h-[80px]">
+              <div
+                class="mask mask-circle h-full w-full
+              bg-linear-to-bl from-violet-500 to-fuchsia-500"
+                style="background-size: 210% 210%"
+                data-astro-source-file="/Users/alvarsirlin/Sites/astrofogdough/src/pages/about.astro"
+                data-astro-source-loc="109:8"
+                data-astro-transition-scope="astro-vctypyhz-1"
+              >
+              </div>
+            </div>
+            <div>
+              <span class="text-xs uppercase font-semibold opacity-60"
+                >Leadership guidance</span
+              >
+              <p class="list-col-wrap text-xs">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                imperdiet, nulla et dictum interdum, nisi lorem egestas odio,
+                vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est,
+                ultrices nec congue eget, auctor vitae massa. Lorem ipsum dolor
+                sit amet, consectetur adipiscing elit. Integer nec odio.
+              </p>
+            </div>
+          </li>
+        </ul>
       </Card>
     </LayoutSection>
-
     <LayoutSection type="med-left" class:list={["items-end", "text-right"]}>
       <h2>Focus</h2>
       <p>

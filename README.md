@@ -7,12 +7,12 @@ yarn install
 yarn run dev
 
 ## About Layout Grid
-
 The <Layout> component establishes a grid, adapted for different breakpoints.
 * Right now it is a 3 column grid at large size (1fr 1fr 0.7fr), then 2 column at medium, and 1 at small.
 * <Layout> should contain either <LayoutSection> componenent children only, or a single <NavPage> with <LayoutSection> componenent children. Although it is possible to use any component child; they will layout as grid items. The logo hero on the homepage is an example.
 
-The <LayoutSection> componenent wraps a grid item. It has a ```type``` prop to define variations on how the item fits the grid. 
+The <LayoutSection> component wraps a grid item. 
+It has a ```type``` prop to define variations on how the item fits the grid. 
 * "single-unit" - The item fits a basic grid unit
 * "left" - First column
 * "middle" - Fits middle column (lg) or right column (md)
@@ -23,9 +23,14 @@ The <LayoutSection> componenent wraps a grid item. It has a ```type``` prop to d
 * "big-left" - Fits first 2 columns (lg) or all columns
 * "big-right" - Fits last 2 columns (lg) or all columns
 * "full" - Spans all columns
-* "subgrid" - Continues the grid for children of <LayoutSection>
+* "subgrid" - Continues the grid for children of <LayoutSection> 
+  * needs grid classes like col-span-n
 * "subgrid-left" - Continues the grid in first 2 columns (lg) only
 * "subgrid-right" - Continues the grid in last 2 columns (lg) only
+* no grid specific rules in elements inside LayoutSection 
+  * unless using subgrid
+
+
 
 The <NavPag> component uses subgrid so it can contain <LayoutSection> children
 
