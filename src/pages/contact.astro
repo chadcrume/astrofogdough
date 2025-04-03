@@ -16,29 +16,43 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
 
     <LayoutSection type="left">
       <div>
-        <p>We're always looking to connect with visionaries who understand the potential of decentralized finance. Whether you're an investor seeking new opportunities, a developer with innovative ideas, or a business looking to integrate DeFi solutions, we want to hear from you.</p>
-        
-        <h3>Submit Your Pitch</h3>
-        <p>Have a compelling DeFi concept or partnership proposal? Tell us about it. The most promising ideas will receive personalized feedback from our investment team and potential opportunities for collaboration or funding.</p>
-        
-        <h3>What we look for:</h3>
-        <ul>
-            <li><span class="highlight">Novel approaches</span> to existing DeFi challenges</li>
-            <li><span class="highlight">Clear product-market fit</span> with demonstrable value</li>
-            <li><span class="highlight">Scalable solutions</span> with sustainable tokenomics</li>
-            <li><span class="highlight">Strong technical foundations</span> and security-focused development</li>
-        </ul>
-        
-        <div class="contact-info">
-            <h3>Contact Information</h3>
-            <p><strong>Email:</strong> partnerships@[companyname].io</p>
-            <p><strong>Office Hours:</strong> Monday-Friday, 9am-5pm EST</p>
-        </div>
-        
-        <p>Fill out the form below to start the conversation, and a member of our team will respond within 48 hours.</p>
-        
-      </div>
+        <p>
+          Have a compelling DeFi concept or partnership proposal? Tell us about
+          it. The most promising ideas will receive personalized feedback from
+          our investment team and potential opportunities for collaboration or
+          funding.
+        </p>
 
+        <h3>What we look for:</h3>
+        <div>
+          <ul class="list-none md:list-disc my-1 md:mx-4">
+            <li>
+              <span class="highlight">Novel approaches</span> to existing DeFi challenges
+            </li>
+            <li>
+              <span class="highlight">Clear product-market fit</span> with demonstrable
+              value
+            </li>
+            <li>
+              <span class="highlight">Scalable solutions</span> with sustainable
+              tokenomics
+            </li>
+            <li>
+              <span class="highlight">Strong technical foundations</span> and security-focused
+              development
+            </li>
+          </ul>
+        </div>
+
+        <h3>Contact Information</h3>
+        <p><strong>Email:</strong> partnerships@[companyname].io</p>
+        <p><strong>Office Hours:</strong> Monday-Friday, 9am-5pm EST</p>
+
+        <p>
+          Fill out the form to start the conversation, and a member of our
+          team will respond within 48 hours.
+        </p>
+      </div>
     </LayoutSection>
     <LayoutSection type="middle">
       <form>
@@ -104,15 +118,17 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
             </fieldset>
           </div>
         </div>
-        <div class=" text-center">
+        <div class="text-center">
           <br />
 
-          <button class="btn justify-center" type="submit"
-            >Send</button
-          >
+          <button class="btn justify-center" type="submit">Send</button>
         </div>
       </form>
     </LayoutSection>
   </NavPage>
 </Layout>
-
+<style>
+  h3 {
+    margin-top: 1.4rem;
+  }
+</style>
