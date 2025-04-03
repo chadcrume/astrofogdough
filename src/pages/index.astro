@@ -40,12 +40,17 @@ const pageTitle = "home";
         frameworks from conception through product-market fit, backed by fully
         customizable funding arrangements.
       </p>
-      <p>
-        <button data-nav-target="/portfolio">Our portfolio</button>
+    </Text>
+  </LayoutSection>
+  <LayoutSection type="right">
+    <Text class:list={['flex flex-col h-full justify-center w-full text-right']}>
+      <p class="nx" style="font-size: 7cqw">
+        <button class="btn btn-primary" data-nav-target="/portfolio">Our portfolio</button>
       </p>
     </Text>
   </LayoutSection>
-  <LayoutSection type="right" class="opacity-0 lg:opacity-100">
+
+  <!-- <LayoutSection type="right" class="opacity-0 lg:opacity-100">
     <div
       class="mask mask-square h-full w-full
       bg-gradient-to-tl
@@ -54,9 +59,8 @@ const pageTitle = "home";
       from-blue-200"
     >
     </div>
-  </LayoutSection>
-  <LayoutSection type="left">
-    <!-- <img class="mask mask-triangle" src="/fractals_generative.jpg" /> -->
+  </LayoutSection> -->
+  <!-- <LayoutSection type="left">
     <div
       class="mask mask-triangle-4 h-full w-full
       bg-gradient-to-tl
@@ -67,10 +71,17 @@ const pageTitle = "home";
       style="background-size: 210% 210%"
     >
     </div>
-  </LayoutSection>
+  </LayoutSection> -->
 
-  <LayoutSection type="big-right">
-    <Text>
+  <LayoutSection type="left">
+    <Text class:list={['flex flex-col h-full justify-center w-full text-left']}>
+      <p class="nx">
+        <button class="btn btn-secondary" data-nav-target="/about">Who we are</button>
+      </p>
+    </Text>
+  </LayoutSection>
+  <LayoutSection type="med-right">
+    <Text class:list={['text-right lg:text-left']}>
       <p>
         Our organization brings together people from diverse backgrounds,
         professional journeys, and life experiences. We fundamentally believe
@@ -80,17 +91,21 @@ const pageTitle = "home";
         and illuminate areas that might otherwise remain obscured by
         unconscious biases and blind spots.
       </p>
-      <p>
-        <button data-nav-target="/about">Who we are</button>
-      </p>
     </Text>
 </LayoutSection>
 
-  <style lang="styl">
-    .grid div 
-      border 1px solid blue
-  </style>
 </Layout>
+
+<style lang="styl">
+  .grid div 
+    border 1px solid blue
+</style>
+<style lang="styl">
+  .nx button {
+    font-size: 7cqw;
+  }
+</style>
+
 <script type="module">
   const buttons = document.querySelectorAll("[data-nav-target]");
 
