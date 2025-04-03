@@ -42,7 +42,7 @@
         For the clamp I'm using our min/max font sizes for 
         all cqw rather than just for that @md-@lg range
     */
-    font-size: clamp(0.75rem, -0.09rem + 3cqw, 5rem);
+    font-size: clamp(1.07rem, -0.09rem + 3cqw, 5rem);
     @apply w-full
 }
 
