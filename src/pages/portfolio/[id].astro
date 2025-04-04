@@ -25,10 +25,13 @@ export async function getStaticPaths() {
 // 2. For your template, you can get the entry directly from the prop
 const { portfolio } = Astro.props;
 const { Content } = await render(portfolio);
----
 
+const showBackLink = !(
+  Astro.url.pathname == page?.route || Astro.url.pathname == page?.route + "/"
+);
+---
 <Layout>
-  <NavPage page={page}>
+  <NavPage page={page} showBackLink={showBackLink}>
     <LayoutSection type="full">
       <Card>
         <PortfolioHeader portfolio={portfolio} />
@@ -36,6 +39,6 @@ const { Content } = await render(portfolio);
           <Content />
         </div>
       </Card>
-      </LayoutSection>
+    </LayoutSection>
   </NavPage>
 </Layout>

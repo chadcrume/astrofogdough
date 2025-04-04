@@ -5,10 +5,9 @@ interface Props {
   id?: string | undefined;
   page?: INavItem | undefined;
   showTitle?: string | undefined;
+  showBackLink?: boolean | undefined;
 }
-const { class: addClass, id, page, showTitle }: Props = Astro.props;
-
-const currentRouteIsNavPage = Astro.url.pathname == page?.route + "/";
+const { class: addClass, id, page, showTitle, showBackLink }: Props = Astro.props;
 ---
 
 <section
@@ -20,7 +19,7 @@ const currentRouteIsNavPage = Astro.url.pathname == page?.route + "/";
     <!-- Both versions have the same element structure: back icon, title, filler -->
     <!-- But icon and title are linked when page prop is not the current page -->
     {
-      currentRouteIsNavPage ? (
+      !showBackLink && (
         <>
           <span>
             {showTitle || page?.title}
@@ -42,7 +41,10 @@ const currentRouteIsNavPage = Astro.url.pathname == page?.route + "/";
             {" "}
           </div> */}
         </>
-      ) : (
+      )
+    }
+    {
+      showBackLink && (
         <>
           <a class:list={["navpage-link", page?.name]} href={page?.route}>
             {showTitle || page?.title}
