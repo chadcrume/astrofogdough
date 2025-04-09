@@ -18,10 +18,14 @@ export async function getStaticPaths() {
 // 2. For your template, you can get the entry directly from the prop
 const { person } = Astro.props;
 const { Content } = await render(person);
+
+const showBackLink = !(
+  Astro.url.pathname == page?.route || Astro.url.pathname == page?.route + "/"
+);
 ---
 
 <Layout>
-  <NavPage page={page}>
+  <NavPage page={page} showBackLink={showBackLink}>
     <LayoutSection type="full">
       <div
         class="flex-col justify-items-center md:flex-row md:justify-items-start flex"

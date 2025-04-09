@@ -15,12 +15,9 @@ const pageTitle = "home";
     class="col-span-1 gap-0 w-full h-auto m-0 p-0 pt-5 md:pr-5 md:py-10
   text-center lg:text-left justify-items-center"
   >
-    <div
-      class="gradient logo-home m-0 w-fit"
-      transition:name="logo"
-    >
+    <div class="gradient logo-home m-0 w-fit" transition:name="logo">
       <Image
-        class="m-0 w-[30vw] md:w-full  h-full text-center lg:text-left items-center lg:items-start"
+        class="m-0 w-[30vw] md:w-full h-full text-center lg:text-left items-center lg:items-start"
         src={Logo2}
         alt="Fogdough logo"
       />
@@ -35,28 +32,25 @@ const pageTitle = "home";
     </h1>
   </div>
 
-  <LayoutSection type="big-left" class="text-right">
-    <h2>LayoutSection type=big-left</h2>
-    <Text align="right">
+  <LayoutSection type="med-left">
+    <Text>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-        imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae
-        scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec
-        congue eget, auctor vitae massa. Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante
-        dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis
-        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper
-        porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
-      </p>
-      <p>
-        Curabitur sit amet mauris morbi in dui quis est pulvinar ullamcorper.
-        Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed
-        aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis,
-        venenatis tristique, dignissim in.
+        Fogdough elevates chosen founders at the earliest stages. We partner
+        directly with entrepreneurs to ideate and refine essential business
+        frameworks from conception through product-market fit, backed by fully
+        customizable funding arrangements.
       </p>
     </Text>
   </LayoutSection>
-  <LayoutSection type="right" class="opacity-0 lg:opacity-100">
+  <LayoutSection type="right">
+    <Text class:list={['flex flex-col h-full justify-center w-full text-right']}>
+      <p class="cta" style="font-size: 7cqw">
+        <button class="btn btn-secondary" data-nav-target="/portfolio">Our portfolio</button>
+      </p>
+    </Text>
+  </LayoutSection>
+
+  <!-- <LayoutSection type="right" class="opacity-0 lg:opacity-100">
     <div
       class="mask mask-square h-full w-full
       bg-gradient-to-tl
@@ -65,9 +59,8 @@ const pageTitle = "home";
       from-blue-200"
     >
     </div>
-  </LayoutSection>
-  <LayoutSection type="left">
-    <!-- <img class="mask mask-triangle" src="/fractals_generative.jpg" /> -->
+  </LayoutSection> -->
+  <!-- <LayoutSection type="left">
     <div
       class="mask mask-triangle-4 h-full w-full
       bg-gradient-to-tl
@@ -78,34 +71,62 @@ const pageTitle = "home";
       style="background-size: 210% 210%"
     >
     </div>
-  </LayoutSection>
+  </LayoutSection> -->
 
-  <LayoutSection type="big-right">
-    <h2>LayoutSection type=big-right</h2>
-    <div>
-      <Text>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae
-          scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices
-          nec congue eget, auctor vitae massa. Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed
-          cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum
-          imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed
-          augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
-        </p>
-        <p>
-          Curabitur sit amet mauris morbi in dui quis est pulvinar ullamcorper.
-          Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed
-          aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis,
-          venenatis tristique, dignissim in.
-        </p>
-      </Text>
-    </div>
+  <LayoutSection type="left">
+    <Text class:list={['flex flex-col h-full justify-center w-full text-left']}>
+      <p class="cta">
+        <button class="btn btn-primary" data-nav-target="/about">Who we are</button>
+      </p>
+    </Text>
   </LayoutSection>
+  <LayoutSection type="med-right">
+    <Text class:list={['text-right lg:text-left']}>
+      <p>
+        Our organization brings together people from diverse backgrounds,
+        professional journeys, and life experiences. We fundamentally believe
+        that excellence manifests in countless forms. These varied
+        perspectives represent our distinct competitive advantage. They
+        substantially deepen our worldview, facilitate our pursuit of truth,
+        and illuminate areas that might otherwise remain obscured by
+        unconscious biases and blind spots.
+      </p>
+    </Text>
+</LayoutSection>
+<LayoutSection type="med-left">
+  <Text>
+    <p>We're always looking to connect with visionaries who understand the potential of decentralized finance. Whether you're an investor seeking new opportunities, a developer with innovative ideas, or a business looking to integrate DeFi solutions, we want to hear from you.</p>
+  </Text>
+</LayoutSection>
+<LayoutSection type="right">
+  <Text class:list={['flex flex-col h-full justify-center w-full text-right']}>
+    <p class="cta" style="font-size: 7cqw">
+      <button class="btn btn-success" data-nav-target="/contact">Send us your pitch</button>
+    </p>
+  </Text>
+</LayoutSection>
 
-  <style lang="styl">
-    .grid div 
-      border 1px solid blue
-  </style>
 </Layout>
+
+<style lang="styl">
+  .grid div 
+    border 1px solid blue
+</style>
+<style>
+  .cta button {
+    font-size: 7cqw;
+  }
+</style>
+
+<script type="module">
+  const buttons = document.querySelectorAll("[data-nav-target]");
+
+  // Add event listeners to fire confetti when a button is clicked.
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => nav(button.dataset.navTarget));
+  });
+
+  const nav = (page) => {
+    location.assign(page);
+  };
+</script>

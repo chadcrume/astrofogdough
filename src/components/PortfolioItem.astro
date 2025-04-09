@@ -10,11 +10,11 @@ console.log(`portfolio`, portfolio);
 
 <a
   href={`/portfolio/${portfolio.id}`}
-  class="hover:bg-gray-100 p-4 rounded-lg"
+  class="hover:bg-secondary hover:text-secondary-content p-4 rounded-lg"
   data-astro-prefetch
 >
   <div class="avatar self-start">
-    <div class="mask mask-hexagon-2 max-w-24">
+    <div class="mask mask-circle rounded-none">
       <img src={portfolio.data.image} transition:name={portfolio.id} />
     </div>
   </div>
