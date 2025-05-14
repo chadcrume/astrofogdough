@@ -8,20 +8,34 @@ const { portfolio, class: addClass } = Astro.props;
 console.log(`portfolio`, portfolio);
 ---
 
-<a
-  href={`/portfolio/${portfolio.id}`}
-  class="hover:bg-secondary hover:text-secondary-content p-4 rounded-lg"
-  data-astro-prefetch
->
-  <div class="avatar self-start">
-    <div class="mask mask-circle rounded-none">
-      <img src={portfolio.data.image} transition:name={portfolio.id} />
-    </div>
-  </div>
-  <div>
-    <h6 class="mt-4 mb-2">
+<div box-="double contain:!top">
+  <div class="header">
+    <h6>
       {portfolio.data.name}
     </h6>
     <h7>{portfolio.data.status}</h7>
   </div>
-</a>
+  <a href={`/portfolio/${portfolio.id}`} data-astro-prefetch>
+    <div class="avatar self-start">
+      <div class="mask mask-circle rounded-none">
+        <img src={portfolio.data.image} transition:name={portfolio.id} />
+      </div>
+    </div>
+  </a>
+</div>
+
+<style>
+  @import "@webtui/css/utils/box.css";
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  span,
+  h6,
+  h7 {
+    background-color: var(--background0);
+    padding: 0 1ch;
+  }
+</style>

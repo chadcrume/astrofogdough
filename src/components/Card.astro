@@ -2,11 +2,34 @@
 const { title, content, class: addClass, icon } = Astro.props;
 ---
 
-<div class:list={[addClass, "card w-full max-w-[60rem] m-auto shadow-xl m-0 p-14 my-28 rounded-1xl"]}>
-  {title && <h2 class="card-title">{title}</h2>}
+<div
+  box-="double contain:!top"
+  class:list={[
+    addClass,
+    "w-full max-w-[60rem] m-auto shadow-xl m-0 p-14 my-28 rounded-1xl",
+  ]}
+>
+  <div class="header">
+    <span>
+      {title && <h2>{title}</h2>}
+    </span>
+  </div>
   <div class:list={["card-body w-full h-full"]}>
     <slot>
       <p>This is my fallback content, if there is no child passed into slot</p>
     </slot>
   </div>
 </div>
+<style>
+  @import "@webtui/css/utils/box.css";
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  span {
+    background-color: var(--background0);
+    padding: 0 1ch;
+  }
+</style>

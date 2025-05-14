@@ -15,120 +15,140 @@ const page = getNavItemFromUrlPath(Astro.url.pathname);
     </LayoutSection>
 
     <LayoutSection type="left">
-      <div>
-        <p>
-          Have a compelling DeFi concept or partnership proposal? Tell us about
-          it. The most promising ideas will receive personalized feedback from
-          our investment team and potential opportunities for collaboration or
-          funding.
-        </p>
-
-        <h3>What we look for:</h3>
+      <div box-="double">
         <div>
-          <ul class="list-none md:list-disc my-1 md:mx-4">
-            <li>
-              <span class="highlight">Novel approaches</span> to existing DeFi challenges
-            </li>
-            <li>
-              <span class="highlight">Clear product-market fit</span> with demonstrable
-              value
-            </li>
-            <li>
-              <span class="highlight">Scalable solutions</span> with sustainable
-              tokenomics
-            </li>
-            <li>
-              <span class="highlight">Strong technical foundations</span> and security-focused
-              development
-            </li>
-          </ul>
+          <p>
+            Have a compelling DeFi concept or partnership proposal? Tell us
+            about it. The most promising ideas will receive personalized
+            feedback from our investment team and potential opportunities for
+            collaboration or funding.
+          </p>
+
+          <h3>What we look for:</h3>
+          <div>
+            <ul class="list-none md:list-disc my-1 md:mx-4">
+              <li>
+                <span class="highlight">Novel approaches</span> to existing DeFi
+                challenges
+              </li>
+              <li>
+                <span class="highlight">Clear product-market fit</span> with demonstrable
+                value
+              </li>
+              <li>
+                <span class="highlight">Scalable solutions</span> with sustainable
+                tokenomics
+              </li>
+              <li>
+                <span class="highlight">Strong technical foundations</span> and security-focused
+                development
+              </li>
+            </ul>
+          </div>
+
+          <h3>Contact Information</h3>
+          <p><strong>Email:</strong> partnerships@[companyname].io</p>
+          <p><strong>Office Hours:</strong> Monday-Friday, 9am-5pm EST</p>
+
+          <p>
+            Fill out the form to start the conversation, and a member of our
+            team will respond within 48 hours.
+          </p>
         </div>
-
-        <h3>Contact Information</h3>
-        <p><strong>Email:</strong> partnerships@[companyname].io</p>
-        <p><strong>Office Hours:</strong> Monday-Friday, 9am-5pm EST</p>
-
-        <p>
-          Fill out the form to start the conversation, and a member of our
-          team will respond within 48 hours.
-        </p>
       </div>
     </LayoutSection>
     <LayoutSection type="middle">
-      <form>
-        <div class="text-center w-full pr-2">
-          <div class="justify-center">
-            <fieldset class="fieldset w-full">
-              <!-- <legend class="fieldset-legend">Your name</legend> -->
+      <div box-="double">
+        <form>
+          <div class="text-center w-full pr-2">
+            <div class="justify-center">
+              <fieldset class="fieldset w-full">
+                <!-- <legend class="fieldset-legend">Your name</legend> -->
 
-              <label class="fieldset-label w-full">Your name</label>
-              <input
-                type="text"
-                class="input validator w-full"
-                placeholder="Type here"
-                required
-              />
-              <div class="validator-hint w-full">
-                Please provide us with your name
-              </div>
-              <!-- <p class="fieldset-label">Optional</p> -->
-            </fieldset>
+                <label class="fieldset-label w-full">Your name</label>
+                <input
+                  type="text"
+                  class="input-neutral validator w-full"
+                  placeholder="Type here"
+                  required
+                />
+                <div class="validator-hint w-full">
+                  Please provide us with your name
+                </div>
+                <!-- <p class="fieldset-label">Optional</p> -->
+              </fieldset>
+            </div>
           </div>
-        </div>
-        <div class="text-center w-full pr-2">
-          <div class="justify-center">
-            <fieldset class="fieldset w-full">
-              <label class="fieldset-label w-full">Your email</label>
-              <input
-                type="text"
-                class="input validator w-full"
-                placeholder="Type here"
-                required
-              />
-              <div class="validator-hint w-full">
-                Enter a valid email address
-              </div>
-              <!-- <p class="fieldset-label">Optional</p> -->
-            </fieldset>
+          <div class="text-center w-full pr-2">
+            <div class="justify-center">
+              <fieldset class="fieldset w-full">
+                <label class="fieldset-label w-full">Your email</label>
+                <input
+                  type="text"
+                  class="input-neutral validator w-full"
+                  placeholder="Type here"
+                  required
+                />
+                <div class="validator-hint w-full">
+                  Enter a valid email address
+                </div>
+                <!-- <p class="fieldset-label">Optional</p> -->
+              </fieldset>
+            </div>
           </div>
-        </div>
-        <div class="text-center w-full pr-2">
-          <div class="justify-center">
-            <fieldset class="fieldset w-full">
-              <label class="fieldset-label w-full">Your ask</label>
-              <textarea
-                class="textarea h-24 validator w-full"
-                placeholder="Type here"
-                required></textarea>
-              <div class="validator-hint w-full">
-                Let us know what we can do for you
-              </div>
-              <!-- <div class="fieldset-label">Optional</div> -->
-            </fieldset>
+          <div class="text-center w-full pr-2">
+            <div class="justify-center">
+              <fieldset class="fieldset w-full">
+                <label class="fieldset-label w-full">Your ask</label>
+                <textarea
+                  class="textarea-neutral h-24 validator w-full"
+                  placeholder="Type here"
+                  required></textarea>
+                <div class="validator-hint w-full">
+                  Let us know what we can do for you
+                </div>
+                <!-- <div class="fieldset-label">Optional</div> -->
+              </fieldset>
+            </div>
           </div>
-        </div>
-        <div class="text-center w-full pr-2">
-          <div class="justify-center">
-            <fieldset class="fieldset w-full">
-              <label class="fieldset-label w-full">Your pitch deck</label>
-              <input
-                type="file"
-                class="file-input file-input-bordered w-full max-w-xs"
-              />
-            </fieldset>
+          <div class="text-center w-full pr-2">
+            <div class="justify-center">
+              <fieldset class="fieldset w-full">
+                <label class="fieldset-label w-full">Your pitch deck</label>
+                <input
+                  type="file"
+                  class="file-input-neutral file-input-bordered w-full max-w-xs"
+                />
+              </fieldset>
+            </div>
           </div>
-        </div>
-        <div class="text-center">
-          <br />
+          <div class="text-center">
+            <br />
 
-          <button class="btn justify-center" type="submit">Send</button>
-        </div>
-      </form>
+            <button class="btn-neutral justify-center" type="submit"
+              >Send</button
+            >
+          </div>
+        </form>
+      </div>
     </LayoutSection>
   </NavPage>
 </Layout>
 <style>
   h3 {
     margin-top: 1.4rem;
+  }
+</style>
+<style>
+  @import "@webtui/css/utils/box.css";
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  span {
+    background-color: var(--background0);
+    padding: 0 1ch;
   }
 </style>
