@@ -26,8 +26,10 @@ const isHomepage = Astro.url.pathname === "/";
   <div class="navbar-start">
     <div class="flex items-center">
       {
-        !isHomepage && (
-          <>
+        !isHomepage && 
+        // Using verbose <Fragment> for better IDE
+        (
+          <Fragment>
             <div class="mr-2">
               <a href="/" data-astro-prefetch class="whitespace-nowrap">
                 Fogdough
@@ -40,19 +42,19 @@ const isHomepage = Astro.url.pathname === "/";
                 </a>
               </div>
             </div>
-          </>
+          </Fragment>
         )
       }
       {
         isHomepage && (
-          <>
+          <Fragment>
             <div>Fogdough</div>
             <div>
               <div class="logo-nav ml-1 mr-1">
                 <Image class=" opacity-0" src={Logo2} alt="Fogdough logo" />
               </div>
             </div>
-          </>
+          </Fragment>
         )
       }
 
