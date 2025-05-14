@@ -36,6 +36,17 @@ const isHomepage = Astro.url.pathname === "/";
     let output = "";
 
     switch (cmd) {
+      case "?":
+      case "h":
+      case "help":
+        output =
+          "Usage: &lt;cmd&gt; &lt;options&gt;\n" +
+          "Commands:\n\n" +
+          " - pwd\n \tShows current directory\n\n"+
+          " - ls\n \tLists directory contents (pages)\n\n"+
+          " - cd &lt;page&gt;\n \tNavigates to that page.\n\n" +
+          " - &lt;page&gt;\n \tNavigates to that page.\n\n";
+        break;
       case "cd":
         if (args.length > 0) {
           currentDirectory = args[0];
@@ -47,7 +58,7 @@ const isHomepage = Astro.url.pathname === "/";
             window.location.href = "/";
           }
         } else {
-          output = "Usage: cd <directory>";
+          output = "Usage: cd &lt;directory&gt;";
         }
         break;
       case "pwd":
@@ -203,7 +214,7 @@ const isHomepage = Astro.url.pathname === "/";
 
       <div class="flex">
         <div id="terminal-container">
-          <input type="text" id="command-input" autofocus />
+          &gt; <input autocomplete="off" type="text" id="command-input" autofocus />
           <pre id="terminal-output"></pre>
         </div>
       </div>
@@ -313,14 +324,15 @@ const isHomepage = Astro.url.pathname === "/";
     margin: 0;
     padding: 0;
     white-space: pre;
-    /* height: 200px; */
+    overflow: scroll;
+    max-height: 200px;
   }
 
   #command-input {
     background-color: black;
     color: white;
     border: none;
-    padding: 5px 5px 5px 15px;
+    padding: 5px;
     outline: none;
   }
 
