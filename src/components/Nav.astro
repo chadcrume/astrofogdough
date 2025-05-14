@@ -8,27 +8,109 @@ const currentPath = Astro.url.pathname;
 const currentParentRoute =
   "/" + currentPath.split("/").filter((i) => i && i != "")[0];
 const isHomepage = Astro.url.pathname === "/";
-
 ---
+
 <script>
-  const toaster = document.querySelector('.toaster');
-  const toast = document.querySelector('.toast');
-  toaster.addEventListener('click', (event) => {
+  const toaster = document.querySelector(".toaster");
+  const toast = document.querySelector(".toast");
+  toaster.addEventListener("click", (event) => {
     event.preventDefault(); // Prevents default anchor behavior
-    toast.classList.remove('hide');
+    toast.classList.remove("hide");
     setTimeout(() => {
-      toast.classList.add('hide');
+      toast.classList.add("hide");
     }, 2000);
+  });
+
+  /*
+   * The following is generated from google search
+   */
+  import navItems from "@components/NavItems.ts";
+
+  let currentDirectory = "/";
+  const commandInput = document.getElementById("command-input");
+  const terminalOutput = document.getElementById("terminal-output");
+
+  function executeCommand(command: string) {
+    const [cmd, ...args] = command.split(" ");
+    let output = "";
+
+    switch (cmd) {
+      case "cd":
+        if (args.length > 0) {
+          currentDirectory = args[0];
+          output = "Directory changed to " + currentDirectory;
+        } else {
+          output = "Usage: cd <directory>";
+        }
+        break;
+      case "pwd":
+        output = currentDirectory;
+        break;
+      case "ls":
+        output = listFiles(currentDirectory);
+        break;
+      // case "about":
+      //   // nav
+      //   break;
+      default:
+        const navCmd = navItems.find((v) => v.name == cmd);
+        if (navCmd) {
+          // nav
+          output = "nav to " + cmd;
+          window.location.href = navCmd.route;
+        } else {
+          output = "Command not found: " + cmd;
+        }
+    }
+
+    terminalOutput.innerHTML = "<br>" + command + "<br>" + output + "<br>";
+  }
+
+  // Simulate file listing
+  function listFiles(directory) {
+    // Replace this with your actual file/directory structure logic
+    if (directory === "/") {
+      return navItems
+        .map((i) => {
+          return i.name;
+          // <a
+          //   href={i.route}
+          //   aria-current="page"
+          //   class:list={[
+          //     "p-1",
+          //     currentParentRoute == i.route ? "current-nav-page" : "",
+          //   ]}
+          // >
+          //   {i.title}
+          // </a>
+        })
+        .join("\n");
+      // } else if (directory === "dir1") {
+      //   return "file1.txt\nfile2.txt";
+      // } else if (directory === "dir2") {
+      //   return "file3.txt";
+    }
+    return "No files found in " + directory;
+  }
+
+  commandInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      const command = commandInput.value;
+      executeCommand(command);
+      commandInput.value = "";
+      event.preventDefault();
+    }
   });
 </script>
 
-<div class="navbar bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-8 border-b border-gray-00">
+<div
+  class="navbar bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-8 border-b border-gray-00"
+>
   <div class="navbar-start">
     <div class="flex items-center">
       {
-        !isHomepage && 
-        // Using verbose <Fragment> for better IDE
-        (
+        !isHomepage && (
+          // Using verbose <Fragment> for better IDE
           <Fragment>
             <div class="mr-2">
               <a href="/" data-astro-prefetch class="whitespace-nowrap">
@@ -58,7 +140,7 @@ const isHomepage = Astro.url.pathname === "/";
         )
       }
 
-      <div class="dropdown">
+      <!-- <div class="dropdown">
         <div
           tabindex="0"
           role="button"
@@ -108,6 +190,13 @@ const isHomepage = Astro.url.pathname === "/";
             ))
           }
         </ul>
+      </div> -->
+
+      <div class="flex">
+        <div id="terminal-container">
+          <input type="text" id="command-input" autofocus />
+          <pre id="terminal-output"></pre>
+        </div>
       </div>
     </div>
   </div>
@@ -151,9 +240,7 @@ const isHomepage = Astro.url.pathname === "/";
         <li>
           <div class="w-full block text-left bg-base-400 hover:bg-transparent">
             <div>User Name</div>
-            <div class="pt-0 mb-0 mt-0 text-xs bg-none">
-              name@company.com
-            </div>
+            <div class="pt-0 mb-0 mt-0 text-xs bg-none">name@company.com</div>
           </div>
           <div class="w-full block text-left hover:bg-transparent">
             <div class="w-auto">
@@ -173,10 +260,14 @@ const isHomepage = Astro.url.pathname === "/";
           </div>
         </li>
         <li>
-          <div class="w-full block text-left"><a href="/user-settings">Settings</a></div>
+          <div class="w-full block text-left">
+            <a href="/user-settings">Settings</a>
+          </div>
         </li>
         <li>
-          <div class="w-full block text-left toaster"><a href="#">Sign Out</a></div>
+          <div class="w-full block text-left toaster">
+            <a href="#">Sign Out</a>
+          </div>
         </li>
       </ul>
     </details>
@@ -190,11 +281,37 @@ const isHomepage = Astro.url.pathname === "/";
 </div>
 
 <style>
-.hide {
-  opacity: 0;
-  transition: opacity 1s linear;
-}
-.navbar {
-  font-family: monospace;
-}
+  .hide {
+    opacity: 0;
+    transition: opacity 1s linear;
+  }
+  .navbar {
+    font-family: monospace;
+  }
+</style>
+<style>
+  #terminal-container {
+    font-family: monospace;
+    font-size: 14px;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: 1px solid white;
+    width: 400px;
+  }
+
+  #terminal-output {
+    margin: 0;
+    padding: 0;
+    white-space: pre;
+    /* height: 200px; */
+  }
+
+  #command-input {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 5px;
+    outline: none;
+  }
 </style>
