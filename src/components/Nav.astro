@@ -134,11 +134,12 @@ const isHomepage = Astro.url.pathname === "/";
     <details class="dropdown dropdown-end">
       <summary class="list-none cursor-pointer m-1">
         <div class="avatar">
-          <div
+          You
+          <!-- <div
             class="w-7 bg-black text-white rounded-full text-left justify-center items-center p-1"
           >
             <UserIcon />
-          </div>
+          </div> -->
         </div>
       </summary>
       <ul
@@ -191,5 +192,7 @@ const isHomepage = Astro.url.pathname === "/";
   opacity: 0;
   transition: opacity 1s linear;
 }
-
+.navbar {
+  font-family: monospace;
+}
 </style>

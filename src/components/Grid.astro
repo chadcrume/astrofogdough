@@ -4,8 +4,8 @@ const { title, content, class: addClass, icon } = Astro.props;
 
 // update to handle a UL?
 ---
-
-{title && <h2 class="card-title grid grid-cols-subgrid col-span-full">{title}</h2>}
+<div class="grid grid-cols-subgrid col-span-full">
+{title && <h2 class="card-title">{title}</h2>}
 <div
   class:list={[
     "grid grid-cols-subgrid col-span-full",
@@ -13,4 +13,5 @@ const { title, content, class: addClass, icon } = Astro.props;
   ]}
 >
   <slot />
+</div>
 </div>
