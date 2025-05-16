@@ -161,10 +161,11 @@ const isHomepage = Astro.url.pathname === "/";
 </script>
 
 <div
-  class="navbar bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-8 border-b border-gray-00"
+  class="navbar flex items-stretch bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-8 border-b border-gray-00"
 >
-  <div class="navbar-start">
-    <div class="flex items-center">
+  <div class="navbar-start w-fit pt-2 flex items-start">
+    <div class="flex items-start">
+      <!-- Logo -->
       {
         !isHomepage && (
           // Using verbose <Fragment> for better IDE
@@ -196,44 +197,25 @@ const isHomepage = Astro.url.pathname === "/";
           </Fragment>
         )
       }
-
-      <div class="flex">
-        <div id="terminal-container">
-          &gt; <input
-            autocomplete="off"
-            type="text"
-            id="command-input"
-            autofocus
-          />
-          <pre id="terminal-output"></pre>
-        </div>
+    </div>
+  </div>
+  <div class="navbar-center flex-auto w-max flex items-start">
+    <!-- Terminal Nav -->
+    <div class="w-full">
+      <div id="terminal-container">
+        &gt; <input
+          autocomplete="off"
+          type="text"
+          id="command-input"
+          autofocus
+        />
+        <pre id="terminal-output"></pre>
       </div>
     </div>
   </div>
-  <div class="navbar-center hidden">
-    <!-- lg:flex -->
-    <ul class="menu menu-horizontal px-1">
-      {
-        navItems.map((i) => (
-          <li class={i.name}>
-            <a
-              href={i.route}
-              aria-current="page"
-              class:list={[
-                "nav",
-                currentParentRoute == i.route ? "current-nav-page" : "",
-              ]}
-            >
-              {i.title}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-  <div class="navbar-end">
+  <div class="navbar-end w-fit h-auto pt-2 pl-7 flex items-start">
     <details class="dropdown dropdown-end">
-      <summary class="list-none cursor-pointer m-1">
+      <summary class="list-none cursor-pointer m-0">
         <div class="avatar">
           You
           <!-- <div
@@ -307,7 +289,9 @@ const isHomepage = Astro.url.pathname === "/";
     color: white;
     padding: 10px;
     border: 1px solid white;
-    width: 400px;
+    min-width: 200px;
+    max-width: 400px;
+    box-sizing: border-box;
   }
 
   #terminal-output {
@@ -324,6 +308,7 @@ const isHomepage = Astro.url.pathname === "/";
     border: none;
     padding: 5px;
     outline: none;
+    width: 90%;
   }
 
   #command-input::before {
