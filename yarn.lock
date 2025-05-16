@@ -852,11 +852,6 @@
   resolved "https://registry.yarnpkg.com/@vscode/l10n/-/l10n-0.0.18.tgz#916d3a5e960dbab47c1c56f58a7cb5087b135c95"
   integrity sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==
 
-"@webtui/css@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@webtui/css/-/css-0.0.5.tgz#4bd1f0714fc813993af623403601c91c26ca26ba"
-  integrity sha512-84BWcvmgGw+IozFP0W8wldt/fGKdVmy92L46Shy9MBidfeWRilAnt5xSu01DiOWcgdllS3g0nqVltVQDj+eAjw==
-
 acorn@^8.14.0:
   version "8.14.0"
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.14.0.tgz"

@@ -1,6 +1,4 @@
 ---
-import '@webtui/css/components/button.css';
-
 import { Image } from "astro:assets";
 
 import Logo from "@assets/logo/circle5.svg";
@@ -46,7 +44,7 @@ const pageTitle = "home";
   </LayoutSection>
   <LayoutSection type="right">
     <Text class:list={['flex flex-col h-full justify-center w-full text-right']}>
-      <p class="cta">
+      <p class="cta" style="font-size: 7cqw">
         <button class="btn btn-secondary" data-nav-target="/portfolio">Our portfolio</button>
       </p>
     </Text>
@@ -102,7 +100,7 @@ const pageTitle = "home";
 </LayoutSection>
 <LayoutSection type="right">
   <Text class:list={['flex flex-col h-full justify-center w-full text-right']}>
-    <p class="cta">
+    <p class="cta" style="font-size: 7cqw">
       <button class="btn btn-success" data-nav-target="/contact">Send us your pitch</button>
     </p>
   </Text>
@@ -110,8 +108,9 @@ const pageTitle = "home";
 
 </Layout>
 
-<style is:global>
-  @import "@webtui/css/components/button.css";
+<style lang="styl">
+  .grid div 
+    border 1px solid blue
 </style>
 <style>
   .cta button {
