@@ -24,7 +24,80 @@ const isHomepage = Astro.url.pathname === "/";
   }
 
   import navItems from "@components/NavItems.ts";
+  import Accordion from "./Accordion.astro";
 
+  interface ICommandFunction {
+    (currentDirectory: string, ...args: any[]): string;
+  }
+  interface ICommands {
+    [key: string]: ICommandFunction;
+  }
+
+  const executeHelp: ICommandFunction = () => {
+    return (
+      "Usage: &lt;cmd&gt; &lt;options&gt;\n" +
+      "Commands:\n\n" +
+      " - pwd\n \tShows current directory\n\n" +
+      " - ls\n \tLists directory contents (pages)\n\n" +
+      " - cd &lt;page&gt;\n \tNavigates to that page.\n\n" +
+      " - &lt;page&gt;\n \tNavigates to that page.\n\n"
+    );
+  };
+  const executeList: ICommandFunction = (
+    currentDirectory,
+    directory?: string
+  ) => {
+    directory = directory || currentDirectory;
+    if (directory === "/") {
+      return navItems
+        .map((i) => {
+          return i.name;
+        })
+        .join("\n");
+    }
+    return "No files found in " + directory;
+  };
+  const executeGetCurrent: ICommandFunction = (currentDirectory) => {
+    return currentDirectory;
+  };
+  const executeNav: ICommandFunction = (
+    currentDirectory,
+    directory?: string
+  ) => {
+    currentDirectory = directory || currentDirectory;
+    let output = "";
+    // const navCmd = navItems.find((v) => v.name == directory);
+    // if (navCmd) {
+    output = "Opening " + currentDirectory;
+    window.setTimeout(() => {
+      window.location.href = currentDirectory;
+    }, 560);
+    // } else {
+    //   output = "Command not found: " + directory;
+    // }
+    return output;
+  };
+
+  const commands: ICommands = {
+    "?": executeHelp,
+    h: executeHelp,
+    help: executeHelp,
+    ls: executeList,
+    pwd: executeGetCurrent,
+    cd: executeNav,
+    "/": (currentDirectory: string, ...args: any[]) =>
+      executeNav(currentDirectory, "/"),
+    ...{
+      ...navItems.reduce((acc, navItem) => {
+        return {
+          ...acc,
+          [navItem.name]: (currentDirectory: string, ...args: any[]) =>
+            executeNav(currentDirectory, navItem.route),
+        };
+      }, {} as ICommands),
+    },
+  };
+  console.log("commands", commands);
   const commandsArr = [
     "?",
     "h",
@@ -37,30 +110,6 @@ const isHomepage = Astro.url.pathname === "/";
   ];
 
   /*
-   * This function is used to create an enum from an array.
-   * See the following two lines.
-   */
-  const createEnumFromArray = <T extends string>(
-    array: readonly T[]
-  ): { [key in T]: key } => {
-    return array.reduce(
-      (acc, key) => {
-        acc[key] = key;
-        return acc;
-      },
-      {} as { [key in T]: key }
-    );
-  };
-
-  /*
-   * These two lines together create an enum of the command values.
-   * This is useful for validating and processing commands
-   * in the switch statement in executeCommand().
-   */
-  const CommandsEnum = createEnumFromArray(commandsArr);
-  type CommandsEnum = keyof typeof CommandsEnum;
-
-  /*
    * The following is based on generated code from google search
    */
   let currentDirectory = "/";
@@ -71,69 +120,15 @@ const isHomepage = Astro.url.pathname === "/";
     const [cmd, ...args] = command.split(" ");
     let output = "";
 
-    switch (cmd) {
-      case CommandsEnum["?"]:
-      case CommandsEnum["h"]:
-      case CommandsEnum["help"]:
-        output =
-          "Usage: &lt;cmd&gt; &lt;options&gt;\n" +
-          "Commands:\n\n" +
-          " - pwd\n \tShows current directory\n\n" +
-          " - ls\n \tLists directory contents (pages)\n\n" +
-          " - cd &lt;page&gt;\n \tNavigates to that page.\n\n" +
-          " - &lt;page&gt;\n \tNavigates to that page.\n\n";
-        break;
-      case CommandsEnum["cd"]:
-        if (args.length > 0) {
-          currentDirectory = args[0];
-          output = "Directory changed to " + currentDirectory;
-          const navDir = navItems.find((v) => v.name == currentDirectory);
-          if (navDir) {
-            window.location.href = navDir.route;
-          } else if (currentDirectory == "/") {
-            window.location.href = "/";
-          }
-        } else {
-          output = "Usage: cd &lt;directory&gt;";
-        }
-        break;
-      case CommandsEnum["pwd"]:
-        output = currentDirectory;
-        break;
-      case CommandsEnum["ls"]:
-        output = listFiles(currentDirectory);
-        break;
-      case CommandsEnum["/"]:
-        output = "Opening " + cmd;
-        window.location.href = "/";
-        break;
-      default:
-        if (CommandsEnum.hasOwnProperty(cmd)) {
-          const navCmd = navItems.find((v) => v.name == CommandsEnum[cmd]);
-          if (navCmd) {
-            output = "Opening " + cmd;
-            window.location.href = navCmd.route;
-          } else {
-            output = "Command not found: " + cmd;
-          }
-        }
+    if (commands.hasOwnProperty(cmd)) {
+      output = commands[cmd](currentDirectory, ...args);
+    } else {
+      output = "Command not found: " + cmd;
     }
 
     if (terminalOutput)
       terminalOutput.innerHTML =
         "<br>&gt; " + command + "<br>" + output + "<br>";
-  }
-
-  // Simulate file listing
-  function listFiles(directory: string) {
-    if (directory === "/") {
-      return navItems
-        .map((i) => {
-          return i.name;
-        })
-        .join("\n");
-    }
-    return "No files found in " + directory;
   }
 
   if (commandInput)
@@ -145,10 +140,9 @@ const isHomepage = Astro.url.pathname === "/";
         event.preventDefault();
       } else if (event.key === "Tab") {
         const partialCommand = (commandInput as HTMLInputElement).value;
-        const commandsKeys = Object.keys(CommandsEnum);
+        const commandsKeys = Object.keys(commands);
         const fullCommand = commandsKeys.reduce((acc, key) => {
           if (key.startsWith(partialCommand)) {
-            // console.log("command autocomplete: "+CommandsEnum[key as keyof typeof CommandsEnum]);
             return key;
           }
           return acc;
