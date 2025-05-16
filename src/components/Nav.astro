@@ -22,11 +22,47 @@ const isHomepage = Astro.url.pathname === "/";
       }, 2000);
     });
   }
+
+  import navItems from "@components/NavItems.ts";
+
+  const commandsArr = [
+    "?",
+    "h",
+    "help",
+    "ls",
+    "pwd",
+    "cd",
+    "/",
+    ...navItems.map((navItem) => navItem.name),
+  ];
+
+  /* 
+   * This function is used to create an enum from an array.
+   * See the following two lines.
+   */
+  const createEnumFromArray = <T extends string>(
+    array: readonly T[]
+  ): { [key in T]: key } => {
+    return array.reduce(
+      (acc, key) => {
+        acc[key] = key;
+        return acc;
+      },
+      {} as { [key in T]: key }
+    );
+  };
+
+  /* 
+   * These two lines together create an enum of the command values.
+   * This is useful for validating and processing commands 
+   * in the switch statement in executeCommand().
+   */
+  const CommandsEnum = createEnumFromArray(commandsArr);
+  type CommandsEnum = keyof typeof CommandsEnum;
+
   /*
    * The following is based on generated code from google search
    */
-  import navItems from "@components/NavItems.ts";
-
   let currentDirectory = "/";
   const commandInput = document.getElementById("command-input");
   const terminalOutput = document.getElementById("terminal-output");
@@ -36,18 +72,18 @@ const isHomepage = Astro.url.pathname === "/";
     let output = "";
 
     switch (cmd) {
-      case "?":
-      case "h":
-      case "help":
+      case CommandsEnum["?"]:
+      case CommandsEnum["h"]:
+      case CommandsEnum["help"]:
         output =
           "Usage: &lt;cmd&gt; &lt;options&gt;\n" +
           "Commands:\n\n" +
-          " - pwd\n \tShows current directory\n\n"+
-          " - ls\n \tLists directory contents (pages)\n\n"+
+          " - pwd\n \tShows current directory\n\n" +
+          " - ls\n \tLists directory contents (pages)\n\n" +
           " - cd &lt;page&gt;\n \tNavigates to that page.\n\n" +
           " - &lt;page&gt;\n \tNavigates to that page.\n\n";
         break;
-      case "cd":
+      case CommandsEnum["cd"]:
         if (args.length > 0) {
           currentDirectory = args[0];
           output = "Directory changed to " + currentDirectory;
@@ -61,22 +97,25 @@ const isHomepage = Astro.url.pathname === "/";
           output = "Usage: cd &lt;directory&gt;";
         }
         break;
-      case "pwd":
+      case CommandsEnum["pwd"]:
         output = currentDirectory;
         break;
-      case "ls":
+      case CommandsEnum["ls"]:
         output = listFiles(currentDirectory);
         break;
+      case CommandsEnum["/"]:
+        output = "Opening " + cmd;
+        window.location.href = "/";
+        break;
       default:
-        const navCmd = navItems.find((v) => v.name == cmd);
-        if (navCmd) {
-          output = "Opening " + cmd;
-          window.location.href = navCmd.route;
-        } else if (cmd == "/") {
-          output = "Opening " + cmd;
-          window.location.href = "/";
-        } else {
-          output = "Command not found: " + cmd;
+        if (CommandsEnum.hasOwnProperty(cmd)) {
+          const navCmd = navItems.find((v) => v.name == CommandsEnum[cmd]);
+          if (navCmd) {
+            output = "Opening " + cmd;
+            window.location.href = navCmd.route;
+          } else {
+            output = "Command not found: " + cmd;
+          }
         }
     }
 
@@ -87,27 +126,12 @@ const isHomepage = Astro.url.pathname === "/";
 
   // Simulate file listing
   function listFiles(directory: string) {
-    // Replace this with your actual file/directory structure logic
     if (directory === "/") {
       return navItems
         .map((i) => {
           return i.name;
-          // <a
-          //   href={i.route}
-          //   aria-current="page"
-          //   class:list={[
-          //     "p-1",
-          //     currentParentRoute == i.route ? "current-nav-page" : "",
-          //   ]}
-          // >
-          //   {i.title}
-          // </a>
         })
         .join("\n");
-      // } else if (directory === "dir1") {
-      //   return "file1.txt\nfile2.txt";
-      // } else if (directory === "dir2") {
-      //   return "file3.txt";
     }
     return "No files found in " + directory;
   }
@@ -160,61 +184,14 @@ const isHomepage = Astro.url.pathname === "/";
         )
       }
 
-      <!-- <div class="dropdown">
-        <div
-          tabindex="0"
-          role="button"
-          class="lg:hidden btn btn-ghost border-none pl-1 pr-1"
-        >
-          <MenuButton />
-        </div>
-        <ul
-          tabindex="0"
-          class="menu menu-sm dropdown-content rounded-xs z-1 mt-3 w-52 p-1 shadow bg-base-300"
-        >
-          {
-            navItems.map((i) => (
-              <li class:list={["p-0", i.name]}>
-                <a
-                  href={i.route}
-                  aria-current="page"
-                  class:list={[
-                    "p-1",
-                    currentParentRoute == i.route ? "current-nav-page" : "",
-                  ]}
-                >
-                  {i.title}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <div class="hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
-          {
-            navItems.map((i) => (
-              <li class={i.name}>
-                <a
-                  href={i.route}
-                  aria-current="page"
-                  class:list={[
-                    "nav",
-                    currentParentRoute == i.route ? "current-nav-page" : "",
-                  ]}
-                >
-                  {i.title}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div> -->
-
       <div class="flex">
         <div id="terminal-container">
-          &gt; <input autocomplete="off" type="text" id="command-input" autofocus />
+          &gt; <input
+            autocomplete="off"
+            type="text"
+            id="command-input"
+            autofocus
+          />
           <pre id="terminal-output"></pre>
         </div>
       </div>
