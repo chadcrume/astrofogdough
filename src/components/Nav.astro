@@ -36,7 +36,7 @@ const isHomepage = Astro.url.pathname === "/";
     ...navItems.map((navItem) => navItem.name),
   ];
 
-  /* 
+  /*
    * This function is used to create an enum from an array.
    * See the following two lines.
    */
@@ -52,9 +52,9 @@ const isHomepage = Astro.url.pathname === "/";
     );
   };
 
-  /* 
+  /*
    * These two lines together create an enum of the command values.
-   * This is useful for validating and processing commands 
+   * This is useful for validating and processing commands
    * in the switch statement in executeCommand().
    */
   const CommandsEnum = createEnumFromArray(commandsArr);
@@ -142,6 +142,19 @@ const isHomepage = Astro.url.pathname === "/";
         const command = (commandInput as HTMLInputElement).value;
         executeCommand(command);
         (commandInput as HTMLInputElement).value = "";
+        event.preventDefault();
+      } else if (event.key === "Tab") {
+        const partialCommand = (commandInput as HTMLInputElement).value;
+        const commandsKeys = Object.keys(CommandsEnum);
+        const fullCommand = commandsKeys.reduce((acc, key) => {
+          if (key.startsWith(partialCommand)) {
+            // console.log("command autocomplete: "+CommandsEnum[key as keyof typeof CommandsEnum]);
+            return key;
+          }
+          return acc;
+        }, partialCommand);
+        // executeCommand(command);
+        (commandInput as HTMLInputElement).value = fullCommand;
         event.preventDefault();
       }
     });
