@@ -4,6 +4,7 @@ import Logo2 from "@assets/logo/circle2.svg";
 import MenuButton from "@assets/menubutton.svg";
 import UserIcon from "@assets/usericon.svg";
 import navItems from "@components/NavItems.ts";
+import CommandPrompt from "@components/CommandPrompt.astro";
 const currentPath = Astro.url.pathname;
 const currentParentRoute =
   "/" + currentPath.split("/").filter((i) => i && i != "")[0];
@@ -23,135 +24,6 @@ const isHomepage = Astro.url.pathname === "/";
     });
   }
 
-  import navItems from "@components/NavItems.ts";
-  import Accordion from "./Accordion.astro";
-
-  interface ICommandFunction {
-    (currentDirectory: string, ...args: any[]): string;
-  }
-  interface ICommands {
-    [key: string]: ICommandFunction;
-  }
-
-  const executeHelp: ICommandFunction = () => {
-    return (
-      "Usage: &lt;cmd&gt; &lt;options&gt;\n" +
-      "Commands:\n\n" +
-      " - pwd\n \tShows current directory\n\n" +
-      " - ls\n \tLists directory contents (pages)\n\n" +
-      " - cd &lt;page&gt;\n \tNavigates to that page.\n\n" +
-      " - &lt;page&gt;\n \tNavigates to that page.\n\n"
-    );
-  };
-  const executeList: ICommandFunction = (
-    currentDirectory,
-    directory?: string
-  ) => {
-    directory = directory || currentDirectory;
-    if (directory === "/") {
-      return navItems
-        .map((i) => {
-          return i.name;
-        })
-        .join("\n");
-    }
-    return "No files found in " + directory;
-  };
-  const executeGetCurrent: ICommandFunction = (currentDirectory) => {
-    return currentDirectory;
-  };
-  const executeNav: ICommandFunction = (
-    currentDirectory,
-    directory?: string
-  ) => {
-    currentDirectory = directory || currentDirectory;
-    let output = "";
-    // const navCmd = navItems.find((v) => v.name == directory);
-    // if (navCmd) {
-    output = "Opening " + currentDirectory;
-    window.setTimeout(() => {
-      window.location.href = currentDirectory;
-    }, 560);
-    // } else {
-    //   output = "Command not found: " + directory;
-    // }
-    return output;
-  };
-
-  const commands: ICommands = {
-    "?": executeHelp,
-    h: executeHelp,
-    help: executeHelp,
-    ls: executeList,
-    pwd: executeGetCurrent,
-    cd: executeNav,
-    "/": (currentDirectory: string, ...args: any[]) =>
-      executeNav(currentDirectory, "/"),
-    ...{
-      ...navItems.reduce((acc, navItem) => {
-        return {
-          ...acc,
-          [navItem.name]: (currentDirectory: string, ...args: any[]) =>
-            executeNav(currentDirectory, navItem.route),
-        };
-      }, {} as ICommands),
-    },
-  };
-  console.log("commands", commands);
-  const commandsArr = [
-    "?",
-    "h",
-    "help",
-    "ls",
-    "pwd",
-    "cd",
-    "/",
-    ...navItems.map((navItem) => navItem.name),
-  ];
-
-  /*
-   * The following is based on generated code from google search
-   */
-  let currentDirectory = "/";
-  const commandInput = document.getElementById("command-input");
-  const terminalOutput = document.getElementById("terminal-output");
-
-  function executeCommand(command: string) {
-    const [cmd, ...args] = command.split(" ");
-    let output = "";
-
-    if (commands.hasOwnProperty(cmd)) {
-      output = commands[cmd](currentDirectory, ...args);
-    } else {
-      output = "Command not found: " + cmd;
-    }
-
-    if (terminalOutput)
-      terminalOutput.innerHTML =
-        "<br>&gt; " + command + "<br>" + output + "<br>";
-  }
-
-  if (commandInput)
-    commandInput.addEventListener("keydown", function (event) {
-      if (event.key === "Enter") {
-        const command = (commandInput as HTMLInputElement).value;
-        executeCommand(command);
-        (commandInput as HTMLInputElement).value = "";
-        event.preventDefault();
-      } else if (event.key === "Tab") {
-        const partialCommand = (commandInput as HTMLInputElement).value;
-        const commandsKeys = Object.keys(commands);
-        const fullCommand = commandsKeys.reduce((acc, key) => {
-          if (key.startsWith(partialCommand)) {
-            return key;
-          }
-          return acc;
-        }, partialCommand);
-        // executeCommand(command);
-        (commandInput as HTMLInputElement).value = fullCommand;
-        event.preventDefault();
-      }
-    });
 </script>
 
 <div
@@ -248,19 +120,10 @@ const isHomepage = Astro.url.pathname === "/";
 
       <!-- Terminal Nav -->
       <div class="navbar-center flex-auto w-max flex items-center">
-        <div class="w-full">
-          <div id="terminal-container">
-            &gt; <input
-              autocomplete="off"
-              type="text"
-              id="command-input"
-              autofocus
-            />
-            <pre id="terminal-output"></pre>
-          </div>
-        </div>
+        <CommandPrompt/>
       </div>
 
+      <!-- User Menu -->
       <div class="navbar-end w-fit h-auto pl-7 flex items-center">
         <details class="dropdown dropdown-end">
           <summary class="list-none cursor-pointer m-0">
@@ -343,11 +206,14 @@ const isHomepage = Astro.url.pathname === "/";
       }
 
       #terminal-output {
+        background-color: black;
+        left: -10px;
         margin: 0;
-        padding: 0;
+        padding: 10px;
         white-space: pre;
         overflow: scroll;
         max-height: 200px;
+        width: 110%;
       }
 
       #command-input {
