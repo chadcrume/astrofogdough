@@ -23,13 +23,12 @@ const isHomepage = Astro.url.pathname === "/";
       }, 2000);
     });
   }
-
 </script>
 
 <div
-  class="navbar flex items-stretch bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-8 border-b border-gray-00"
+  class="navbar flex items-stretch justify-stretch bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-8 border-b border-gray-00"
 >
-  <div class="navbar-start w-fit pt-2 flex items-center">
+  <div class="navbar-start w-fit flex items-center">
     <div class="flex items-center">
       <!-- Logo -->
       {
@@ -95,139 +94,135 @@ const isHomepage = Astro.url.pathname === "/";
           }
         </ul>
       </div>
-      <!-- Desktop Nav -->
-      <div class="navbar-center flex-auto hidden lg:flex">
-        <!-- lg:flex -->
-        <ul class="menu menu-horizontal px-1">
-          {
-            navItems.map((i) => (
-              <li class={i.name}>
-                <a
-                  href={i.route}
-                  aria-current="page"
-                  class:list={[
-                    "nav",
-                    currentParentRoute == i.route ? "current-nav-page" : "",
-                  ]}
-                >
-                  {i.title}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+    </div>
+  </div>
+  <!-- Desktop Nav -->
+  <div class="navbar-center flex-auto hidden lg:flex">
+    <!-- lg:flex -->
+    <ul class="menu menu-horizontal px-1">
+      {
+        navItems.map((i) => (
+          <li class={i.name}>
+            <a
+              href={i.route}
+              aria-current="page"
+              class:list={[
+                "nav",
+                currentParentRoute == i.route ? "current-nav-page" : "",
+              ]}
+            >
+              {i.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 
-      <!-- Terminal Nav -->
-      <div class="navbar-center flex-auto w-max flex items-center">
-        <CommandPrompt/>
-      </div>
+  <!-- Terminal Nav -->
+  <div class="navbar-center flex-auto w-max flex items-center">
+    <CommandPrompt />
+  </div>
 
-      <!-- User Menu -->
-      <div class="navbar-end w-fit h-auto pl-7 flex items-center">
-        <details class="dropdown dropdown-end">
-          <summary class="list-none cursor-pointer m-0">
-            <div class="avatar">
-              <div
-                class="w-7 bg-black text-white rounded-full text-left justify-center items-center p-1"
-              >
-                <UserIcon />
-              </div>
-            </div>
-          </summary>
-          <ul
-            class="menu dropdown-content bg-base-100 rounded-box rounded-sm rounded-tr-none z-1 w-52 p-2
-        border-1 border-zinc-400"
+  <!-- User Menu -->
+  <div class="navbar-end w-fit h-auto pl-7 flex items-center">
+    <details class="dropdown dropdown-end">
+      <summary class="list-none cursor-pointer m-0">
+        <div class="avatar">
+          <div
+            class="w-7 bg-black text-white rounded-full text-left justify-center items-center p-1"
           >
-            <li>
-              <div
-                class="w-full block text-left bg-base-400 hover:bg-transparent"
-              >
-                <div>User Name</div>
-                <div class="pt-0 mb-0 mt-0 text-xs bg-none">
-                  name@company.com
-                </div>
+            <UserIcon />
+          </div>
+        </div>
+      </summary>
+      <ul
+        class="menu dropdown-content bg-base-100 rounded-box rounded-sm rounded-tr-none z-1 w-52 p-2
+        border-1 border-zinc-400"
+      >
+        <li>
+          <div class="w-full block text-left bg-base-400 hover:bg-transparent">
+            <div>User Name</div>
+            <div class="pt-0 mb-0 mt-0 text-xs bg-none">name@company.com</div>
+          </div>
+          <div class="w-full block text-left hover:bg-transparent">
+            <div class="w-auto">
+              🌞
+              <div class="inline-block w-10">
+                <span
+                  data-toggle-theme="dark,light"
+                  data-act-class="pl-4"
+                  class="border rounded-full border-base-content flex items-center cursor-pointer w-10 transition-all duration-300 ease-in-out pl-0"
+                >
+                  <span class="rounded-full w-3 h-3 m-1 bg-base-content">
+                  </span>
+                </span>
               </div>
-              <div class="w-full block text-left hover:bg-transparent">
-                <div class="w-auto">
-                  🌞
-                  <div class="inline-block w-10">
-                    <span
-                      data-toggle-theme="dark,light"
-                      data-act-class="pl-4"
-                      class="border rounded-full border-base-content flex items-center cursor-pointer w-10 transition-all duration-300 ease-in-out pl-0"
-                    >
-                      <span class="rounded-full w-3 h-3 m-1 bg-base-content">
-                      </span>
-                    </span>
-                  </div>
-                  🌚
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="w-full block text-left">
-                <a href="/user-settings">Settings</a>
-              </div>
-            </li>
-            <li>
-              <div class="w-full block text-left toaster">
-                <a href="#">Sign Out</a>
-              </div>
-            </li>
-          </ul>
-        </details>
-      </div>
-    </div>
-
-    <div class="toast toast-top toast-center hide">
-      <div class="alert alert-info flex items-center justify-between">
-        <span>Signed Out</span>
-      </div>
-    </div>
-
-    <style>
-      .hide {
-        opacity: 0;
-        transition: opacity 1s linear;
-      }
-    </style>
-    <style>
-      #terminal-container {
-        font-family: monospace;
-        font-size: 14px;
-        background-color: black;
-        color: white;
-        padding: 10px;
-        border: 1px solid white;
-        min-width: 200px;
-        max-width: 400px;
-        box-sizing: border-box;
-      }
-
-      #terminal-output {
-        background-color: black;
-        left: -10px;
-        margin: 0;
-        padding: 10px;
-        white-space: pre;
-        overflow: scroll;
-        max-height: 200px;
-        width: 110%;
-      }
-
-      #command-input {
-        background-color: black;
-        color: white;
-        border: none;
-        padding: 5px;
-        outline: none;
-        width: 90%;
-      }
-
-      #command-input::before {
-        content: "&gt; ";
-      }
-    </style>
+              🌚
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="w-full block text-left">
+            <a href="/user-settings">Settings</a>
+          </div>
+        </li>
+        <li>
+          <div class="w-full block text-left toaster">
+            <a href="#">Sign Out</a>
+          </div>
+        </li>
+      </ul>
+    </details>
   </div>
 </div>
+
+<div class="toast toast-top toast-center hide">
+  <div class="alert alert-info flex items-center justify-between">
+    <span>Signed Out</span>
+  </div>
+</div>
+
+<style>
+  .hide {
+    opacity: 0;
+    transition: opacity 1s linear;
+  }
+</style>
+<style>
+  #terminal-container {
+    font-family: monospace;
+    font-size: 14px;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: 1px solid white;
+    min-width: 200px;
+    max-width: 400px;
+    box-sizing: border-box;
+  }
+
+  #terminal-output {
+    background-color: black;
+    left: -10px;
+    margin: 0;
+    padding: 10px;
+    white-space: pre;
+    overflow: scroll;
+    max-height: 200px;
+    width: 110%;
+  }
+
+  #command-input {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 5px;
+    outline: none;
+    width: 90%;
+  }
+
+  #command-input::before {
+    content: "&gt; ";
+  }
+</style>

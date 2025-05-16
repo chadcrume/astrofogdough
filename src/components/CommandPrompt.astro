@@ -139,10 +139,10 @@ const currentPath = Astro.url.pathname;
 </script>
 
 <div class="w-full">
-  <div id="terminal-container">
-    <div class="relative overflow-visible">
+  <div id="terminal-container" class="w-full">
+    <div class="w-full relative overflow-visible">
       &gt; <input autocomplete="off" type="text" id="command-input" autofocus />
-      <pre id="terminal-output" class="hidden absolute z-100"></pre>
+      <pre id="terminal-output" class="w-full hidden absolute z-100"></pre>
     </div>
   </div>
 </div>
@@ -162,12 +162,16 @@ const currentPath = Astro.url.pathname;
 
   #terminal-output {
     background-color: black;
+    color: white;
     left: -10px;
     margin: 0;
     padding: 10px;
     white-space: pre;
     overflow: scroll;
     max-height: 200px;
+    min-width: 200px;
+    max-width: 400px;
+    box-sizing: border-box;
     width: 110%;
   }
 
