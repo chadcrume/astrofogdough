@@ -1,0 +1,189 @@
+---
+---
+
+<script>
+  import navItems from "@components/NavItems.ts";
+
+  interface ICommandFunction {
+    (currentDirectory: string, ...args: any[]): string;
+  }
+  interface ICommands {
+    [key: string]: ICommandFunction;
+  }
+
+  const executeHelp: ICommandFunction = () => {
+    return (
+      "Usage: &lt;cmd&gt; &lt;options&gt;\n" +
+      "Commands:\n\n" +
+      " - pwd\n \tShows current directory\n\n" +
+      " - ls\n \tLists directory contents (pages)\n\n" +
+      " - cd &lt;page&gt;\n \tNavigates to that page.\n\n" +
+      " - &lt;page&gt;\n \tNavigates to that page.\n\n"
+    );
+  };
+  const executeList: ICommandFunction = (
+    currentDirectory,
+    directory?: string
+  ) => {
+    directory = directory || currentDirectory;
+    if (directory === "/") {
+      return navItems
+        .map((i) => {
+          return i.name;
+        })
+        .join("\n");
+    }
+    return "No files found in " + directory;
+  };
+  const executeGetCurrent: ICommandFunction = (currentDirectory) => {
+    return currentDirectory;
+  };
+  const executeNav: ICommandFunction = (
+    currentDirectory,
+    directory?: string
+  ) => {
+    currentDirectory = directory || currentDirectory;
+    let output = "";
+    // const navCmd = navItems.find((v) => v.name == directory);
+    // if (navCmd) {
+    output = "Opening " + currentDirectory;
+    window.setTimeout(() => {
+      window.location.href = currentDirectory;
+    }, 560);
+    // } else {
+    //   output = "Command not found: " + directory;
+    // }
+    return output;
+  };
+
+  const commands: ICommands = {
+    "?": executeHelp,
+    h: executeHelp,
+    help: executeHelp,
+    ls: executeList,
+    pwd: executeGetCurrent,
+    cd: executeNav,
+    "/": (currentDirectory: string, ...args: any[]) =>
+      executeNav(currentDirectory, "/"),
+    ...{
+      ...navItems.reduce((acc, navItem) => {
+        return {
+          ...acc,
+          [navItem.name]: (currentDirectory: string, ...args: any[]) =>
+            executeNav(currentDirectory, navItem.route),
+        };
+      }, {} as ICommands),
+    },
+  };
+  console.log("commands", commands);
+  const commandsArr = [
+    "?",
+    "h",
+    "help",
+    "ls",
+    "pwd",
+    "cd",
+    "/",
+    ...navItems.map((navItem) => navItem.name),
+  ];
+
+  /*
+   * The following is based on generated code from google search
+   */
+  let currentDirectory = "/";
+  const commandInput = document.getElementById("command-input");
+  const terminalOutput = document.getElementById("terminal-output");
+
+  function executeCommand(command: string) {
+    const [cmd, ...args] = command.split(" ");
+    let output = "";
+
+    if (commands.hasOwnProperty(cmd)) {
+      output = commands[cmd](currentDirectory, ...args);
+    } else {
+      output = "Command not found: " + cmd;
+    }
+
+    if (terminalOutput) {
+      terminalOutput.innerHTML =
+        "<br>&gt; " + command + "<br>" + output + "<br>";
+      terminalOutput.classList.toggle("hidden", false);
+    }
+  }
+
+  if (commandInput)
+    commandInput.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        (terminalOutput as HTMLInputElement).classList.toggle("hidden", true);
+        event.preventDefault();
+      } else if (event.key === "Enter") {
+        const command = (commandInput as HTMLInputElement).value;
+        executeCommand(command);
+        (commandInput as HTMLInputElement).value = "";
+        event.preventDefault();
+      } else if (event.key === "Tab") {
+        const partialCommand = (commandInput as HTMLInputElement).value;
+        const commandsKeys = Object.keys(commands);
+        const fullCommand = commandsKeys.reduce((acc, key) => {
+          if (key.startsWith(partialCommand)) {
+            return key;
+          }
+          return acc;
+        }, partialCommand);
+        // executeCommand(command);
+        (commandInput as HTMLInputElement).value = fullCommand;
+        event.preventDefault();
+      }
+    });
+</script>
+
+<div class="w-full">
+  <div id="terminal-container" class="w-full">
+    <div class="w-full relative overflow-visible">
+      &gt; <input autocomplete="off" type="text" id="command-input" autofocus />
+      <pre id="terminal-output" class="w-full hidden absolute z-100"></pre>
+    </div>
+  </div>
+</div>
+
+<style>
+  #terminal-container {
+    font-family: monospace;
+    font-size: 14px;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: 1px solid white;
+    min-width: 200px;
+    max-width: 400px;
+    box-sizing: border-box;
+  }
+
+  #terminal-output {
+    background-color: black;
+    color: white;
+    left: -10px;
+    margin: 0;
+    padding: 10px;
+    white-space: pre;
+    overflow: scroll;
+    max-height: 200px;
+    min-width: 200px;
+    max-width: 400px;
+    box-sizing: border-box;
+    width: 110%;
+  }
+
+  #command-input {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 5px;
+    outline: none;
+    width: 90%;
+  }
+
+  #command-input::before {
+    content: "&gt; ";
+  }
+</style>

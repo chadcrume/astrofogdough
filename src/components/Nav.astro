@@ -4,30 +4,37 @@ import Logo2 from "@assets/logo/circle2.svg";
 import MenuButton from "@assets/menubutton.svg";
 import UserIcon from "@assets/usericon.svg";
 import navItems from "@components/NavItems.ts";
+import CommandPrompt from "@components/CommandPrompt.astro";
 const currentPath = Astro.url.pathname;
 const currentParentRoute =
   "/" + currentPath.split("/").filter((i) => i && i != "")[0];
 const isHomepage = Astro.url.pathname === "/";
-
 ---
+
 <script>
-  const toaster = document.querySelector('.toaster');
-  const toast = document.querySelector('.toast');
-  toaster.addEventListener('click', (event) => {
-    event.preventDefault(); // Prevents default anchor behavior
-    toast.classList.remove('hide');
-    setTimeout(() => {
-      toast.classList.add('hide');
-    }, 2000);
-  });
+  const toaster = document.querySelector(".toaster");
+  const toast = document.querySelector(".toast");
+  if (toaster && toast) {
+    toaster.addEventListener("click", (event) => {
+      event.preventDefault(); // Prevents default anchor behavior
+      toast.classList.remove("hide");
+      setTimeout(() => {
+        toast.classList.add("hide");
+      }, 2000);
+    });
+  }
 </script>
 
-<div class="navbar bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-8 border-b border-gray-00">
-  <div class="navbar-start">
+<div
+  class="navbar flex items-stretch justify-stretch bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 p-8 border-b border-gray-00"
+>
+  <div class="navbar-start w-fit flex items-center">
     <div class="flex items-center">
+      <!-- Logo -->
       {
         !isHomepage && (
-          <>
+          // Using verbose <Fragment> for better IDE
+          <Fragment>
             <div class="mr-2">
               <a href="/" data-astro-prefetch class="whitespace-nowrap">
                 Fogdough
@@ -40,22 +47,23 @@ const isHomepage = Astro.url.pathname === "/";
                 </a>
               </div>
             </div>
-          </>
+          </Fragment>
         )
       }
       {
         isHomepage && (
-          <>
+          <Fragment>
             <div>Fogdough</div>
             <div>
               <div class="logo-nav ml-1 mr-1">
                 <Image class=" opacity-0" src={Logo2} alt="Fogdough logo" />
               </div>
             </div>
-          </>
+          </Fragment>
         )
       }
 
+      <!-- Mobile Nav -->
       <div class="dropdown">
         <div
           tabindex="0"
@@ -86,30 +94,10 @@ const isHomepage = Astro.url.pathname === "/";
           }
         </ul>
       </div>
-
-      <div class="hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
-          {
-            navItems.map((i) => (
-              <li class={i.name}>
-                <a
-                  href={i.route}
-                  aria-current="page"
-                  class:list={[
-                    "nav",
-                    currentParentRoute == i.route ? "current-nav-page" : "",
-                  ]}
-                >
-                  {i.title}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
     </div>
   </div>
-  <div class="navbar-center hidden">
+  <!-- Desktop Nav -->
+  <div class="navbar-center flex-auto hidden lg:flex">
     <!-- lg:flex -->
     <ul class="menu menu-horizontal px-1">
       {
@@ -130,9 +118,16 @@ const isHomepage = Astro.url.pathname === "/";
       }
     </ul>
   </div>
-  <div class="navbar-end">
+
+  <!-- Terminal Nav -->
+  <div class="navbar-center flex-auto w-max flex items-center">
+    <CommandPrompt />
+  </div>
+
+  <!-- User Menu -->
+  <div class="navbar-end w-fit h-auto pl-7 flex items-center">
     <details class="dropdown dropdown-end">
-      <summary class="list-none cursor-pointer m-1">
+      <summary class="list-none cursor-pointer m-0">
         <div class="avatar">
           <div
             class="w-7 bg-black text-white rounded-full text-left justify-center items-center p-1"
@@ -148,11 +143,9 @@ const isHomepage = Astro.url.pathname === "/";
         <li>
           <div class="w-full block text-left bg-base-400 hover:bg-transparent">
             <div>User Name</div>
-            <div class="pt-0 mb-0 mt-0 text-xs bg-none">
-              name@company.com
-            </div>
+            <div class="pt-0 mb-0 mt-0 text-xs bg-none">name@company.com</div>
           </div>
-          <div class="w-full block text-left bg-base-400 hover:bg-transparent">
+          <div class="w-full block text-left hover:bg-transparent">
             <div class="w-auto">
               🌞
               <div class="inline-block w-10">
@@ -170,10 +163,14 @@ const isHomepage = Astro.url.pathname === "/";
           </div>
         </li>
         <li>
-          <div class="w-full block text-left"><a href="/user-settings">Settings</a></div>
+          <div class="w-full block text-left">
+            <a href="/user-settings">Settings</a>
+          </div>
         </li>
         <li>
-          <div class="w-full block text-left toaster"><a href="#">Sign Out</a></div>
+          <div class="w-full block text-left toaster">
+            <a href="#">Sign Out</a>
+          </div>
         </li>
       </ul>
     </details>
@@ -187,9 +184,45 @@ const isHomepage = Astro.url.pathname === "/";
 </div>
 
 <style>
-.hide {
-  opacity: 0;
-  transition: opacity 1s linear;
-}
+  .hide {
+    opacity: 0;
+    transition: opacity 1s linear;
+  }
+</style>
+<style>
+  #terminal-container {
+    font-family: monospace;
+    font-size: 14px;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: 1px solid white;
+    min-width: 200px;
+    max-width: 400px;
+    box-sizing: border-box;
+  }
 
+  #terminal-output {
+    background-color: black;
+    left: -10px;
+    margin: 0;
+    padding: 10px;
+    white-space: pre;
+    overflow: scroll;
+    max-height: 200px;
+    width: 110%;
+  }
+
+  #command-input {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 5px;
+    outline: none;
+    width: 90%;
+  }
+
+  #command-input::before {
+    content: "&gt; ";
+  }
 </style>
