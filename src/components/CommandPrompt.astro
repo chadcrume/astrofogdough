@@ -1,8 +1,33 @@
 ---
+
 ---
+
+<div class="w-full">
+  <div id="terminal-container" class="w-full">
+    <div class="w-full relative overflow-visible">
+      &gt; <input autocomplete="off" type="text" id="command-input" autofocus />
+      <pre id="terminal-output" class="w-full hidden absolute z-100"></pre>
+    </div>
+  </div>
+</div>
+<astro-path data-message={JSON.stringify(Astro.url.pathname)}> </astro-path>
 
 <script>
   import navItems from "@components/NavItems.ts";
+
+  const navItemsPaths = navItems.map((navItem) => navItem.name);
+
+  let currentPath = "/";
+  // Using recommended way to pass data from frontmatter to client script via custom element.
+  // See https://docs.astro.build/en/guides/client-side-scripts/#pass-frontmatter-variables-to-scripts
+  class AstroPath extends HTMLElement {
+    connectedCallback() {
+      // Read the message from the data attribute.
+      currentPath = JSON.parse(this.dataset.message || "<unknown>");
+      console.log("currentPath", currentPath);
+    }
+  }
+  customElements.define("astro-path", AstroPath);
 
   interface ICommandFunction {
     (currentDirectory: string, ...args: any[]): string;
@@ -25,13 +50,13 @@
     currentDirectory,
     directory?: string
   ) => {
-    directory = directory || currentDirectory;
-    if (directory === "/") {
-      return navItems
-        .map((i) => {
-          return i.name;
-        })
-        .join("\n");
+    let targetDirectory = directory || currentDirectory;
+    if (targetDirectory === "/") {
+      return navItemsPaths.join("\n");
+    } else if (
+      navItemsPaths.map((path) => "/" + path).includes(targetDirectory)
+    ) {
+      return "..\n";
     }
     return "No files found in " + directory;
   };
@@ -42,17 +67,15 @@
     currentDirectory,
     directory?: string
   ) => {
-    currentDirectory = directory || currentDirectory;
+    currentDirectory =
+      directory && [".", "..", "-"].includes(directory)
+        ? "/"
+        : directory || currentDirectory;
     let output = "";
-    // const navCmd = navItems.find((v) => v.name == directory);
-    // if (navCmd) {
     output = "Opening " + currentDirectory;
     window.setTimeout(() => {
       window.location.href = currentDirectory;
     }, 560);
-    // } else {
-    //   output = "Command not found: " + directory;
-    // }
     return output;
   };
 
@@ -60,7 +83,10 @@
     "?": executeHelp,
     h: executeHelp,
     help: executeHelp,
-    ls: executeList,
+    ls: (currentDirectory, ...args) => {
+      console.log("ls currentDirectory args", currentDirectory, args);
+      return executeList(currentDirectory, ...args);
+    },
     pwd: executeGetCurrent,
     cd: executeNav,
     "/": (currentDirectory: string, ...args: any[]) =>
@@ -84,13 +110,13 @@
     "pwd",
     "cd",
     "/",
-    ...navItems.map((navItem) => navItem.name),
+    ...navItemsPaths,
   ];
 
   /*
    * The following is based on generated code from google search
    */
-  let currentDirectory = "/";
+  let currentDirectory = currentPath;
   const commandInput = document.getElementById("command-input");
   const terminalOutput = document.getElementById("terminal-output");
 
@@ -123,7 +149,9 @@
         event.preventDefault();
       } else if (event.key === "Tab") {
         const partialCommand = (commandInput as HTMLInputElement).value;
-        const commandsKeys = Object.keys(commands);
+        const commandsKeys = Object.keys(commands)
+          // include all valid 'cd <path>' commands in the autocomplete list
+          .concat(navItemsPaths.map((path) => "cd " + path));
         const fullCommand = commandsKeys.reduce((acc, key) => {
           if (key.startsWith(partialCommand)) {
             return key;
@@ -136,15 +164,6 @@
       }
     });
 </script>
-
-<div class="w-full">
-  <div id="terminal-container" class="w-full">
-    <div class="w-full relative overflow-visible">
-      &gt; <input autocomplete="off" type="text" id="command-input" autofocus />
-      <pre id="terminal-output" class="w-full hidden absolute z-100"></pre>
-    </div>
-  </div>
-</div>
 
 <style>
   #terminal-container {
