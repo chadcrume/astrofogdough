@@ -29,13 +29,31 @@
   }
   customElements.define("astro-path", AstroPath);
 
+  /*
+   * We'll create a "commands" object that contains a property for each command.
+   * Each property name will be the command name itself.
+   * And each property value will be the function that executes that command.
+   *
+   * 1. So first we define the interface for the functions that execute the commands.
+   * 2. Then we define the interface for the "commands" object.
+   * 3. Then we define the execution functions for all commands
+   * 4. And finally we define the "commands" object.
+   */
+
+  //  * 1. So first we define the interface for the functions that execute the commands.
   interface ICommandFunction {
     (currentDirectory: string, ...args: any[]): string;
   }
+
+  //  * 2. Then we define the interface for the "commands" object.
   interface ICommands {
     [key: string]: ICommandFunction;
   }
 
+  //  * 3. Then we define the execution functions for all commands
+  /*
+   * Returns the help content
+   */
   const executeHelp: ICommandFunction = () => {
     return (
       "Usage: &lt;cmd&gt; &lt;options&gt;\n" +
@@ -46,6 +64,14 @@
       " - &lt;page&gt;\n \tNavigates to that page.\n\n"
     );
   };
+  /*
+   * Returns the list of commands as directory contents when directory is the root,
+   * otherwise returns just the ".." option.
+   * @param {string} currentDirectory - The currentDirectory
+   * @param {string} [directory] - The user-specified directory, if entered.
+   *    Can also include directory shorthand "." or ".." or "-"
+   * @return {string} - terminal output messaging
+   */
   const executeList: ICommandFunction = (
     currentDirectory,
     directory?: string
@@ -60,17 +86,60 @@
     }
     return "No files found in " + directory;
   };
+  /*
+   * Returns the currentDirectory.
+   * @param {string} currentDirectory - The currentDirectory
+   * @return {string} - currentDirectory
+   *
+   * This may seem redundant, but the function is assigned to the "pwd"
+   * property of the commands object and is executed like any other command,
+   * therefore avoiding the need to handle execution of commands differently.
+   */
   const executeGetCurrent: ICommandFunction = (currentDirectory) => {
     return currentDirectory;
   };
+  /*
+   * Utility function to decide which directory a command is applied to,
+   * based on currentDirectory and optional user-input directory.
+   * @param {string} currentDirectory - The currentDirectory
+   * @param {string} [directory] - The user-specified directory, if entered.
+   *    Can also include directory shorthand "." or ".." or "-"
+   * @return {string} - directory to apply command to
+   */
+  const getNavDir = (currentDirectory: string, directory?: string): string => {
+    switch (directory) {
+      case "-":
+        return previousDirectory;
+      case "/":
+      case ".":
+      case "..":
+        return "/";
+      default:
+        return directory || currentDirectory;
+    }
+  };
+  /*
+   * Executes a navigation (on a timeout) and returns a terminal messaging.
+   * @param {string} currentDirectory - The currentDirectory
+   * @param {string} [directory] - The user-specified directory, if entered.
+   *    Can also include directory shorthand "." or ".." or "-"
+   * @return {string} - Messaging about navigation taking place.
+   */
   const executeNav: ICommandFunction = (
     currentDirectory,
     directory?: string
   ) => {
-    currentDirectory =
-      directory && [".", "..", "-"].includes(directory)
-        ? "/"
-        : directory || currentDirectory;
+    const targetDirectory = getNavDir(currentDirectory, directory);
+    console.log(
+      "dirs prev, curr, target",
+      previousDirectory,
+      currentDirectory,
+      targetDirectory
+    );
+    if (targetDirectory != currentDirectory) {
+      previousDirectory = currentDirectory;
+      currentDirectory = targetDirectory;
+    }
     let output = "";
     output = "Opening " + currentDirectory;
     window.setTimeout(() => {
@@ -79,6 +148,7 @@
     return output;
   };
 
+  //  * 4. And finally we define the "commands" object.
   const commands: ICommands = {
     "?": executeHelp,
     h: executeHelp,
@@ -101,25 +171,39 @@
       }, {} as ICommands),
     },
   };
-  console.log("commands", commands);
-  const commandsArr = [
-    "?",
-    "h",
-    "help",
-    "ls",
-    "pwd",
-    "cd",
-    "/",
-    ...navItemsPaths,
-  ];
 
   /*
-   * The following is based on generated code from google search
+   * We have a "command-input" element and a "terminal-output" element.
+   *
+   * There's a keydown event handler for "command-input":
+   *    'Enter' will call the executeCommand function
+   *    'Tab' handles command auto-completion
+   *    'Escape' re-hides terminal-output element
+   *
+   * The executeCommand function checks that the input command is a valid
+   * property of the "commands" object, and then executes that property's
+   * command function.
+   *
+   * The command function output is printed to the "terminal-output" element.
    */
+
+  // We keep track of the current and previous directories for command context.
   let currentDirectory = currentPath;
+  let previousDirectory = currentPath;
+  // The previousDirectory logic implemented here doesn't work because the
+  // previousDirectory value is lost when the page loads after a nav command.
+  // Will need to change to use client-side routing rather than
+  // window.location.href, if that's possible.
+  // Or, save previousDirectory to local storage and load on page load.
   const commandInput = document.getElementById("command-input");
   const terminalOutput = document.getElementById("terminal-output");
 
+  /*
+   * Checks that the input command is a valid property of the "commands" object,
+   * and then executes that property's command function.
+   * @param {string} command - The full line of user input, command and args.
+   * @return {void}
+   */
   function executeCommand(command: string) {
     const [cmd, ...args] = command.split(" ");
     let output = "";
@@ -139,10 +223,7 @@
 
   if (commandInput)
     commandInput.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") {
-        (terminalOutput as HTMLInputElement).classList.toggle("hidden", true);
-        event.preventDefault();
-      } else if (event.key === "Enter") {
+      if (event.key === "Enter") {
         const command = (commandInput as HTMLInputElement).value;
         executeCommand(command);
         (commandInput as HTMLInputElement).value = "";
@@ -158,8 +239,10 @@
           }
           return acc;
         }, partialCommand);
-        // executeCommand(command);
         (commandInput as HTMLInputElement).value = fullCommand;
+        event.preventDefault();
+      } else if (event.key === "Escape") {
+        (terminalOutput as HTMLInputElement).classList.toggle("hidden", true);
         event.preventDefault();
       }
     });
