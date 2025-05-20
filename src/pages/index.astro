@@ -6,9 +6,11 @@ import Logo2 from "@assets/logo/circle0.svg";
 import Layout from "@layouts/Layout.astro";
 import LayoutSection from "@layouts/LayoutSection.astro";
 import Text from "@components/Text.astro";
+import CommandPrompt from "@components/CommandPrompt.astro";
 import navItems from "@components/NavItems.ts";
 import MarketsDashboard from "@components/MarketsDashboard.astro";
 const pageTitle = "home";
+const isHomepage = Astro.url.pathname === "/";
 ---
 
 <Layout>
@@ -28,9 +30,13 @@ const pageTitle = "home";
   <div
     class="md:col-span-1 lg:col-span-2 h-auto align-middle flex items-center p-0 gap-0"
   >
-    <h1 class="text-center md:text-left align-middle m-0 w-full">
-      On-chain. <br />Permissionless. <br />Finance reprogrammed.
-    </h1>
+    <div>
+      <h1 class="text-center md:text-left align-middle m-0 w-full flex-wrap">
+        On-chain. <br />Permissionless. <br />Finance reprogrammed.
+      </h1>
+      {isHomepage && <CommandPrompt transitionName="prompt" />}
+      {!isHomepage && <CommandPrompt placeholder={true} />}
+    </div>
   </div>
 
   <LayoutSection type="subgrid-left" class="col-span-2">

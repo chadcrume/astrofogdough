@@ -121,7 +121,8 @@ const isHomepage = Astro.url.pathname === "/";
 
   <!-- Terminal Nav -->
   <div class="navbar-center flex-auto w-max flex items-center">
-    <CommandPrompt />
+    {!isHomepage && <CommandPrompt transitionName="prompt" />}
+    {isHomepage && <CommandPrompt placeholder={true} />}
   </div>
 
   <!-- User Menu -->
