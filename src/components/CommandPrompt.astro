@@ -1,18 +1,25 @@
 ---
-
+const { class: addClass, transitionName, placeholder = false } = Astro.props;
 ---
 
-<div class="w-full">
-  <div id="terminal-container" class="w-full">
-    <div class="w-full relative overflow-visible">
-      &gt; <input autocomplete="off" type="text" id="command-input" autofocus />
-      <pre id="terminal-output" class="w-full hidden absolute z-100"></pre>
+{placeholder && <div class:list={[addClass, "w-full", "opacity-0"]} />}
+{
+  !placeholder && (
+    <div class:list={[addClass, "w-full"]} transition:name={transitionName}>
+      <div id="terminal-container" class="w-full">
+        <div class="w-full relative overflow-visible">
+          &gt;{" "}
+          <input autocomplete="off" type="text" id="command-input" autofocus />
+          <pre id="terminal-output" class="w-full hidden absolute z-100" />
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  )
+}
 <astro-path data-message={JSON.stringify(Astro.url.pathname)}> </astro-path>
 
 <script>
+  import { navigate } from "astro:transitions/client";
   import navItems from "@components/NavItems.ts";
 
   const navItemsPaths = navItems.map((navItem) => navItem.name);
@@ -143,7 +150,8 @@
     let output = "";
     output = "Opening " + currentDirectory;
     window.setTimeout(() => {
-      window.location.href = currentDirectory;
+      // window.location.href = currentDirectory;
+      navigate(currentDirectory);
     }, 560);
     return output;
   };
@@ -195,9 +203,8 @@
   // Will need to change to use client-side routing rather than
   // window.location.href, if that's possible.
   // Or, save previousDirectory to local storage and load on page load.
-  const commandInput = document.getElementById("command-input");
-  const terminalOutput = document.getElementById("terminal-output");
-
+  let commandInput = document.getElementById("command-input");
+  let terminalOutput = document.getElementById("terminal-output");
   /*
    * Checks that the input command is a valid property of the "commands" object,
    * and then executes that property's command function.
@@ -221,31 +228,37 @@
     }
   }
 
-  if (commandInput)
-    commandInput.addEventListener("keydown", function (event) {
-      if (event.key === "Enter") {
-        const command = (commandInput as HTMLInputElement).value;
-        executeCommand(command);
-        (commandInput as HTMLInputElement).value = "";
-        event.preventDefault();
-      } else if (event.key === "Tab") {
-        const partialCommand = (commandInput as HTMLInputElement).value;
-        const commandsKeys = Object.keys(commands)
-          // include all valid 'cd <path>' commands in the autocomplete list
-          .concat(navItemsPaths.map((path) => "cd " + path));
-        const fullCommand = commandsKeys.reduce((acc, key) => {
-          if (key.startsWith(partialCommand)) {
-            return key;
-          }
-          return acc;
-        }, partialCommand);
-        (commandInput as HTMLInputElement).value = fullCommand;
-        event.preventDefault();
-      } else if (event.key === "Escape") {
-        (terminalOutput as HTMLInputElement).classList.toggle("hidden", true);
-        event.preventDefault();
-      }
-    });
+  document.addEventListener("astro:page-load", () => {
+    commandInput = document.getElementById("command-input");
+    commandInput?.focus();
+    terminalOutput = document.getElementById("terminal-output");
+    console.log("astro:page-load", commandInput);
+    if (commandInput)
+      commandInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          const command = (commandInput as HTMLInputElement).value;
+          executeCommand(command);
+          (commandInput as HTMLInputElement).value = "";
+          event.preventDefault();
+        } else if (event.key === "Tab") {
+          const partialCommand = (commandInput as HTMLInputElement).value;
+          const commandsKeys = Object.keys(commands)
+            // include all valid 'cd <path>' commands in the autocomplete list
+            .concat(navItemsPaths.map((path) => "cd " + path));
+          const fullCommand = commandsKeys.reduce((acc, key) => {
+            if (key.startsWith(partialCommand)) {
+              return key;
+            }
+            return acc;
+          }, partialCommand);
+          (commandInput as HTMLInputElement).value = fullCommand;
+          event.preventDefault();
+        } else if (event.key === "Escape") {
+          (terminalOutput as HTMLInputElement).classList.toggle("hidden", true);
+          event.preventDefault();
+        }
+      });
+  });
 </script>
 
 <style>
