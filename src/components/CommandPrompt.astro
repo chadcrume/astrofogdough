@@ -1,0 +1,304 @@
+---
+const { class: addClass, transitionName, placeholder = false } = Astro.props;
+---
+
+{placeholder && <div class:list={[addClass, "w-full", "opacity-0"]} />}
+{
+  !placeholder && (
+    <div class:list={[addClass, "w-full"]} transition:name={transitionName}>
+      <div id="terminal-container" class="w-full">
+        <div class="w-full relative overflow-visible">
+          &gt;{" "}
+          <input autocomplete="off" type="text" id="command-input" autofocus />
+          <pre id="terminal-output" class="w-full hidden absolute z-100" />
+        </div>
+      </div>
+    </div>
+  )
+}
+<astro-path data-message={JSON.stringify(Astro.url.pathname)}> </astro-path>
+
+<script>
+  import { navigate } from "astro:transitions/client";
+  import navItems from "@components/NavItems.ts";
+
+  const navItemsPaths = navItems.map((navItem) => navItem.name);
+
+  let currentPath = "/";
+  // Using recommended way to pass data from frontmatter to client script via custom element.
+  // See https://docs.astro.build/en/guides/client-side-scripts/#pass-frontmatter-variables-to-scripts
+  class AstroPath extends HTMLElement {
+    connectedCallback() {
+      // Read the message from the data attribute.
+      currentPath = JSON.parse(this.dataset.message || "<unknown>");
+      console.log("currentPath", currentPath);
+    }
+  }
+  customElements.define("astro-path", AstroPath);
+
+  /*
+   * We'll create a "commands" object that contains a property for each command.
+   * Each property name will be the command name itself.
+   * And each property value will be the function that executes that command.
+   *
+   * 1. So first we define the interface for the functions that execute the commands.
+   * 2. Then we define the interface for the "commands" object.
+   * 3. Then we define the execution functions for all commands
+   * 4. And finally we define the "commands" object.
+   */
+
+  //  * 1. So first we define the interface for the functions that execute the commands.
+  interface ICommandFunction {
+    (currentDirectory: string, ...args: any[]): string;
+  }
+
+  //  * 2. Then we define the interface for the "commands" object.
+  interface ICommands {
+    [key: string]: ICommandFunction;
+  }
+
+  //  * 3. Then we define the execution functions for all commands
+  /*
+   * Returns the help content
+   */
+  const executeHelp: ICommandFunction = () => {
+    return (
+      "Usage: &lt;cmd&gt; &lt;options&gt;\n" +
+      "Commands:\n\n" +
+      " - pwd\n \tShows current directory\n\n" +
+      " - ls\n \tLists directory contents (pages)\n\n" +
+      " - cd &lt;page&gt;\n \tNavigates to that page.\n\n" +
+      " - &lt;page&gt;\n \tNavigates to that page.\n\n"
+    );
+  };
+  /*
+   * Returns the list of commands as directory contents when directory is the root,
+   * otherwise returns just the ".." option.
+   * @param {string} currentDirectory - The currentDirectory
+   * @param {string} [directory] - The user-specified directory, if entered.
+   *    Can also include directory shorthand "." or ".." or "-"
+   * @return {string} - terminal output messaging
+   */
+  const executeList: ICommandFunction = (
+    currentDirectory,
+    directory?: string
+  ) => {
+    let targetDirectory = directory || currentDirectory;
+    if (targetDirectory === "/") {
+      return navItemsPaths.join("\n");
+    } else if (
+      navItemsPaths.map((path) => "/" + path).includes(targetDirectory)
+    ) {
+      return "..\n";
+    }
+    return "No files found in " + directory;
+  };
+  /*
+   * Returns the currentDirectory.
+   * @param {string} currentDirectory - The currentDirectory
+   * @return {string} - currentDirectory
+   *
+   * This may seem redundant, but the function is assigned to the "pwd"
+   * property of the commands object and is executed like any other command,
+   * therefore avoiding the need to handle execution of commands differently.
+   */
+  const executeGetCurrent: ICommandFunction = (currentDirectory) => {
+    return currentDirectory;
+  };
+  /*
+   * Utility function to decide which directory a command is applied to,
+   * based on currentDirectory and optional user-input directory.
+   * @param {string} currentDirectory - The currentDirectory
+   * @param {string} [directory] - The user-specified directory, if entered.
+   *    Can also include directory shorthand "." or ".." or "-"
+   * @return {string} - directory to apply command to
+   */
+  const getNavDir = (currentDirectory: string, directory?: string): string => {
+    switch (directory) {
+      case "-":
+        return previousDirectory;
+      case "/":
+      case ".":
+      case "..":
+        return "/";
+      default:
+        return directory || currentDirectory;
+    }
+  };
+  /*
+   * Executes a navigation (on a timeout) and returns a terminal messaging.
+   * @param {string} currentDirectory - The currentDirectory
+   * @param {string} [directory] - The user-specified directory, if entered.
+   *    Can also include directory shorthand "." or ".." or "-"
+   * @return {string} - Messaging about navigation taking place.
+   */
+  const executeNav: ICommandFunction = (
+    currentDirectory,
+    directory?: string
+  ) => {
+    const targetDirectory = getNavDir(currentDirectory, directory);
+    console.log(
+      "dirs prev, curr, target",
+      previousDirectory,
+      currentDirectory,
+      targetDirectory
+    );
+    if (targetDirectory != currentDirectory) {
+      previousDirectory = currentDirectory;
+      currentDirectory = targetDirectory;
+    }
+    let output = "";
+    output = "Opening " + currentDirectory;
+    window.setTimeout(() => {
+      // window.location.href = currentDirectory;
+      navigate(currentDirectory);
+    }, 560);
+    return output;
+  };
+
+  //  * 4. And finally we define the "commands" object.
+  const commands: ICommands = {
+    "?": executeHelp,
+    h: executeHelp,
+    help: executeHelp,
+    ls: (currentDirectory, ...args) => {
+      console.log("ls currentDirectory args", currentDirectory, args);
+      return executeList(currentDirectory, ...args);
+    },
+    pwd: executeGetCurrent,
+    cd: executeNav,
+    "/": (currentDirectory: string, ...args: any[]) =>
+      executeNav(currentDirectory, "/"),
+    ...{
+      ...navItems.reduce((acc, navItem) => {
+        return {
+          ...acc,
+          [navItem.name]: (currentDirectory: string, ...args: any[]) =>
+            executeNav(currentDirectory, navItem.route),
+        };
+      }, {} as ICommands),
+    },
+  };
+
+  /*
+   * We have a "command-input" element and a "terminal-output" element.
+   *
+   * There's a keydown event handler for "command-input":
+   *    'Enter' will call the executeCommand function
+   *    'Tab' handles command auto-completion
+   *    'Escape' re-hides terminal-output element
+   *
+   * The executeCommand function checks that the input command is a valid
+   * property of the "commands" object, and then executes that property's
+   * command function.
+   *
+   * The command function output is printed to the "terminal-output" element.
+   */
+
+  // We keep track of the current and previous directories for command context.
+  let currentDirectory = currentPath;
+  let previousDirectory = currentPath;
+  // The previousDirectory logic implemented here doesn't work because the
+  // previousDirectory value is lost when the page loads after a nav command.
+  // Will need to change to use client-side routing rather than
+  // window.location.href, if that's possible.
+  // Or, save previousDirectory to local storage and load on page load.
+  let commandInput = document.getElementById("command-input");
+  let terminalOutput = document.getElementById("terminal-output");
+  /*
+   * Checks that the input command is a valid property of the "commands" object,
+   * and then executes that property's command function.
+   * @param {string} command - The full line of user input, command and args.
+   * @return {void}
+   */
+  function executeCommand(command: string) {
+    const [cmd, ...args] = command.split(" ");
+    let output = "";
+
+    if (commands.hasOwnProperty(cmd)) {
+      output = commands[cmd](currentDirectory, ...args);
+    } else {
+      output = "Command not found: " + cmd;
+    }
+
+    if (terminalOutput) {
+      terminalOutput.innerHTML =
+        "<br>&gt; " + command + "<br>" + output + "<br>";
+      terminalOutput.classList.toggle("hidden", false);
+    }
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    commandInput = document.getElementById("command-input");
+    commandInput?.focus();
+    terminalOutput = document.getElementById("terminal-output");
+    console.log("astro:page-load", commandInput);
+    if (commandInput)
+      commandInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          const command = (commandInput as HTMLInputElement).value;
+          executeCommand(command);
+          (commandInput as HTMLInputElement).value = "";
+          event.preventDefault();
+        } else if (event.key === "Tab") {
+          const partialCommand = (commandInput as HTMLInputElement).value;
+          const commandsKeys = Object.keys(commands)
+            // include all valid 'cd <path>' commands in the autocomplete list
+            .concat(navItemsPaths.map((path) => "cd " + path));
+          const fullCommand = commandsKeys.reduce((acc, key) => {
+            if (key.startsWith(partialCommand)) {
+              return key;
+            }
+            return acc;
+          }, partialCommand);
+          (commandInput as HTMLInputElement).value = fullCommand;
+          event.preventDefault();
+        } else if (event.key === "Escape") {
+          (terminalOutput as HTMLInputElement).classList.toggle("hidden", true);
+          event.preventDefault();
+        }
+      });
+  });
+</script>
+
+<style>
+  #terminal-container {
+    font-family: monospace;
+    font-size: 14px;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: 1px solid white;
+    min-width: 200px;
+    max-width: 400px;
+    box-sizing: border-box;
+  }
+
+  #terminal-output {
+    background-color: black;
+    color: white;
+    left: -10px;
+    margin: 0;
+    padding: 10px;
+    white-space: pre;
+    overflow: scroll;
+    max-height: 200px;
+    min-width: 200px;
+    max-width: 400px;
+    box-sizing: border-box;
+    width: 110%;
+  }
+
+  #command-input {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 5px;
+    outline: none;
+    width: 90%;
+  }
+
+  #command-input::before {
+    content: "&gt; ";
+  }
+</style>
